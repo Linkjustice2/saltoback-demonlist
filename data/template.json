@@ -1,18 +1,12 @@
  {
-    "id": 116,
-    "name": "Demon Travel",
-    "author": "JaozinGD",
-    "creators": ["JaozinGD"],
-    "verifier": "JaozinGD",
+    "id": 134,
+    "name": "Buffed Madness",
+    "author": "SaltoGD",
+    "creators": ["SaltoGD"],
+    "verifier": "SaltoGD",
     "verification": "",
     "percentToQualify": "100",
-    "password": "46290",
+    "password": "Medium Demon",
     "records": [
-        {
-            "user": "Kvrmit",
-            "link": "",
-            "percent": 100,
-            "hz": 122314
-        }
     ]
 }
