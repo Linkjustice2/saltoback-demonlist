@@ -8,5 +8,11 @@
     "percentToQualify": "100",
     "password": "46290",
     "records": [
+     {
+            "user": "OGD",
+            "link": "https://www.youtube.com/watch?v=DKlTNk5Walc",
+            "percent": 100,
+            "hz": 122314
+        }
     ]
 }
