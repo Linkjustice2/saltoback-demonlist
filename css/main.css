@@ -40,8 +40,8 @@ main {
     background-color: var(--color-background);
     color: var(--color-on-background);
     display: grid;
-    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(
-            16em,
+    grid-template-columns: minmax(32rem, 1fr) minmax(32rem, 2fr) minmax(
+            32em,
             1fr
         );
     column-gap: 2rem;
