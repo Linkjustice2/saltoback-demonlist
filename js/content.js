@@ -87,6 +87,17 @@ export async function fetchLeaderboard() {
             return;
         }
 
+export async function fetchChallengeLeaderboard() {
+    const list = await fetchCList();
+
+    const scoreMap = {};
+    const errs = [];
+    list.forEach(([level, err], rank) => {
+        if (err) {
+            errs.push(err);
+            return;
+        }
+
         // Verification
         const verifier = Object.keys(scoreMap).find(
             (u) => u.toLowerCase() === level.verifier.toLowerCase(),
