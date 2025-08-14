@@ -76,7 +76,7 @@ main {
     flex: 1;
     display: grid;
     grid-template-rows: minmax(0, 1fr);
-    column-gap: 6rem;
+    column-gap: 2rem;
 }
 main > div {
     overflow-y: auto;
