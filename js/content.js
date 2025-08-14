@@ -1,184 +1,161 @@
-import { round, score } from './score.js';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saltoback Demonlist</title>
 
-/**
- * Path to directory containing `_list.json` and all levels
- */
-const dir = '/data';
+    <link rel="icon" href="/list_icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500;700&display=swap" rel="stylesheet" />
 
-// --- Fetch main list ---
-export async function fetchList() {
-    try {
-        const listResult = await fetch(`${dir}/_list.json`);
-        const list = await listResult.json();
-        return await Promise.all(
-            list.map(async (path, rank) => {
-                try {
-                    const levelResult = await fetch(`${dir}/${path}.json`);
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort((a, b) => b.percent - a.percent),
-                        },
-                        null,
-                    ];
-                } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return [null, path];
-                }
-            }),
-        );
-    } catch {
-        console.error(`Failed to load list.`);
-        return null;
-    }
-}
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/typography.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/pages/list.css" />
+    <link rel="stylesheet" href="/css/pages/leaderboard.css" />
+    <link rel="stylesheet" href="/css/pages/roulette.css" />
+    <link rel="stylesheet" href="/css/components/nav.css" />
+    <link rel="stylesheet" href="/css/components/btn.css" />
+    <link rel="stylesheet" href="/css/components/tabs.css" />
 
-// --- Fetch challenge list ---
-export async function fetchChallengeList() {
-    try {
-        const listResult = await fetch(`${dir}/_clist.json`);
-        const list = await listResult.json();
-        return await Promise.all(
-            list.map(async (path, rank) => {
-                try {
-                    const levelResult = await fetch(`${dir}/${path}.json`);
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort((a, b) => b.percent - a.percent),
-                        },
-                        null,
-                    ];
-                } catch {
-                    console.error(`Failed to load challenge level #${rank + 1} ${path}.`);
-                    return [null, path];
-                }
-            }),
-        );
-    } catch {
-        console.error(`Failed to load challenge list.`);
-        return null;
-    }
-}
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
+    <script type="module" src="/js/main.js"></script>
+</head>
+<body id="app">
+    <header :class="{ dark: store.dark }" class="header">
+        <div class="logo">
+            <h1>SDL</h1>
+            <span>v1.0.1</span>
+        </div>
 
-// --- Fetch editors ---
-export async function fetchEditors() {
-    try {
-        const editorsResult = await fetch(`${dir}/_editors.json`);
-        return await editorsResult.json();
-    } catch {
-        return null;
-    }
-}
+        <nav class="nav">
+            <div class="nav__tabs">
+                <router-link class="nav__tab" :class="{ active: $route.path === '/' }" to="/">
+                    List
+                </router-link>
+                <router-link class="nav__tab" :class="{ active: $route.path === '/leaderboard' }" to="/leaderboard">
+                    Leaderboard
+                </router-link>
+                <router-link class="nav__tab" :class="{ active: $route.path === '/clist' }" to="/clist">
+                    Challenge List
+                </router-link>
+                <router-link class="nav__tab" :class="{ active: $route.path === '/challenge-leaderboard' }" to="/challenge-leaderboard">
+                    Challenge Leaderboard
+                </router-link>
+            </div>
 
-// --- Main leaderboard ---
-export async function fetchLeaderboard() {
-    const list = await fetchList();
-    if (!list) return [[], []];
+            <div class="nav__actions">
+                <button class="nav__icon" @click.prevent="store.toggleDark()">
+                    <img :src="store.dark ? '/assets/light.svg' : '/assets/dark.svg'" alt="Toggle Dark Mode" />
+                </button>
 
-    const scoreMap = {};
-    const errs = [];
+                <a class="nav__icon" href="https://discord.gg/nFVbD6sMN7" target="_blank">
+                    <img src="/assets/discord.svg" alt="Discord" />
+                </a>
 
-    list.forEach(([level, err], rank) => {
-        if (err) {
-            errs.push(err);
-            return;
+                <a class="nav__cta" href="https://discord.gg/nFVbD6sMN7" target="_blank">
+                    Submit Records
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <router-view :class="{ dark: store.dark }"></router-view>
+    </main>
+
+    <style>
+        body {
+            font-family: 'Lexend Deca', sans-serif;
+            margin: 0;
+            background-color: var(--bg-color, #f9f9f9);
+            color: var(--text-color, #111);
         }
 
-        // Verifier
-        const verifier = Object.keys(scoreMap).find(u => u.toLowerCase() === level.verifier.toLowerCase()) || level.verifier;
-        scoreMap[verifier] ??= { verified: [], completed: [], progressed: [] };
-        scoreMap[verifier].verified.push({
-            rank: rank + 1,
-            level: level.name,
-            score: score(rank + 1, 100, level.percentToQualify),
-            link: level.verification,
-        });
-
-        // Player records
-        level.records.forEach(record => {
-            const user = Object.keys(scoreMap).find(u => u.toLowerCase() === record.user.toLowerCase()) || record.user;
-            scoreMap[user] ??= { verified: [], completed: [], progressed: [] };
-            if (record.percent === 100) {
-                scoreMap[user].completed.push({
-                    rank: rank + 1,
-                    level: level.name,
-                    score: score(rank + 1, 100, level.percentToQualify),
-                    link: record.link,
-                });
-            } else {
-                scoreMap[user].progressed.push({
-                    rank: rank + 1,
-                    level: level.name,
-                    percent: record.percent,
-                    score: score(rank + 1, record.percent, level.percentToQualify),
-                    link: record.link,
-                });
-            }
-        });
-    });
-
-    const res = Object.entries(scoreMap).map(([user, scores]) => {
-        const total = [scores.verified, scores.completed, scores.progressed].flat().reduce((sum, cur) => sum + cur.score, 0);
-        return { user, total: round(total), ...scores };
-    });
-
-    return [res.sort((a, b) => b.total - a.total), errs];
-}
-
-// --- Challenge leaderboard ---
-export async function fetchChallengeLeaderboard() {
-    const list = await fetchChallengeList();
-    if (!list) return [[], []];
-
-    const scoreMap = {};
-    const errs = [];
-
-    list.forEach(([level, err], rank) => {
-        if (err) {
-            errs.push(err);
-            return;
+        header.header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: var(--header-bg, #fff);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
-        const verifier = Object.keys(scoreMap).find(u => u.toLowerCase() === level.verifier.toLowerCase()) || level.verifier;
-        scoreMap[verifier] ??= { verified: [], completed: [], progressed: [] };
-        scoreMap[verifier].verified.push({
-            rank: rank + 1,
-            level: level.name,
-            score: score(rank + 1, 100, level.percentToQualify),
-            link: level.verification,
-        });
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-        level.records.forEach(record => {
-            const user = Object.keys(scoreMap).find(u => u.toLowerCase() === record.user.toLowerCase()) || record.user;
-            scoreMap[user] ??= { verified: [], completed: [], progressed: [] };
-            if (record.percent === 100) {
-                scoreMap[user].completed.push({
-                    rank: rank + 1,
-                    level: level.name,
-                    score: score(rank + 1, 100, level.percentToQualify),
-                    link: record.link,
-                });
-            } else {
-                scoreMap[user].progressed.push({
-                    rank: rank + 1,
-                    level: level.name,
-                    percent: record.percent,
-                    score: score(rank + 1, record.percent, level.percentToQualify),
-                    link: record.link,
-                });
-            }
-        });
-    });
+        .logo h1 {
+            margin: 0;
+            font-size: 1.75rem;
+        }
 
-    const res = Object.entries(scoreMap).map(([user, scores]) => {
-        const total = [scores.verified, scores.completed, scores.progressed].flat().reduce((sum, cur) => sum + cur.score, 0);
-        return { user, total: round(total), ...scores };
-    });
+        .logo span {
+            font-size: 0.875rem;
+            color: #888;
+        }
 
-    return [res.sort((a, b) => b.total - a.total), errs];
-}
+        nav.nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1024px;
+            margin-top: 0.5rem;
+        }
+
+        .nav__tabs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav__tab {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text-color, #111);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .nav__tab.active {
+            background-color: #4f46e5;
+            color: #fff;
+        }
+
+        .nav__tab:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .nav__actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav__icon img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav__cta {
+            background-color: #4f46e5;
+            color: #fff;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav__cta:hover {
+            background-color: #3730a3;
+        }
+    </style>
+</body>
+</html>
