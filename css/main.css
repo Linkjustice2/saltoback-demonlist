@@ -44,7 +44,7 @@ main {
             2em,
             1fr
         );
-    column-gap: 2rem;
+    column-gap: 8rem;
 }
 
 header {
