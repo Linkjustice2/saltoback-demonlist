@@ -8,5 +8,23 @@
     "percentToQualify": "100",
     "password": "46290",
     "records": [
+                {
+            "user": "Kvrmit",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+                {
+            "user": "Tark",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+                {
+            "user": "OGD",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
     ]
 }
