@@ -65,7 +65,7 @@ header .logo {
     align-self: center;
     display: flex;
     align-items: flex-end;
-    gap: 8rem;
+    gap: 2rem;
 }
 header .nav {
     flex: 1;
@@ -76,7 +76,7 @@ main {
     flex: 1;
     display: grid;
     grid-template-rows: minmax(0, 1fr);
-    column-gap: 2rem;
+    column-gap: 6rem;
 }
 main > div {
     overflow-y: auto;
