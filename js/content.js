@@ -43,7 +43,7 @@ export async function fetchChallengeList() {
         return await Promise.all(
             list.map(async (path, rank) => {
                 try {
-                    const levelResult = await fetch(`${dir}/${path}.json`);
+                    const levelResult = await fetch(`${dir}/clist/${path}.json`);
                     const level = await levelResult.json();
                     return [
                         {
