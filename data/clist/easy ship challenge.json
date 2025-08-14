@@ -8,5 +8,29 @@
     "percentToQualify": "100",
     "password": "46290",
     "records": [
+                {
+            "user": "OGD",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+                {
+            "user": "Maverner",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+                {
+            "user": "Tark",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+                {
+            "user": "Nclogic",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
     ]
 }
