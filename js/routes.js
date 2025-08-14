@@ -9,4 +9,5 @@ export default [
   { path: '/leaderboard', component: Leaderboard },
   { path: '/roulette', component: Roulette },
   { path: '/clist', component: CList }, // <-- new route
+  { path: '/challenge-leaderboard', component: ChallengeLeaderboard },
 ];
