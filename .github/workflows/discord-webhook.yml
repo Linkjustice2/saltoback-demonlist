@@ -16,10 +16,10 @@ jobs:
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{
-                 "content": "<@1399110377966538904>", 
+                 "content": "<@&1399110377966538904>", 
                  "embeds": [
                    {
-                     "title": "The List Has Been Updated",
+                     "title": "The List Has Been Updated!",
                      "description": "'"${{ github.event.head_commit.message }}"'",
                      "color": 5814783
                    }
