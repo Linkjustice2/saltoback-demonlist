@@ -6,7 +6,7 @@
 
 ### Website FAQ
 
-Can I use the Shitty List template?
+Can I use the Shitty List template
 
 - Sure. Credits to the shitty list are embedded onto this template so keep that in.
 
