@@ -3,17 +3,26 @@ name: Discord Notification on Push
 on:
   push:
     branches:
-      - main   # or whichever branch you want
+      - main   # change if needed
 
 jobs:
   notify-discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Discord Webhook
+      - name: Send Discord Embed Webhook
         env:
           WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{"content": "📢 New commit pushed to the repository!"}' \
+               -d '{
+                 "content": "<@1399110377966538904>", 
+                 "embeds": [
+                   {
+                     "title": "The List Has Been Updated",
+                     "description": "'"${{ github.event.head_commit.message }}"'",
+                     "color": 5814783
+                   }
+                 ]
+               }' \
                $WEBHOOK_URL
