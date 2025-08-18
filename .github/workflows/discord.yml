@@ -12,5 +12,5 @@ jobs:
       - name: Send Discord Webhook
         uses: dawidd6/action-send-discord-webhook@v3
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           content: "📢 New commit pushed to the repository!"
