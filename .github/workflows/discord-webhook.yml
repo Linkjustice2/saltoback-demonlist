@@ -16,7 +16,7 @@ jobs:
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{
-                 "content": "<@&1399110377966538904>", 
+                 "content": "", 
                  "embeds": [
                    {
                      "title": "The List Has Been Updated!",
