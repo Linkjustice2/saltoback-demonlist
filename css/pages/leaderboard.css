@@ -28,7 +28,6 @@
     margin-bottom: 1rem;
 }
 .page-leaderboard .error-container .error {
-    padding: 1rem 1.5rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
     border-radius: 0.5rem;
