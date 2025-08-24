@@ -1,9 +1,9 @@
-/* === Page List Modernized — Thinner & Fully Rounded Boxes === */
+/* === Page List Modernized — Left-Side Buttons Rounded === */
 
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
-    padding-block: 1.5rem; /* slightly thinner spacing */
+    padding-block: 1.5rem;
 }
 
 .page-list .list-container {
@@ -19,19 +19,19 @@
     table-layout: auto;
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 0.5rem; /* spacing between rows */
+    border-spacing: 0 0.5rem;
 }
 
 .page-list .list tr {
-    background-color: var(--color-background-hover); /* entire box background */
-    border-radius: 1rem; /* fully rounded box */
+    background-color: var(--color-background-hover);
+    border-radius: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-/* Row hover with lift effect */
 .page-list .list tr:hover {
-    background: var(--color-background-hover); /* keep gradient subtle inside */
+    background: var(--color-background-hover);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
@@ -40,7 +40,10 @@
 .page-list .list .rank {
     text-align: end;
     padding-right: 1rem;
-    font-weight: 600; /* bolder for clarity */
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Level column */
@@ -48,17 +51,26 @@
     width: 100%;
 }
 
-/* Make button full width but transparent so row hover shows */
+/* Left-side buttons — only round left corners */
 .page-list .list .level button {
     background: none;
     width: 100%;
     text-align: start;
-    padding: 0.75rem 1rem; /* slightly thinner */
+    padding: 0.75rem 1rem;
     border: none;
-    border-radius: 1rem; /* match box rounding */
+    border-top-left-radius: 1rem;    /* round top-left */
+    border-bottom-left-radius: 1rem; /* round bottom-left */
+    border-top-right-radius: 0;       /* right side square */
+    border-bottom-right-radius: 0;    /* right side square */
     cursor: pointer;
     color: var(--color-on-background);
     transition: color 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Hover effect for buttons matching row rounding */
+.page-list .list .level button:hover {
+    background: rgba(0,0,0,0.05); /* subtle highlight */
 }
 
 /* Error button style */
@@ -78,7 +90,7 @@
 .page-list .level-container .level {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* slightly less padding for thinner look */
+    gap: 1.5rem;
     padding: 1.5rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
@@ -130,17 +142,20 @@
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .user,
 .page-list .level-container .level .records .hz {
-    padding-block: 0.75rem; /* thinner spacing */
+    padding-block: 0.75rem;
 }
 
 .page-list .level-container .level .records .user {
     width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .hz {
     text-align: end;
-    font-weight: 500; /* slightly bolder for alignment */
+    font-weight: 500;
 }
 
 /* Meta container links */
@@ -163,7 +178,7 @@
 }
 
 .page-list .meta .errors .error {
-    padding: 1rem 1.25rem; /* slightly thinner */
+    padding: 1rem 1.25rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
     border-radius: 1rem;
