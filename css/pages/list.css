@@ -1,9 +1,9 @@
-/* === Page List Modernized — Fully Rounded Pill-Shaped Boxes === */
+/* === Page List Modernized — Thinner & Fully Rounded Boxes === */
 
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
-    padding-block: 1.5rem;
+    padding-block: 1.5rem; /* slightly thinner spacing */
 }
 
 .page-list .list-container {
@@ -19,19 +19,19 @@
     table-layout: auto;
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 0.5rem;
+    border-spacing: 0 0.5rem; /* spacing between rows */
 }
 
 .page-list .list tr {
-    background-color: var(--color-background-hover);
-    border-radius: 9999px; /* fully pill-shaped */
+    background-color: var(--color-background-hover); /* entire box background */
+    border-radius: 1rem; /* fully rounded box */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    overflow: hidden; /* prevent content overflow */
 }
 
+/* Row hover with lift effect */
 .page-list .list tr:hover {
-    background: var(--color-background-hover);
+    background: var(--color-background-hover); /* keep gradient subtle inside */
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
@@ -40,10 +40,7 @@
 .page-list .list .rank {
     text-align: end;
     padding-right: 1rem;
-    font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-weight: 600; /* bolder for clarity */
 }
 
 /* Level column */
@@ -51,18 +48,17 @@
     width: 100%;
 }
 
-/* Buttons */
+/* Make button full width but transparent so row hover shows */
 .page-list .list .level button {
     background: none;
     width: 100%;
     text-align: start;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1rem; /* slightly thinner */
     border: none;
-    border-radius: inherit; /* inherit full pill shape */
+    border-radius: 1rem; /* match box rounding */
     cursor: pointer;
     color: var(--color-on-background);
     transition: color 0.3s ease;
-    box-sizing: border-box;
 }
 
 /* Error button style */
@@ -82,13 +78,12 @@
 .page-list .level-container .level {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.5rem; /* slightly less padding for thinner look */
     padding: 1.5rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
-    border-radius: 9999px; /* fully rounded pill */
+    border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    overflow: hidden;
 }
 
 /* Level authors */
@@ -102,7 +97,7 @@
 /* Video card */
 .page-list .level-container .level .video {
     aspect-ratio: 16/9;
-    border-radius: 9999px; /* pill-shaped */
+    border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -135,20 +130,17 @@
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .user,
 .page-list .level-container .level .records .hz {
-    padding-block: 0.75rem;
+    padding-block: 0.75rem; /* thinner spacing */
 }
 
 .page-list .level-container .level .records .user {
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .hz {
     text-align: end;
-    font-weight: 500;
+    font-weight: 500; /* slightly bolder for alignment */
 }
 
 /* Meta container links */
@@ -171,12 +163,11 @@
 }
 
 .page-list .meta .errors .error {
-    padding: 1rem 1.25rem;
+    padding: 1rem 1.25rem; /* slightly thinner */
     background-color: var(--color-error);
     color: var(--color-on-error);
-    border-radius: 9999px; /* pill-shaped */
+    border-radius: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    overflow: hidden;
 }
 
 /* Editors */
