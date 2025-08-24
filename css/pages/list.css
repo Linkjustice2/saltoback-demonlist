@@ -1,4 +1,4 @@
-/* === Page List Modernized — Rounded Boxes, Original Text === */
+/* === Page List — Rounded Boxes & Fixed Right Text === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -24,12 +24,12 @@
 
 .page-list .list tr {
     background-color: var(--color-background-hover);
-    border-radius: 1rem; /* fully rounded outer edges */
+    border-radius: 1rem; /* rounded outer edges */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    display: flex; /* allow flexible alignment */
+    display: flex;
     align-items: center;
-    overflow: hidden; /* prevent text overflow outside */
+    overflow: hidden;
 }
 
 /* Row hover with lift effect */
@@ -51,19 +51,24 @@
 /* Level column */
 .page-list .list .level {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* keep right-hand text inside */
 }
 
-/* Make button full width but transparent so row hover shows */
+/* Level button */
 .page-list .list .level button {
     background: none;
     width: 100%;
-    text-align: start;
     padding: 0.75rem 1rem;
     border: none;
     border-radius: 1rem; 
     cursor: pointer;
     color: var(--color-on-background);
-    transition: color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between; /* spreads text and right-hand score */
+    align-items: center;
 }
 
 /* Error button style */
@@ -79,6 +84,14 @@
     color: var(--color-on-primary);
 }
 
+/* Right-hand text inside the button (score/total) */
+.page-list .list .level button .right-text {
+    margin-left: auto;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: right;
+}
+
 /* Level container */
 .page-list .level-container .level {
     display: flex;
@@ -87,7 +100,7 @@
     padding: 1.5rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
-    border-radius: 1rem; /* rounded container edges */
+    border-radius: 1rem; 
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
@@ -133,11 +146,6 @@
 
 .page-list .level-container .level .records .user {
     width: 100%;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .hz {
-    text-align: end; /* revert right text back */
 }
 
 /* Meta container links */
