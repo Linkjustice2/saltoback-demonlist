@@ -1,4 +1,4 @@
-/* === Page List Modernized === */
+/* === Page List Modernized with Rounded Boxes === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -19,12 +19,12 @@
     table-layout: auto;
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 0.5rem; /* spacing between rows */
+    border-spacing: 0 0.75rem; /* more space between rows */
 }
 
 .page-list .list tr {
     background-color: var(--color-background);
-    border-radius: 0.75rem;
+    border-radius: 1rem; /* rounded row */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
@@ -54,7 +54,7 @@
     text-align: start;
     padding: 1rem 1.25rem;
     border: none;
-    border-radius: 0.75rem; 
+    border-radius: 1rem; /* slightly rounded inside row */
     cursor: pointer;
     color: var(--color-on-background);
     transition: color 0.3s ease;
@@ -81,7 +81,7 @@
     padding: 2rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
-    border-radius: 0.75rem;
+    border-radius: 1rem; /* rounded container */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
@@ -96,7 +96,7 @@
 /* Video card */
 .page-list .level-container .level .video {
     aspect-ratio: 16/9;
-    border-radius: 0.75rem;
+    border-radius: 1rem; /* rounded video card */
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -163,7 +163,7 @@
     padding: 1rem 1.5rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
-    border-radius: 0.75rem;
+    border-radius: 1rem; /* rounded error box */
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
