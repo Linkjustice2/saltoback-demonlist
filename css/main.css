@@ -45,12 +45,13 @@ header.dark {
 html,
 body {
     height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    margin: 0;
 }
 
 header,
@@ -58,10 +59,7 @@ main {
     background-color: var(--color-background);
     color: var(--color-on-background);
     display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(
-            2em,
-            1fr
-        );
+    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
     column-gap: 6rem;
 }
 
@@ -72,11 +70,9 @@ header {
     align-items: center;
     padding-inline: 2rem;
     height: 4.5rem;
-
     background: var(--gradient-primary);
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
-
     color: var(--color-on-primary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
@@ -134,7 +130,6 @@ header .discord svg {
 }
 
 main {
-    height: 0;
     flex: 1;
     display: grid;
     grid-template-rows: minmax(0, 1fr);
@@ -156,4 +151,54 @@ input[type="checkbox"] {
     width: 1.25rem;
     cursor: pointer;
     margin: 0;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    header .logo {
+        gap: 0.5rem;
+    }
+
+    header .nav {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    header .discord {
+        align-self: flex-end;
+        padding: 0.25rem;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        column-gap: 0;
+        row-gap: 1rem;
+        height: auto;
+    }
+
+    main > div {
+        padding: 0.5rem;
+        overflow-y: auto;
+    }
+
+    .spinner {
+        grid-column: span 1;
+        padding: 1rem 0;
+    }
+
+    input[type="checkbox"] {
+        height: 1rem;
+        width: 1rem;
+    }
 }
