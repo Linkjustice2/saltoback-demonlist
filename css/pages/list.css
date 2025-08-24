@@ -1,4 +1,4 @@
-/* === Page List Modernized — Fully Rounded & Text Improvements === */
+/* === Page List Modernized — Rounded Boxes, Original Text === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -44,14 +44,13 @@
     text-align: end;
     padding: 0 1rem;
     font-weight: 600;
-    min-width: 3rem; /* ensures numbers fit inside */
+    min-width: 3rem;
     flex-shrink: 0;
 }
 
 /* Level column */
 .page-list .list .level {
     width: 100%;
-    display: flex;
 }
 
 /* Make button full width but transparent so row hover shows */
@@ -65,9 +64,6 @@
     cursor: pointer;
     color: var(--color-on-background);
     transition: color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* spread content */
 }
 
 /* Error button style */
@@ -81,15 +77,6 @@
 .page-list .list .level.active button {
     background: var(--gradient-primary);
     color: var(--color-on-primary);
-}
-
-/* Modernize right-side text */
-.page-list .list .level button .right-text {
-    color: var(--color-on-background-hover);
-    font-weight: 500;
-    text-align: right;
-    white-space: nowrap;
-    margin-left: auto;
 }
 
 /* Level container */
@@ -146,6 +133,11 @@
 
 .page-list .level-container .level .records .user {
     width: 100%;
+}
+
+.page-list .level-container .level .records .percent,
+.page-list .level-container .level .records .hz {
+    text-align: end; /* revert right text back */
 }
 
 /* Meta container links */
