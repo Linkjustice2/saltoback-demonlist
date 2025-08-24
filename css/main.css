@@ -8,10 +8,10 @@
     --color-primary: #AB7835;
     --gradient-primary: linear-gradient(
         135deg,
-        #5c3a15 0%,   /* deep dark bronze */
-        #ab7835 40%,  /* warm bronze */
+        #5c3a15 0%,   /* dark bronze */
+        #ab7835 40%,  /* bronze */
         #ffd27f 70%,  /* bright gold */
-        #fff3d6 100%  /* light white-gold */
+        #ffe2aa 100%  /* softer light gold */
     );
 
     --color-primary-disabled: #1f213c;
@@ -31,10 +31,10 @@ header.dark {
     --color-primary: #AB7835;
     --gradient-primary: linear-gradient(
         135deg,
-        #5c3a15 0%,   /* deep dark bronze */
-        #ab7835 40%,  /* warm bronze */
-        #ffd27f 70%,  /* bright gold */
-        #fff3d6 100%  /* light white-gold */
+        #5c3a15 0%,
+        #ab7835 40%,
+        #ffd27f 70%,
+        #ffe2aa 100%
     );
 
     --color-primary-disabled: #1f213c;
@@ -63,34 +63,42 @@ main {
             2em,
             1fr
         );
-    column-gap: 8rem;
+    column-gap: 6rem; /* more breathing room */
 }
 
 header {
     display: flex;
-    padding-inline: calc(5vw - 1rem);
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 2rem; /* more consistent padding */
     height: 4rem;
 
-    /* Strong contrast gradient */
     background: var(--gradient-primary);
-
     color: var(--color-on-primary);
 }
+
 @media screen and (min-width: 1366px) {
     header {
         display: grid;
-        padding-inline: 0;
+        grid-template-columns: auto 1fr auto; /* logo | nav | icon */
+        align-items: center;
+        padding-inline: 2rem;
     }
 }
+
 header .logo {
-    justify-self: end;
+    justify-self: start;
     align-self: center;
     display: flex;
     align-items: flex-end;
-    gap: 2rem;
+    gap: 1rem;
 }
+
 header .nav {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 3rem; /* spacing between nav items */
 }
 
 main {
