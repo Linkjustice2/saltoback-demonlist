@@ -1,5 +1,4 @@
 :root {
-    /* DARK MODE DEFAULT COLORS */
     --color-background: #1c1b1f;
     --color-on-background: white;
     --color-background-hover: #27262c;
@@ -20,14 +19,15 @@
     --color-on-error: white;
 }
 
-/* Make header and main always use dark mode variables */
-header,
-main {
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     background-color: var(--color-background);
     color: var(--color-on-background);
 }
 
-/* HEADER with metallic shimmer + shadow */
 header {
     display: flex;
     justify-content: space-between;
@@ -43,11 +43,17 @@ header {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* metallic shimmer animation */
+main {
+    flex: 1;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: 0.5rem;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+}
+
 @keyframes metallic-shimmer {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-/* Other styles remain unchanged */
