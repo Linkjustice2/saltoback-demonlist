@@ -1,63 +1,213 @@
+:root {
+    --color-background: #1c1b1f;
+    --color-on-background: white;
+    --color-background-hover: #27262c;
+    --color-on-background-hover: white;
+
+    --color-primary: #AB7835;
+    --gradient-primary: linear-gradient(
+        135deg,
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
+    );
+
+    --color-primary-disabled: #1f213c;
+    --color-on-primary: white;
+    --color-error: #de0000;
+    --color-on-error: white;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+main {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 4.5rem;
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    animation: metallic-shimmer 10s linear infinite;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+@keyframes metallic-shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header .nav {
+    display: flex;
+    gap: 3rem;
+}
+
+header .discord {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+header .discord:hover {
+    background: rgba(0,0,0,0.6);
+    box-shadow: 0 0 12px #fff3;
+    transform: scale(1.1);
+}
+header .discord img,
+header .discord svg {
+    width: 24px;
+    height: 24px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: var(--color-background-hover);
+}
+
+/* Leaderboard container */
+.page-leaderboard-container {
+    width: 100%;
+    max-width: 80rem;
+    display: block;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--color-background-hover);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.05), 0 6px 18px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+/* Leaderboard grid */
+.page-leaderboard {
+    display: grid;
+    grid-template-columns: minmax(24rem, 2fr) 3fr;
+    grid-template-rows: max-content 1fr;
+    column-gap: 2rem;
+    row-gap: 2rem;
+}
+
+/* Error box */
+.error-container .error {
+    padding: 1rem 1.5rem;
+    background-color: var(--color-error);
+    color: var(--color-on-error);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* Board & Player Containers */
+.board-container,
+.player-container {
+    padding: 2rem;
+    background-color: var(--color-background);
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    max-height: 65vh;
+}
+
+/* Board table */
+.board {
+    width: 100%;
+    table-layout: auto;
+    display: block;
+}
+.board tr { border-bottom: 1px solid rgba(0,0,0,0.05); }
+.board .user button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    border: none;
+    border-radius: 0.75rem;
+    text-align: start;
+    transition: all 0.3s ease;
+}
+.board .user button:hover {
+    background: linear-gradient(90deg, var(--color-background-hover), var(--color-background));
+    color: var(--color-on-background-hover);
+}
+.board .user.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Player info */
+.player { display: flex; flex-direction: column; gap: 2rem; }
+.player .table { width: 100%; table-layout: fixed; }
+.player .table tr td:not(:last-child) { padding-right: 2rem; }
+.player .table a:hover { text-decoration: underline; color: var(--color-primary); }
+
+/* Scrollbars */
+.board-container::-webkit-scrollbar,
+.player-container::-webkit-scrollbar { width: 8px; }
+.board-container::-webkit-scrollbar-thumb,
+.player-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+.board-container::-webkit-scrollbar-track,
+.player-container::-webkit-scrollbar-track { background: transparent; }
+
+/* Spinner */
+.spinner { display: flex; align-items: center; justify-content: center; }
+
+/* ===== Mobile Responsive ===== */
 @media (max-width: 768px) {
     header {
-        display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
-        padding: 1.5rem 1rem;
         gap: 1.5rem;
+        padding: 1.5rem 1rem;
         height: auto;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
-    /* Top row: logo left, discord right */
-    .header-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    header .logo {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    header .discord {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0.35);
-        padding: 0.5rem;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-    }
-    header .discord:hover {
-        background: rgba(0,0,0,0.6);
-        box-shadow: 0 0 12px #fff3;
-        transform: scale(1.1);
-    }
-
-    /* Nav stacked below top row */
+    header .logo { gap: 1rem; justify-content: flex-start; }
     header .nav {
-        display: flex;
         flex-direction: column;
         gap: 1.5rem;
         justify-content: flex-start;
         align-items: flex-start;
         width: 100%;
-        padding-left: 0.5rem;
     }
+    header .discord { align-self: flex-end; }
 
-    header .nav a {
-        text-decoration: none;
-        color: var(--color-on-primary);
-        font-weight: 500;
-        transition: color 0.2s ease;
-    }
-
-    header .nav a:hover {
-        color: var(--color-primary);
-    }
+    main { padding: 1rem; }
+    .page-leaderboard { grid-template-columns: 1fr; grid-template-rows: auto auto; row-gap: 1.5rem; column-gap: 0; }
+    .board-container,
+    .player-container { max-height: none; padding: 1rem; }
+    .board .user button { padding: 0.75rem 1rem; font-size: 0.95rem; }
+    .player .table p,
+    .player .table a { padding: 0.75rem 1rem; }
 }
