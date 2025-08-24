@@ -12,16 +12,16 @@ body {
     background: linear-gradient(135deg, var(--color-background-hover), var(--color-background-hover) 100%);
 }
 
-/* ===== Main leaderboard container (flat) ===== */
+/* ===== Main leaderboard container ===== */
 .page-leaderboard-container {
     display: block;
-    padding: 0;
-    border-radius: 0;
+    padding: 2rem;
+    border-radius: 1rem;
     background-color: var(--color-background-hover);
-    box-shadow: none;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.05), 0 6px 18px rgba(0,0,0,0.15);
     overflow: hidden;
-    max-height: 90vh;
-    margin: 0 auto;
+    max-width: 95%;
+    margin: 2rem auto;
 }
 
 /* ===== Leaderboard grid ===== */
@@ -33,28 +33,24 @@ body {
     gap: 2rem;
     max-width: 80rem;
     margin: 0 auto;
-    border-radius: 0;
-    height: 100%;
+    border-radius: 1rem;
 }
 
 /* ===== Scrollable inner containers ===== */
 .page-leaderboard .board-container,
 .page-leaderboard .player-container {
-    grid-row: 2;
     padding: 2rem;
     background-color: var(--color-background);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     overflow-y: auto;
-    max-height: 70vh;
-    margin: 0;
+    max-height: 65vh; /* ensures scrolling */
 }
 
 /* ===== Error box ===== */
 .page-leaderboard .error-container {
     grid-row: 1;
     grid-column: 1 / span 2;
-    margin: 0;
 }
 .page-leaderboard .error-container .error {
     padding: 1rem 1.5rem;
@@ -75,18 +71,17 @@ body {
 }
 .page-leaderboard .board .rank,
 .page-leaderboard .board .total {
-    padding: 1.25rem 2rem;
+    padding: 1rem 1.5rem;
     text-align: end;
 }
 .page-leaderboard .board .user button {
     width: 100%;
-    padding: 1.25rem 2rem;
+    padding: 1rem 1.5rem;
     background-color: var(--color-background);
     color: var(--color-on-background);
     border: none;
     border-radius: 0.75rem;
     text-align: start;
-    word-break: normal;
     overflow-wrap: anywhere;
     transition: all 0.3s ease;
     font-weight: 500;
@@ -136,10 +131,9 @@ body {
     background: transparent;
 }
 
-/* ===== Subtle hover effects ===== */
+/* ===== Hover effects ===== */
 .page-leaderboard .board tr:hover {
     background-color: rgba(0,0,0,0.03);
-    transition: background-color 0.2s ease;
 }
 .page-leaderboard .board .user button {
     cursor: pointer;
@@ -160,7 +154,7 @@ body {
     .page-leaderboard .board-container,
     .page-leaderboard .player-container {
         padding: 1rem;
-        max-height: none; /* full height scroll allowed */
+        max-height: none;
     }
     .page-leaderboard .board .rank,
     .page-leaderboard .board .total,
@@ -179,6 +173,7 @@ body {
         font-size: 0.95rem;
     }
     .page-leaderboard-container {
-        padding: 0.5rem;
+        padding: 1rem;
+        margin: 1rem;
     }
 }
