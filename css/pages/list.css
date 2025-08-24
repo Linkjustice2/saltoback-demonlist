@@ -1,4 +1,4 @@
-/* === Page List Modernized — Fully Rounded Boxes & Fixed Button Overflow === */
+/* === Page List Modernized — Fully Rounded Pill-Shaped Boxes === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -24,7 +24,7 @@
 
 .page-list .list tr {
     background-color: var(--color-background-hover);
-    border-radius: 1rem;
+    border-radius: 9999px; /* fully pill-shaped */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     overflow: hidden; /* prevent content overflow */
@@ -51,18 +51,18 @@
     width: 100%;
 }
 
-/* Make button full width but transparent so row hover shows */
+/* Buttons */
 .page-list .list .level button {
     background: none;
     width: 100%;
     text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-radius: inherit; /* inherit rounding from row */
+    border-radius: inherit; /* inherit full pill shape */
     cursor: pointer;
     color: var(--color-on-background);
     transition: color 0.3s ease;
-    box-sizing: border-box; /* ensures padding fits inside */
+    box-sizing: border-box;
 }
 
 /* Error button style */
@@ -86,7 +86,7 @@
     padding: 1.5rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
-    border-radius: 1rem;
+    border-radius: 9999px; /* fully rounded pill */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     overflow: hidden;
 }
@@ -102,7 +102,7 @@
 /* Video card */
 .page-list .level-container .level .video {
     aspect-ratio: 16/9;
-    border-radius: 1rem;
+    border-radius: 9999px; /* pill-shaped */
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -174,7 +174,7 @@
     padding: 1rem 1.25rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
-    border-radius: 1rem;
+    border-radius: 9999px; /* pill-shaped */
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     overflow: hidden;
 }
