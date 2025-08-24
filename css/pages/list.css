@@ -1,4 +1,4 @@
-/* === Page List Modernized — Left-Side Buttons Rounded === */
+/* === Page List Modernized — Fully Rounded Buttons & Rows === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -24,7 +24,7 @@
 
 .page-list .list tr {
     background-color: var(--color-background-hover);
-    border-radius: 1rem;
+    border-radius: 1rem; /* rounded row */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     overflow: hidden;
@@ -51,26 +51,25 @@
     width: 100%;
 }
 
-/* Left-side buttons — only round left corners */
+/* Fully rounded buttons */
 .page-list .list .level button {
-    background: none;
+    background: var(--color-on-surface); /* black/dark button */
     width: 100%;
     text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-top-left-radius: 1rem;    /* round top-left */
-    border-bottom-left-radius: 1rem; /* round bottom-left */
-    border-top-right-radius: 0;       /* right side square */
-    border-bottom-right-radius: 0;    /* right side square */
+    border-radius: 1rem; /* full rounding */
     cursor: pointer;
     color: var(--color-on-background);
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
-/* Hover effect for buttons matching row rounding */
+/* Hover effect with full rounding */
 .page-list .list .level button:hover {
-    background: rgba(0,0,0,0.05); /* subtle highlight */
+    background: var(--gradient-primary); /* golden hover */
+    color: var(--color-on-primary);
+    border-radius: 1rem; /* preserve rounding */
 }
 
 /* Error button style */
@@ -78,12 +77,14 @@
     color: var(--color-error);
     cursor: not-allowed;
     text-decoration: line-through;
+    border-radius: 1rem;
 }
 
 /* Active button style */
 .page-list .list .level.active button {
     background: var(--gradient-primary);
     color: var(--color-on-primary);
+    border-radius: 1rem;
 }
 
 /* Level container */
