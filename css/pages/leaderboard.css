@@ -5,19 +5,19 @@
     border-radius: 1rem; /* outer rounded corners */
     background-color: var(--color-background-hover);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    overflow: hidden; /* clip inner boxes */
+    overflow: hidden; /* clip inner boxes to remove corner gaps */
 }
 
 /* Leaderboard grid */
 .page-leaderboard {
-    height: 100%;
     display: grid;
     grid-template-columns: minmax(24rem, 2fr) 3fr;
     grid-template-rows: max-content 1fr;
     column-gap: 2rem;
+    gap: 2rem;
     max-width: 80rem;
     margin: 0 auto;
-    gap: 2rem;
+    height: 100%;
 }
 
 /* Error box */
@@ -34,14 +34,17 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
-/* Board & Player Containers */
+/* Board & Player Containers (flush with outer container) */
 .page-leaderboard .board-container,
 .page-leaderboard .player-container {
     grid-row: 2;
-    padding: 2rem; /* inner content padding */
+    padding: 2rem;            /* inner content padding */
+    margin: 0;                /* flush with outer edges */
     background-color: var(--color-background);
-    border-radius: 0; /* remove inner rounding */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 0;          /* remove inner rounding */
+    width: 100%;
+    height: 100%;
+    box-shadow: none;          /* prevent white corner artifacts */
 }
 
 /* Board Table */
@@ -52,7 +55,7 @@
 }
 .page-leaderboard .board .rank,
 .page-leaderboard .board .total {
-    padding: 1rem 1.5rem; /* horizontal padding */
+    padding: 1rem 1.5rem;
     text-align: end;
 }
 .page-leaderboard .board .user {
@@ -64,7 +67,7 @@
     color: var(--color-on-background);
     border: none;
     border-radius: 0.75rem;
-    padding: 1rem 1.5rem; /* horizontal padding */
+    padding: 1rem 1.5rem;
     text-align: start;
     word-break: normal;
     overflow-wrap: anywhere;
@@ -95,7 +98,7 @@
 }
 .page-leaderboard .player .table p,
 .page-leaderboard .player .table a {
-    padding: 1rem 1.5rem; /* horizontal padding for text */
+    padding: 1rem 1.5rem;
     transition: color 0.3s ease;
 }
 .page-leaderboard .player .table .rank p,
