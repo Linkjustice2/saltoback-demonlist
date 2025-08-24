@@ -1,32 +1,30 @@
-/* Main leaderboard container */
+/* ===== Main leaderboard container ===== */
 .page-leaderboard-container {
     display: block;
-    padding: 2rem;
-    border-radius: 1rem;
-    background-color: var(--color-background-hover);
-    /* Inner shadow plus subtle outer shadow */
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.15);
-    
-    /* Clip inner elements to prevent white corners */
-    overflow: hidden;
+    padding: 3rem;
+    border-radius: 1.5rem;
+    background-color: #f9f9f9; /* light neutral background */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* soft outer shadow */
+    overflow: hidden; /* prevent white corners */
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    line-height: 1.6;
 }
 
-/* Leaderboard grid */
+/* ===== Leaderboard grid ===== */
 .page-leaderboard {
-    height: 100%;
     display: grid;
     grid-template-columns: minmax(24rem, 2fr) 3fr;
     grid-template-rows: max-content 1fr;
     column-gap: 2rem;
+    gap: 2rem;
     max-width: 80rem;
     margin: 0 auto;
-    gap: 2rem;
-
-    /* Make sure child elements respect rounded corners */
-    border-radius: 1rem;
+    border-radius: 1.5rem;
+    height: 100%;
 }
 
-/* Error box */
+/* ===== Error box ===== */
 .page-leaderboard .error-container {
     grid-row: 1;
     grid-column: 1 / span 2;
@@ -36,34 +34,37 @@
     padding: 1rem 1.5rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-weight: 500;
 }
 
-/* Board & Player Containers */
+/* ===== Board & Player containers ===== */
 .page-leaderboard .board-container,
 .page-leaderboard .player-container {
     grid-row: 2;
-    padding: 2rem;
-    background-color: var(--color-background);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-
-    /* Clip overflow to remove white corner artifacts */
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
     overflow: hidden;
 }
 
-/* Board Table */
+/* ===== Board table ===== */
 .page-leaderboard .board {
-    table-layout: auto;
     display: block;
+    table-layout: auto;
     width: 100%;
 }
 
-/* Other styles unchanged */
+.page-leaderboard .board tr {
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* subtle row divider */
+}
+
+/* Table cells */
 .page-leaderboard .board .rank,
 .page-leaderboard .board .total {
-    padding: 1rem 1.5rem;
+    padding: 1.25rem 2rem;
     text-align: end;
 }
 .page-leaderboard .board .user {
@@ -71,51 +72,58 @@
 }
 .page-leaderboard .board .user button {
     width: 100%;
-    background-color: var(--color-background);
-    color: var(--color-on-background);
+    background-color: #f9f9f9;
+    color: #333;
     border: none;
-    border-radius: 0.75rem;
-    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    padding: 1.25rem 2rem;
     text-align: start;
     word-break: normal;
     overflow-wrap: anywhere;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 .page-leaderboard .board .user button:hover {
-    background: linear-gradient(90deg, var(--color-background-hover), var(--color-background));
-    color: var(--color-on-background-hover);
+    background: linear-gradient(90deg, #e0e0e0, #f9f9f9);
+    color: #333;
     cursor: pointer;
 }
 .page-leaderboard .board .user.active button {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
+    background: #4f8cff; /* highlight active */
+    color: #fff;
 }
 
-/* Player Info */
+/* ===== Player info ===== */
 .page-leaderboard .player {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     padding-right: 2rem;
 }
+
 .page-leaderboard .player .table {
     table-layout: fixed;
 }
+
 .page-leaderboard .player .table tr td:not(:last-child) {
     padding-right: 2rem;
 }
+
 .page-leaderboard .player .table p,
 .page-leaderboard .player .table a {
     padding: 1rem 1.5rem;
     transition: color 0.3s ease;
 }
+
 .page-leaderboard .player .table .rank p,
 .page-leaderboard .player .table .score p {
     text-align: end;
 }
+
 .page-leaderboard .player .table .level {
     width: 100%;
 }
+
 .page-leaderboard .player .table a:hover {
     text-decoration: underline;
     color: var(--color-primary);
