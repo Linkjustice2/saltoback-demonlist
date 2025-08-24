@@ -3,7 +3,10 @@
     --color-on-background: white;
     --color-background-hover: #27262c;
     --color-on-background-hover: white;
-    --color-primary: #AB7835;
+
+    /* gradient instead of flat color */
+    --color-primary: linear-gradient(135deg, #AB7835, #d4a05c);
+
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
     --color-error: #de0000;
@@ -17,7 +20,10 @@ header.dark {
     --color-on-background: white;
     --color-background-hover: #27262c;
     --color-on-background-hover: white;
-    --color-primary: #AB7835;
+
+    /* same gradient in dark mode */
+    --color-primary: linear-gradient(135deg, #AB7835, #d4a05c);
+
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
     --color-error: #de0000;
@@ -51,7 +57,10 @@ header {
     display: flex;
     padding-inline: calc(5vw - 1rem);
     height: 4rem;
-    background-color: var(--color-primary);
+
+    /* use background instead of background-color */
+    background: var(--color-primary);
+
     color: var(--color-on-primary);
 }
 @media screen and (min-width: 1366px) {
