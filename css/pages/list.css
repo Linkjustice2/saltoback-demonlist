@@ -1,4 +1,4 @@
-/* === Page List — Rounded Boxes & Fixed Right Text === */
+/* === Page List — Rounded Buttons & More Spacing === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -19,20 +19,20 @@
     table-layout: auto;
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 0.5rem;
+    border-spacing: 0 1rem; /* increased spacing between rows */
 }
 
 .page-list .list tr {
-    background-color: var(--color-background-hover);
-    border-radius: 1rem; /* rounded outer edges */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    background-color: var(--color-background-hover);
+    border-radius: 1rem; /* row edges */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
     overflow: hidden;
 }
 
-/* Row hover with lift effect */
+/* Row hover */
 .page-list .list tr:hover {
     background: linear-gradient(90deg, var(--color-background-hover), var(--color-background));
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
@@ -52,23 +52,22 @@
 .page-list .list .level {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between; /* keep right-hand text inside */
 }
 
-/* Level button */
+/* Buttons */
 .page-list .list .level button {
-    background: none;
+    background-color: var(--color-background);
     width: 100%;
+    text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-radius: 1rem; 
+    border-radius: 1rem; /* rounded button */
     cursor: pointer;
     color: var(--color-on-background);
     transition: all 0.3s ease;
     display: flex;
-    justify-content: space-between; /* spreads text and right-hand score */
     align-items: center;
+    justify-content: space-between; /* keeps right-hand text aligned */
 }
 
 /* Error button style */
@@ -84,7 +83,7 @@
     color: var(--color-on-primary);
 }
 
-/* Right-hand text inside the button (score/total) */
+/* Right-hand text inside button */
 .page-list .list .level button .right-text {
     margin-left: auto;
     font-weight: 500;
