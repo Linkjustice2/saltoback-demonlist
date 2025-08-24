@@ -7,10 +7,10 @@
     --color-primary: #AB7835;
     --gradient-primary: linear-gradient(
         135deg,
-        #5c3a15 0%,
-        #ab7835 40%,
-        #ffd27f 70%,
-        #ffe2aa 100%
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
     );
 
     --color-primary-disabled: #1f213c;
@@ -30,10 +30,10 @@ header.dark {
     --color-primary: #AB7835;
     --gradient-primary: linear-gradient(
         135deg,
-        #5c3a15 0%,
-        #ab7835 40%,
-        #ffd27f 70%,
-        #ffe2aa 100%
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
     );
 
     --color-primary-disabled: #1f213c;
@@ -74,13 +74,11 @@ header {
     height: 4.5rem;
 
     background: var(--gradient-primary);
-    background-size: 200% 200%; /* shimmer space */
-    animation: metallic-shimmer 8s linear infinite;
+    background-size: 200% 200%;
+    animation: metallic-shimmer 10s linear infinite;
 
     color: var(--color-on-primary);
-
-    /* box shadow for depth */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* metallic shimmer animation */
@@ -110,3 +108,52 @@ header .logo {
 header .nav {
     flex: 1;
     display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+/* Discord icon fix */
+header .discord {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+header .discord:hover {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 12px #fff3;
+    transform: scale(1.1);
+}
+header .discord img,
+header .discord svg {
+    width: 24px;
+    height: 24px;
+}
+
+main {
+    height: 0;
+    flex: 1;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: 0.5rem;
+}
+main > div {
+    overflow-y: auto;
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: span 3;
+}
+
+input[type="checkbox"] {
+    height: 1.25rem;
+    width: 1.25rem;
+    cursor: pointer;
+    margin: 0;
+}
