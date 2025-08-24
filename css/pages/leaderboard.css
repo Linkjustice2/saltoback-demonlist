@@ -2,14 +2,10 @@
 .page-leaderboard-container {
     display: block;
     padding: 0; /* no outer padding */
-    border-radius: 1rem;
+    border-radius: 1rem; /* outer rounded corners */
     background-color: var(--color-background-hover);
-
-    /* Outer shadow */
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-
-    /* Clip inner elements to prevent white corners */
-    overflow: hidden;
+    overflow: hidden; /* clip inner boxes */
 }
 
 /* Leaderboard grid */
@@ -44,9 +40,7 @@
     grid-row: 2;
     padding: 2rem; /* inner content padding */
     background-color: var(--color-background);
-    border-radius: 1rem;
-
-    /* Softer shadows inside the outer container */
+    border-radius: 0; /* remove inner rounding */
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
@@ -58,7 +52,7 @@
 }
 .page-leaderboard .board .rank,
 .page-leaderboard .board .total {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem; /* horizontal padding */
     text-align: end;
 }
 .page-leaderboard .board .user {
@@ -70,7 +64,7 @@
     color: var(--color-on-background);
     border: none;
     border-radius: 0.75rem;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem; /* horizontal padding */
     text-align: start;
     word-break: normal;
     overflow-wrap: anywhere;
@@ -101,7 +95,7 @@
 }
 .page-leaderboard .player .table p,
 .page-leaderboard .player .table a {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem; /* horizontal padding for text */
     transition: color 0.3s ease;
 }
 .page-leaderboard .player .table .rank p,
