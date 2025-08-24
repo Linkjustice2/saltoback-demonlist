@@ -6,7 +6,12 @@
 
     /* Solid + gradient versions */
     --color-primary: #AB7835;
-    --gradient-primary: linear-gradient(135deg, #AB7835, #d4a05c);
+    --gradient-primary: linear-gradient(
+        135deg,
+        #AB7835 0%,
+        #d4a05c 50%,
+        #ffcc80 100%
+    );
 
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
@@ -23,7 +28,12 @@ header.dark {
     --color-on-background-hover: white;
 
     --color-primary: #AB7835;
-    --gradient-primary: linear-gradient(135deg, #AB7835, #d4a05c);
+    --gradient-primary: linear-gradient(
+        135deg,
+        #AB7835 0%,
+        #d4a05c 50%,
+        #ffcc80 100%
+    );
 
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
@@ -59,7 +69,7 @@ header {
     padding-inline: calc(5vw - 1rem);
     height: 4rem;
 
-    /* Use the gradient instead of solid color */
+    /* Use the stronger gradient */
     background: var(--gradient-primary);
 
     color: var(--color-on-primary);
