@@ -8,9 +8,10 @@
     --color-primary: #AB7835;
     --gradient-primary: linear-gradient(
         135deg,
-        #AB7835 0%,
-        #d4a05c 50%,
-        #ffcc80 100%
+        #5c3a15 0%,   /* deep dark bronze */
+        #ab7835 40%,  /* warm bronze */
+        #ffd27f 70%,  /* bright gold */
+        #fff3d6 100%  /* light white-gold */
     );
 
     --color-primary-disabled: #1f213c;
@@ -30,9 +31,10 @@ header.dark {
     --color-primary: #AB7835;
     --gradient-primary: linear-gradient(
         135deg,
-        #AB7835 0%,
-        #d4a05c 50%,
-        #ffcc80 100%
+        #5c3a15 0%,   /* deep dark bronze */
+        #ab7835 40%,  /* warm bronze */
+        #ffd27f 70%,  /* bright gold */
+        #fff3d6 100%  /* light white-gold */
     );
 
     --color-primary-disabled: #1f213c;
@@ -69,7 +71,7 @@ header {
     padding-inline: calc(5vw - 1rem);
     height: 4rem;
 
-    /* Use the stronger gradient */
+    /* Strong contrast gradient */
     background: var(--gradient-primary);
 
     color: var(--color-on-primary);
