@@ -20,25 +20,11 @@
     --color-on-error: white;
 }
 
-/* No need for main.dark or header.dark anymore */
-html,
-body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-}
-
+/* Make header and main always use dark mode variables */
 header,
 main {
     background-color: var(--color-background);
     color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
-    column-gap: 6rem;
 }
 
 /* HEADER with metallic shimmer + shadow */
@@ -64,4 +50,4 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-/* rest of your styles unchanged... */
+/* Other styles remain unchanged */
