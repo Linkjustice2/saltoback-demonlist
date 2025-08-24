@@ -1,9 +1,9 @@
-/* === Page List Modernized with Rounded Boxes === */
+/* === Page List Modernized — Thinner & Fully Rounded Boxes === */
 
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
-    padding-block: 2rem;
+    padding-block: 1.5rem; /* slightly thinner spacing */
 }
 
 .page-list .list-container {
@@ -19,19 +19,19 @@
     table-layout: auto;
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 0.75rem; /* more space between rows */
+    border-spacing: 0 0.5rem; /* spacing between rows */
 }
 
 .page-list .list tr {
-    background-color: var(--color-background);
-    border-radius: 1rem; /* rounded row */
+    background-color: var(--color-background-hover); /* entire box background */
+    border-radius: 1rem; /* fully rounded box */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
 
 /* Row hover with lift effect */
 .page-list .list tr:hover {
-    background: linear-gradient(90deg, var(--color-background-hover), var(--color-background));
+    background: var(--color-background-hover); /* keep gradient subtle inside */
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
@@ -40,6 +40,7 @@
 .page-list .list .rank {
     text-align: end;
     padding-right: 1rem;
+    font-weight: 600; /* bolder for clarity */
 }
 
 /* Level column */
@@ -52,9 +53,9 @@
     background: none;
     width: 100%;
     text-align: start;
-    padding: 1rem 1.25rem;
+    padding: 0.75rem 1rem; /* slightly thinner */
     border: none;
-    border-radius: 1rem; /* slightly rounded inside row */
+    border-radius: 1rem; /* match box rounding */
     cursor: pointer;
     color: var(--color-on-background);
     transition: color 0.3s ease;
@@ -77,11 +78,11 @@
 .page-list .level-container .level {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
+    gap: 1.5rem; /* slightly less padding for thinner look */
+    padding: 1.5rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
-    border-radius: 1rem; /* rounded container */
+    border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
@@ -96,7 +97,7 @@
 /* Video card */
 .page-list .level-container .level .video {
     aspect-ratio: 16/9;
-    border-radius: 1rem; /* rounded video card */
+    border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -129,7 +130,7 @@
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .user,
 .page-list .level-container .level .records .hz {
-    padding-block: 1rem;
+    padding-block: 0.75rem; /* thinner spacing */
 }
 
 .page-list .level-container .level .records .user {
@@ -139,8 +140,10 @@
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .hz {
     text-align: end;
+    font-weight: 500; /* slightly bolder for alignment */
 }
 
+/* Meta container links */
 .page-list .meta-container .og a:hover,
 .page-list .level-container .level .records a:hover {
     text-decoration: underline;
@@ -150,7 +153,7 @@
 .page-list .meta {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .page-list .meta .errors {
@@ -160,13 +163,14 @@
 }
 
 .page-list .meta .errors .error {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.25rem; /* slightly thinner */
     background-color: var(--color-error);
     color: var(--color-on-error);
-    border-radius: 1rem; /* rounded error box */
+    border-radius: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
+/* Editors */
 .page-list .meta .editors {
     display: flex;
     flex-direction: column;
@@ -206,5 +210,12 @@
     .page-list .level-container .level .stats {
         flex-direction: column;
         gap: 1rem;
+    }
+    
+    /* Right-aligned text adjustments */
+    .page-list .list .rank,
+    .page-list .level-container .level .records .percent,
+    .page-list .level-container .level .records .hz {
+        text-align: start;
     }
 }
