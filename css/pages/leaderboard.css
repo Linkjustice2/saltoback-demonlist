@@ -4,8 +4,8 @@
     padding: 2rem; /* inner spacing */
     border-radius: 1rem;
     background-color: var(--color-background-hover);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* outer shadow */
-    overflow: hidden; /* hides corner issues */
+    /* Inner shadow plus subtle outer shadow to prevent white corners */
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* Leaderboard grid */
@@ -31,7 +31,7 @@
     margin-bottom: 1rem;
 }
 .page-leaderboard .error-container .error {
-    padding: 1rem 1.5rem; /* horizontal padding */
+    padding: 1rem 1.5rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
     border-radius: 0.5rem;
