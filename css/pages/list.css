@@ -1,4 +1,4 @@
-/* === Page List Modernized — Fully Rounded Buttons & Rows === */
+/* === Page List Modernized — Fully Rounded Buttons & Rank Boxes === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -36,11 +36,18 @@
     transform: translateY(-2px);
 }
 
-/* Rank column */
+/* Rank column (black number box) */
 .page-list .list .rank {
-    text-align: end;
-    padding-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-on-surface); /* black box */
+    color: var(--color-on-background);
+    padding: 0.5rem 0.75rem;
+    border-radius: 1rem; /* fully rounded */
+    min-width: 2.5rem;
     font-weight: 600;
+    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -69,7 +76,7 @@
 .page-list .list .level button:hover {
     background: var(--gradient-primary); /* golden hover */
     color: var(--color-on-primary);
-    border-radius: 1rem; /* preserve rounding */
+    border-radius: 1rem; /* preserve full rounding */
 }
 
 /* Error button style */
