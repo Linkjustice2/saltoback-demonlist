@@ -4,7 +4,7 @@
     "name": "thisisaverycoolwave..",
     "author": "Maverner",
     "creators": ["Maverner"],
-    "verifier": "Kvrmit",
+    "verifier": "Linkjustice",
     "verification": "",
     "percentToQualify": "100",
     "password": "46290",
@@ -14,12 +14,7 @@
             "link": "",
             "percent": 100,
             "hz": 122314
-        },
-                {
-            "user": "Linkjustice",
-            "link": "",
-            "percent": 100,
-            "hz": 122314
         }
+
     ]
 }
