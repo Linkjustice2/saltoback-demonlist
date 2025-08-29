@@ -126,19 +126,42 @@ export default {
             if (!this.useDemonList && !this.useChallengeList) return;
 
             this.loading = true;
-            let list = [];
 
+            let combinedList = [];
+
+            // Demon List
             if (this.useDemonList) {
                 const demonList = await fetchList();
-                if (demonList) list.push(...demonList.map(([lvl]) => lvl));
+                if (demonList) {
+                    demonList.forEach(([lvl], index) => {
+                        combinedList.push({
+                            rank: index + 1,
+                            id: lvl.id,
+                            name: lvl.name,
+                            video: lvl.verification,
+                            records: lvl.records || []
+                        });
+                    });
+                }
             }
 
+            // Challenge List
             if (this.useChallengeList) {
                 const challengeList = await fetchChallengeList();
-                if (challengeList) list.push(...challengeList.map(([lvl]) => lvl));
+                if (challengeList) {
+                    challengeList.forEach(([lvl], index) => {
+                        combinedList.push({
+                            rank: combinedList.length + 1,
+                            id: lvl.id,
+                            name: lvl.name,
+                            video: lvl.verification,
+                            records: lvl.records || []
+                        });
+                    });
+                }
             }
 
-            this.levels = shuffle(list).slice(0, 100);
+            this.levels = shuffle(combinedList).slice(0, 100);
             this.progression = [];
             this.percentage = undefined;
             this.givenUp = false;
