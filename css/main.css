@@ -109,10 +109,11 @@ header .nav {
     gap: 3rem;
 }
 
-/* ================= Fancy Dropdowns ================= */
+/* ================= Refined Fancy Dropdowns ================= */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
+    text-align: center;
 }
 
 header .nav .dropbtn {
@@ -120,40 +121,47 @@ header .nav .dropbtn {
     color: var(--color-on-background);
     border: none;
     cursor: pointer;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     font-size: 1rem;
-    border-radius: 0.25rem;
+    font-weight: 600; /* bolder text */
+    border-radius: 0.3rem;
     transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header .nav .dropbtn:hover {
     background-color: var(--color-background-hover);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(0,0,0,0.35);
+    transform: translateY(-2px) scale(1.02);
 }
 
 header .nav .dropdown-content {
     display: none;
     position: absolute;
     background-color: var(--color-background-hover);
-    min-width: 160px;
+    min-width: 180px;
     z-index: 10;
     flex-direction: column;
-    border-radius: 0.25rem;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    padding: 0.25rem 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-radius: 0.35rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    padding: 0.3rem 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
+    text-align: center;
 }
 
 header .nav .dropdown-content a {
     color: var(--color-on-background);
-    padding: 0.5rem 1rem;
+    padding: 0.55rem 1rem;
     text-decoration: none;
     display: block;
-    border-radius: 0.15rem;
+    font-weight: 500; /* slightly bolder */
+    border-radius: 0.2rem;
     transition: background 0.2s ease, transform 0.2s ease;
+    text-align: center;
 }
 
 header .nav .dropdown-content a:hover {
