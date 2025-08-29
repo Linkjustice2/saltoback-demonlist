@@ -1,26 +1,11 @@
-import { store } from "../main.js";
-import { embed } from "../util.js";
-import { score } from "../score.js";
-import { fetchEditors, fetchList } from "../content.js";
-
-import Spinner from "../components/Spinner.js";
-import LevelAuthors from "../components/List/LevelAuthors.js";
-
-const roleIconMap = {
-    owner: "crown",
-    admin: "user-gear",
-    helper: "user-shield",
-    dev: "code",
-    trial: "user-lock",
-};
-
 export default {
     components: { Spinner, LevelAuthors },
     template: `
         <main v-if="loading">
             <Spinner></Spinner>
         </main>
-        <main v-else class="page-list">
+        <main v-else class="page-list" :style="currentLevelBackground">
+            <div class="overlay"></div>
             <div class="list-container">
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list">
@@ -141,6 +126,29 @@ export default {
                     : this.level.verification
             );
         },
+        currentLevelBackground() {
+            if (!this.level) return {};
+            const thumbnail = this.getThumbnail(this.level);
+            return {
+                backgroundImage: `url(${thumbnail})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                position: 'relative'
+            };
+        }
+    },
+    methods: {
+        embed,
+        score,
+        getThumbnail(level) {
+            // If level has verification link, get YouTube thumbnail
+            if (level?.verification) {
+                const id = level.verification.split('v=')[1] || '';
+                return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+            }
+            return '';
+        }
     },
     async mounted() {
         // Hide loading spinner
@@ -157,7 +165,7 @@ export default {
                 ...this.list
                     .filter(([_, err]) => err)
                     .map(([_, err]) => {
-                        return `Failed to load level. (${err}.json)`;
+                        return `Failed to load level. (${err}.json)`; 
                     })
             );
             if (!this.editors) {
@@ -166,9 +174,5 @@ export default {
         }
 
         this.loading = false;
-    },
-    methods: {
-        embed,
-        score,
     },
 };
