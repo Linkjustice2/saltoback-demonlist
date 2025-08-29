@@ -1,4 +1,4 @@
-import { fetchList } from '../content.js';
+import { fetchList, fetchChallengeList } from '../content.js';
 import { getThumbnailFromId, getYoutubeIdFromUrl, shuffle } from '../util.js';
 
 import Spinner from '../components/Spinner.js';
@@ -41,7 +41,49 @@ export default {
             <section class="levels-container">
                 <div class="levels">
                     <template v-if="levels.length > 0">
-                        <!-- completed, current, results, and remaining levels unchanged -->
+                        <div class="level" v-for="(level, i) in levels.slice(0, progression.length)">
+                            <a :href="level.video" class="video">
+                                <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
+                            </a>
+                            <div class="meta">
+                                <p>#{{ level.rank }}</p>
+                                <h2>{{ level.name }}</h2>
+                                <p style="color: #00b54b; font-weight: 700">{{ progression[i] }}%</p>
+                            </div>
+                        </div>
+                        <div class="level" v-if="!hasCompleted">
+                            <a :href="currentLevel.video" target="_blank" class="video">
+                                <img :src="getThumbnailFromId(getYoutubeIdFromUrl(currentLevel.video))" alt="">
+                            </a>
+                            <div class="meta">
+                                <p>#{{ currentLevel.rank }}</p>
+                                <h2>{{ currentLevel.name }}</h2>
+                                <p>{{ currentLevel.id }}</p>
+                            </div>
+                            <form class="actions" v-if="!givenUp">
+                                <input type="number" v-model="percentage" :placeholder="placeholder" :min="currentPercentage + 1" max=100>
+                                <Btn @click.native.prevent="onDone">Done</Btn>
+                                <Btn @click.native.prevent="onGiveUp" style="background-color: #e91e63;">Give Up</Btn>
+                            </form>
+                        </div>
+                        <div v-if="givenUp || hasCompleted" class="results">
+                            <h1>Results</h1>
+                            <p>Number of levels: {{ progression.length }}</p>
+                            <p>Highest percent: {{ currentPercentage }}%</p>
+                            <Btn v-if="currentPercentage < 99 && !hasCompleted" @click.native.prevent="showRemaining = true">Show remaining levels</Btn>
+                        </div>
+                        <template v-if="givenUp && showRemaining">
+                            <div class="level" v-for="(level, i) in levels.slice(progression.length + 1, levels.length - currentPercentage + progression.length)">
+                                <a :href="level.video" target="_blank" class="video">
+                                    <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
+                                </a>
+                                <div class="meta">
+                                    <p>#{{ level.rank }}</p>
+                                    <h2>{{ level.name }}</h2>
+                                    <p style="color: #d50000; font-weight: 700">{{ currentPercentage + 2 + i }}%</p>
+                                </div>
+                            </div>
+                        </template>
                     </template>
                 </div>
             </section>
@@ -82,9 +124,7 @@ export default {
         currentLevel() { return this.levels[this.progression.length]; },
         currentPercentage() { return this.progression[this.progression.length - 1] || 0; },
         placeholder() { return `At least ${this.currentPercentage + 1}%`; },
-        hasCompleted() {
-            return this.progression[this.progression.length - 1] >= 100 || this.progression.length === this.levels.length;
-        },
+        hasCompleted() { return this.progression[this.progression.length - 1] >= 100 || this.progression.length === this.levels.length; },
         isActive() { return this.progression.length > 0 && !this.givenUp && !this.hasCompleted; },
     },
     methods: {
@@ -92,18 +132,26 @@ export default {
         getThumbnailFromId,
         getYoutubeIdFromUrl,
         async onStart() {
-            if (this.isActive) { this.showToast('Give up before starting a new roulette.'); return; }
+            if (this.isActive) {
+                this.showToast('Give up before starting a new roulette.');
+                return;
+            }
             if (!this.useDemonList && !this.useChallengeList) return;
 
             this.loading = true;
-            const fullList = await fetchList();
-            if (fullList.filter(([_, err]) => err).length > 0) {
-                this.loading = false;
-                this.showToast('List is currently broken. Wait until it\'s fixed.');
-                return;
-            }
 
-            const fullListMapped = fullList.map(([lvl, _], i) => ({
+            // Fetch Demon List
+            const demonListRaw = await fetchList();
+            const demonListMapped = demonListRaw.map(([lvl, _], i) => ({
+                rank: i + 1,
+                id: lvl.id,
+                name: lvl.name,
+                video: lvl.verification,
+            }));
+
+            // Fetch Challenge List
+            const challengeListRaw = await fetchChallengeList();
+            const challengeListMapped = challengeListRaw.map((lvl, i) => ({
                 rank: i + 1,
                 id: lvl.id,
                 name: lvl.name,
@@ -111,8 +159,14 @@ export default {
             }));
 
             const list = [];
-            if (this.useDemonList) list.push(...fullListMapped.slice(0, 75));       // Demon List
-            if (this.useChallengeList) list.push(...fullListMapped.slice(75, 150));  // Challenge List
+            if (this.useDemonList) list.push(...demonListMapped.slice(0, 75));
+            if (this.useChallengeList) list.push(...challengeListMapped);
+
+            if (list.length === 0) {
+                this.showToast('No levels selected!');
+                this.loading = false;
+                return;
+            }
 
             this.levels = shuffle(list).slice(0, 100);
             this.showRemaining = false;
