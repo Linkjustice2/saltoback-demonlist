@@ -115,7 +115,7 @@ export default {
     computed: {
         currentLevel() { return this.levels[this.progression.length]; },
         currentPercentage() { return this.progression[this.progression.length - 1] || 0; },
-        placeholder() { return `At least ${this.currentPercentage + 1}%`; },
+        placeholder() { return `Type percentage here (At least ${this.currentPercentage + 1}%)`; },
         hasCompleted() { return this.progression.length === this.levels.length; },
         isActive() { return this.progression.length > 0 && !this.givenUp && !this.hasCompleted; },
     },
