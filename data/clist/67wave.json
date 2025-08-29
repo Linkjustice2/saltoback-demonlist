@@ -3,18 +3,12 @@
     "name": "67wave",
     "author": "Kvrmit",
     "creators": ["Kvrmit"],
-    "verifier": "Open Verification (Verifier Left)",
+    "verifier": "Tark",
     "verification": "",
     "percentToQualify": "100",
     "password": "46290",
     "records": [
 
-                {
-            "user": "Tark",
-            "link": "",
-            "percent": 100,
-            "hz": 122314
-        },
                         {
             "user": "toidukoori",
             "link": "",
