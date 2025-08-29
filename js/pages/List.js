@@ -21,7 +21,6 @@ export default {
             <Spinner></Spinner>
         </main>
         <main v-else class="page-list">
-            <!-- Dark blurred background -->
             <div class="background" :style="backgroundStyle"></div>
 
             <div class="list-container">
