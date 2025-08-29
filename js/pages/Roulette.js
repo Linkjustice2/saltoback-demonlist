@@ -7,40 +7,30 @@ import Btn from '../components/Btn.js';
 export default {
     components: { Spinner, Btn },
     template: `
-        <main v-if="loading">
-            <Spinner></Spinner>
-        </main>
+        <main v-if="loading"><Spinner></Spinner></main>
         <main v-else class="page-roulette">
             <div class="sidebar">
                 <p class="type-label-md" style="color: #aaa">
-                    Shameless copy of the Extreme Demon Roulette by 
-                    <a href="https://matcool.github.io/extreme-demon-roulette/" target="_blank">matcool</a>.
+                    Shameless copy of the Extreme Demon Roulette by <a href="https://matcool.github.io/extreme-demon-roulette/" target="_blank">matcool</a>.
                 </p>
                 <form class="options">
                     <div class="check">
-                        <input type="checkbox" id="demon" value="Demon List" v-model="useDemonList">
-                        <label for="demon">Demon List</label>
+                        <input type="checkbox" id="demonlist" v-model="useDemonList">
+                        <label for="demonlist">Demon List</label>
                     </div>
                     <div class="check">
-                        <input type="checkbox" id="challenge" value="Challenge List" v-model="useChallengeList">
-                        <label for="challenge">Challenge List</label>
+                        <input type="checkbox" id="challengelist" v-model="useChallengeList">
+                        <label for="challengelist">Challenge List</label>
                     </div>
                     <Btn @click.native.prevent="onStart">{{ levels.length === 0 ? 'Start' : 'Restart'}}</Btn>
                 </form>
-                <p class="type-label-md" style="color: #aaa">
-                    The roulette saves automatically.
-                </p>
-                <form class="save">
-                    <p>Manual Load/Save</p>
-                    <div class="btns">
-                        <Btn @click.native.prevent="onImport">Import</Btn>
-                        <Btn :disabled="!isActive" @click.native.prevent="onExport">Export</Btn>
-                    </div>
-                </form>
+                <p class="type-label-md" style="color: #aaa">The roulette saves automatically.</p>
             </div>
+
             <section class="levels-container">
                 <div class="levels">
                     <template v-if="levels.length > 0">
+                        <!-- Completed Levels -->
                         <div class="level" v-for="(level, i) in levels.slice(0, progression.length)">
                             <a :href="level.video" class="video">
                                 <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
@@ -51,6 +41,7 @@ export default {
                                 <p style="color: #00b54b; font-weight: 700">{{ progression[i] }}%</p>
                             </div>
                         </div>
+                        <!-- Current Level -->
                         <div class="level" v-if="!hasCompleted">
                             <a :href="currentLevel.video" target="_blank" class="video">
                                 <img :src="getThumbnailFromId(getYoutubeIdFromUrl(currentLevel.video))" alt="">
@@ -66,12 +57,14 @@ export default {
                                 <Btn @click.native.prevent="onGiveUp" style="background-color: #e91e63;">Give Up</Btn>
                             </form>
                         </div>
+                        <!-- Results -->
                         <div v-if="givenUp || hasCompleted" class="results">
                             <h1>Results</h1>
                             <p>Number of levels: {{ progression.length }}</p>
                             <p>Highest percent: {{ currentPercentage }}%</p>
                             <Btn v-if="currentPercentage < 99 && !hasCompleted" @click.native.prevent="showRemaining = true">Show remaining levels</Btn>
                         </div>
+                        <!-- Remaining Levels -->
                         <template v-if="givenUp && showRemaining">
                             <div class="level" v-for="(level, i) in levels.slice(progression.length + 1, levels.length - currentPercentage + progression.length)">
                                 <a :href="level.video" target="_blank" class="video">
@@ -89,127 +82,9 @@ export default {
             </section>
             <div class="toasts-container">
                 <div class="toasts">
-                    <div v-for="toast in toasts" class="toast">
-                        <p>{{ toast }}</p>
-                    </div>
+                    <div v-for="toast in toasts" class="toast"><p>{{ toast }}</p></div>
                 </div>
             </div>
         </main>
     `,
-    data: () => ({
-        loading: false,
-        levels: [],
-        progression: [],
-        percentage: undefined,
-        givenUp: false,
-        showRemaining: false,
-        useDemonList: true,
-        useChallengeList: true,
-        toasts: [],
-        fileInput: undefined,
-    }),
-    mounted() {
-        this.fileInput = document.createElement('input');
-        this.fileInput.type = 'file';
-        this.fileInput.accept = '.json';
-        this.fileInput.addEventListener('change', this.onImportUpload);
-
-        const roulette = JSON.parse(localStorage.getItem('roulette'));
-        if (!roulette) return;
-
-        this.levels = roulette.levels;
-        this.progression = roulette.progression;
-    },
-    computed: {
-        currentLevel() { return this.levels[this.progression.length]; },
-        currentPercentage() { return this.progression[this.progression.length - 1] || 0; },
-        placeholder() { return `At least ${this.currentPercentage + 1}%`; },
-        hasCompleted() { return this.progression[this.progression.length - 1] >= 100 || this.progression.length === this.levels.length; },
-        isActive() { return this.progression.length > 0 && !this.givenUp && !this.hasCompleted; },
-    },
-    methods: {
-        shuffle,
-        getThumbnailFromId,
-        getYoutubeIdFromUrl,
-        async onStart() {
-            if (this.isActive) {
-                this.showToast('Give up before starting a new roulette.');
-                return;
-            }
-            if (!this.useDemonList && !this.useChallengeList) return;
-
-            this.loading = true;
-
-            // Fetch Demon List
-            const demonListRaw = await fetchList();
-            const demonListMapped = demonListRaw.map(([lvl, _], i) => ({
-                rank: i + 1,
-                id: lvl.id,
-                name: lvl.name,
-                video: lvl.verification,
-            }));
-
-            // Fetch Challenge List
-            const challengeListRaw = await fetchChallengeList();
-            const challengeListMapped = challengeListRaw.map((lvl, i) => ({
-                rank: i + 1,
-                id: lvl.id,
-                name: lvl.name,
-                video: lvl.verification,
-            }));
-
-            const list = [];
-            if (this.useDemonList) list.push(...demonListMapped.slice(0, 75));
-            if (this.useChallengeList) list.push(...challengeListMapped);
-
-            if (list.length === 0) {
-                this.showToast('No levels selected!');
-                this.loading = false;
-                return;
-            }
-
-            this.levels = shuffle(list).slice(0, 100);
-            this.showRemaining = false;
-            this.givenUp = false;
-            this.progression = [];
-            this.percentage = undefined;
-            this.loading = false;
-        },
-        save() { localStorage.setItem('roulette', JSON.stringify({ levels: this.levels, progression: this.progression })); },
-        onDone() {
-            if (!this.percentage || this.percentage <= this.currentPercentage || this.percentage > 100) {
-                this.showToast('Invalid percentage.');
-                return;
-            }
-            this.progression.push(this.percentage);
-            this.percentage = undefined;
-            this.save();
-        },
-        onGiveUp() { this.givenUp = true; localStorage.removeItem('roulette'); },
-        onImport() { if (this.isActive && !window.confirm('Overwrite current roulette?')) return; this.fileInput.showPicker(); },
-        async onImportUpload() {
-            if (this.fileInput.files.length === 0) return;
-            const file = this.fileInput.files[0];
-            if (file.type !== 'application/json') { this.showToast('Invalid file.'); return; }
-            try {
-                const roulette = JSON.parse(await file.text());
-                if (!roulette.levels || !roulette.progression) { this.showToast('Invalid file.'); return; }
-                this.levels = roulette.levels;
-                this.progression = roulette.progression;
-                this.save();
-                this.givenUp = false;
-                this.showRemaining = false;
-                this.percentage = undefined;
-            } catch { this.showToast('Invalid file.'); }
-        },
-        onExport() {
-            const file = new Blob([JSON.stringify({ levels: this.levels, progression: this.progression })], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(file);
-            a.download = 'tsl_roulette';
-            a.click();
-            URL.revokeObjectURL(a.href);
-        },
-        showToast(msg) { this.toasts.push(msg); setTimeout(() => { this.toasts.shift(); }, 3000); },
-    },
-};
+    data:
