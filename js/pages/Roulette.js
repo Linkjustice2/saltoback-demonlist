@@ -36,7 +36,7 @@ export default {
                                 <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
                             </a>
                             <div class="meta">
-                                <p>#{{ level.rank }}</p>
+                                <p>#{{ level.rank }} ({{ level.listType }} List)</p>
                                 <h2>{{ level.name }}</h2>
                                 <p style="color: #00b54b; font-weight: 700">{{ progression[i] }}%</p>
                             </div>
@@ -47,7 +47,7 @@ export default {
                                 <img :src="getThumbnailFromId(getYoutubeIdFromUrl(currentLevel.video))" alt="">
                             </a>
                             <div class="meta">
-                                <p>#{{ currentLevel.rank }}</p>
+                                <p>#{{ currentLevel.rank }} ({{ currentLevel.listType }} List)</p>
                                 <h2>{{ currentLevel.name }}</h2>
                                 <p>{{ currentLevel.id }}</p>
                             </div>
@@ -71,7 +71,7 @@ export default {
                                     <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
                                 </a>
                                 <div class="meta">
-                                    <p>#{{ level.rank }}</p>
+                                    <p>#{{ level.rank }} ({{ level.listType }} List)</p>
                                     <h2>{{ level.name }}</h2>
                                     <p style="color: #d50000; font-weight: 700">{{ currentPercentage + 2 + i }}%</p>
                                 </div>
@@ -126,7 +126,6 @@ export default {
             if (!this.useDemonList && !this.useChallengeList) return;
 
             this.loading = true;
-
             let combinedList = [];
 
             // Demon List
@@ -136,6 +135,7 @@ export default {
                     demonList.forEach(([lvl], index) => {
                         combinedList.push({
                             rank: index + 1,
+                            listType: 'Demon',
                             id: lvl.id,
                             name: lvl.name,
                             video: lvl.verification,
@@ -151,7 +151,8 @@ export default {
                 if (challengeList) {
                     challengeList.forEach(([lvl], index) => {
                         combinedList.push({
-                            rank: combinedList.length + 1,
+                            rank: index + 1,
+                            listType: 'Challenge',
                             id: lvl.id,
                             name: lvl.name,
                             video: lvl.verification,
