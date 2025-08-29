@@ -1,70 +1,71 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=1024" />
-        <title>Saltoback Lists</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saltoback Lists</title>
 
-        <!-- Replace your server icon by uploading an image file named "list_icon.png"-->
-        <link rel="icon" href="/list_icon.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500;700&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" type="text/css" href="/css/reset.css" />
-        <link rel="stylesheet" type="text/css" href="/css/typography.css" />
-        <link rel="stylesheet" type="text/css" href="/css/main.css" />
-        <link rel="stylesheet" type="text/css" href="/css/pages/list.css" />
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="/css/pages/leaderboard.css"
-        />
-        <link rel="stylesheet" type="text/css" href="/css/pages/roulette.css" />
-        <link rel="stylesheet" type="text/css" href="/css/components/nav.css" />
-        <link rel="stylesheet" type="text/css" href="/css/components/btn.css" />
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="/css/components/tabs.css"
-        />
-        <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
-        <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
-        <script type="module" src="/js/main.js"></script>
-    </head>
-    <body id="app">
-        <header :class="{ dark: store.dark }">
-            <div class="logo">
-                <h2>Saltoback Lists</h2>
-                <p> v1.5</p>
-            </div>
-            <nav class="nav">
-                <router-link class="nav__tab" to="/">
-                    <span class="type-label-lg">Demon List</span>
-                </router-link>
-                <router-link class="nav__tab" to="/leaderboard">
-                    <span class="type-label-lg">Demon Leaderboard</span>
-                </router-link>
-                 <router-link class="nav__tab" to="/clist">
-                    <span class="type-label-lg">Challenge List</span>
-                </router-link>
-                 <router-link class="nav__tab" to="/challenge-leaderboard">
-                    <span class="type-label-lg">Challenge Leaderboard</span>
-                </router-link>
-                <div class="nav__actions">
+    <!-- Replace your server icon by uploading an image file named "list_icon.png" -->
+    <link rel="icon" href="/list_icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500;700&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/css/typography.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pages/list.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pages/leaderboard.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pages/roulette.css" />
+    <link rel="stylesheet" type="text/css" href="/css/components/nav.css" />
+    <link rel="stylesheet" type="text/css" href="/css/components/btn.css" />
+    <link rel="stylesheet" type="text/css" href="/css/components/tabs.css" />
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
+    <script type="module" src="/js/main.js"></script>
+</head>
+<body id="app">
+    <header :class="{ dark: store.dark }">
+        <div class="logo">
+            <h2>Saltoback Lists</h2>
+            <p>v1.5</p>
+        </div>
 
-                    <!-- Replace the '#' with your discord server's invite-->
-                    <a class="nav__icon" href="https://discord.gg/nFVbD6sMN7">
-                        <img src="/assets/discord.svg" alt="Discord Logo" />
-                    </a>
-                    <!-- List record submission form, add a link to replace the '#' when putting a link to your list submission form-->
-
+        <nav class="nav">
+            <!-- Demon Lists Category -->
+            <div class="dropdown">
+                <button class="dropbtn">Demon Lists</button>
+                <div class="dropdown-content">
+                    <router-link to="/">Demon List</router-link>
+                    <router-link to="/leaderboard">Demon Leaderboard</router-link>
                 </div>
-            </nav>
-        </header>
-        <router-view :class="{ dark: store.dark }"></router-view>
-    </body>
+            </div>
+
+            <!-- Challenge Lists Category -->
+            <div class="dropdown">
+                <button class="dropbtn">Challenge Lists</button>
+                <div class="dropdown-content">
+                    <router-link to="/clist">Challenge List</router-link>
+                    <router-link to="/challenge-leaderboard">Challenge Leaderboard</router-link>
+                </div>
+            </div>
+
+            <!-- Optional single tab -->
+            <router-link class="nav__tab" to="/about">
+                About
+            </router-link>
+
+            <div class="nav__actions">
+                <!-- Discord icon -->
+                <a class="nav__icon" href="https://discord.gg/nFVbD6sMN7">
+                    <img src="/assets/discord.svg" alt="Discord Logo" />
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <router-view :class="{ dark: store.dark }"></router-view>
+</body>
 </html>
