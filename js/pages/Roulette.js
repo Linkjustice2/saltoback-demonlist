@@ -101,7 +101,6 @@ export default {
         fileInput: undefined,
     }),
     mounted() {
-        // Create file input for manual import
         this.fileInput = document.createElement('input');
         this.fileInput.type = 'file';
         this.fileInput.multiple = false;
@@ -114,41 +113,26 @@ export default {
         this.progression = roulette.progression;
     },
     computed: {
-        currentLevel() {
-            return this.levels[this.progression.length];
-        },
-        currentPercentage() {
-            return this.progression[this.progression.length - 1] || 0;
-        },
-        placeholder() {
-            return `At least ${this.currentPercentage + 1}%`;
-        },
-        hasCompleted() {
-            return this.progression.length === this.levels.length;
-        },
-        isActive() {
-            return this.progression.length > 0 && !this.givenUp && !this.hasCompleted;
-        },
+        currentLevel() { return this.levels[this.progression.length]; },
+        currentPercentage() { return this.progression[this.progression.length - 1] || 0; },
+        placeholder() { return `At least ${this.currentPercentage + 1}%`; },
+        hasCompleted() { return this.progression.length === this.levels.length; },
+        isActive() { return this.progression.length > 0 && !this.givenUp && !this.hasCompleted; },
     },
     methods: {
-        shuffle,
-        getThumbnailFromId,
-        getYoutubeIdFromUrl,
+        shuffle, getThumbnailFromId, getYoutubeIdFromUrl,
         async onStart() {
-            if (this.isActive) {
-                this.showToast('Give up before starting a new roulette.');
-                return;
-            }
-
+            if (this.isActive) return this.showToast('Give up before starting a new roulette.');
             if (!this.useDemonList && !this.useChallengeList) return;
 
             this.loading = true;
-
             let list = [];
+
             if (this.useDemonList) {
                 const demonList = await fetchList();
                 if (demonList) list.push(...demonList.map(([lvl]) => lvl));
             }
+
             if (this.useChallengeList) {
                 const challengeList = await fetchChallengeList();
                 if (challengeList) list.push(...challengeList.map(([lvl]) => lvl));
@@ -163,10 +147,7 @@ export default {
             this.save();
         },
         onDone() {
-            if (!this.percentage || this.percentage <= this.currentPercentage || this.percentage > 100) {
-                this.showToast('Invalid percentage.');
-                return;
-            }
+            if (!this.percentage || this.percentage <= this.currentPercentage || this.percentage > 100) return this.showToast('Invalid percentage.');
             this.progression.push(this.percentage);
             this.percentage = undefined;
             this.save();
@@ -205,6 +186,6 @@ export default {
             } catch {
                 this.showToast('Invalid file.');
             }
-        },
-    },
+        }
+    }
 };
