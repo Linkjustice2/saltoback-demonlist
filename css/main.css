@@ -58,10 +58,7 @@ main {
     background-color: var(--color-background);
     color: var(--color-on-background);
     display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(
-            2em,
-            1fr
-        );
+    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
     column-gap: 6rem;
 }
 
@@ -105,11 +102,69 @@ header .logo {
     gap: 1rem;
 }
 
+/* NAVIGATION WITH DROPDOWNS */
 header .nav {
     flex: 1;
     display: flex;
     justify-content: center;
-    gap: 3rem;
+    gap: 2rem; /* slightly smaller for mobile flexibility */
+    align-items: center;
+}
+
+/* Dropdown wrapper */
+header .nav .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+header .nav .dropbtn {
+    background: transparent;
+    color: var(--color-on-background);
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Dropdown content */
+header .nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--color-background-hover);
+    min-width: 150px;
+    z-index: 10;
+    flex-direction: column;
+    border-radius: 0.25rem;
+}
+
+header .nav .dropdown-content a {
+    color: var(--color-on-background);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    display: block;
+}
+
+header .nav .dropdown-content a:hover {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+/* Show dropdown on hover (desktop) */
+header .nav .dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+/* Mobile stacking */
+@media screen and (max-width: 768px) {
+    header .nav {
+        flex-direction: column;
+        gap: 0;
+    }
+    header .nav .dropdown-content {
+        position: relative;
+    }
 }
 
 /* Discord icon fix */
