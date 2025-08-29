@@ -1,4 +1,4 @@
-/* Sidebar */
+/* ---------- Sidebar ---------- */
 .page-roulette .sidebar {
     padding: 2rem;
     display: flex;
@@ -6,13 +6,17 @@
     gap: 1.5rem;
     background-color: var(--color-background-hover);
     border-radius: 1rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    max-width: 22rem;
+    width: 100%;
+    margin: 0 auto; /* Center horizontally */
+    transition: all 0.5s ease;
+    pointer-events: none; /* Remove button-like behavior */
 }
 
-.page-roulette .sidebar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+.page-roulette.roulette-start .sidebar {
+    margin-left: 2rem; /* Shift left when roulette starts */
+    pointer-events: auto; /* Restore interactions */
 }
 
 .page-roulette .sidebar a {
@@ -43,18 +47,37 @@
     gap: 0.75rem;
 }
 
-/* Levels Container */
+/* Add section headers and dividers for "filling" */
+.page-roulette .sidebar p.section-title {
+    font-weight: 700;
+    color: var(--color-primary);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ---------- Levels Container ---------- */
 .page-roulette .levels-container {
     grid-row: 1;
     grid-column: 2 / span 2;
     overflow-y: auto;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.5s ease;
 }
 
+.page-roulette.roulette-start .levels-container {
+    align-items: flex-start; /* Shift left when roulette starts */
+}
+
+/* ---------- Levels ---------- */
 .page-roulette .levels {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 100%;
 }
 
 /* Level Cards */
@@ -65,13 +88,13 @@
     border-radius: 1rem;
     overflow: hidden;
     background-color: var(--color-background-hover);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .page-roulette .levels .level:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
 .page-roulette .levels .level .video img {
@@ -83,7 +106,7 @@
 
 .page-roulette .levels .level .meta {
     flex: 1;
-    padding: 1.2rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -137,16 +160,7 @@
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-.page-roulette .levels .results h1 {
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-
-.page-roulette .levels .results .btn {
-    align-self: flex-start;
-}
-
-/* Toasts */
+/* ---------- Toasts ---------- */
 .page-roulette .toasts-container {
     overflow-y: auto;
     grid-column: 2 / span 2;
@@ -177,7 +191,33 @@
     transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
+/* ---------- Extras / Decorative ---------- */
+/* subtle background stripes */
+.page-roulette::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.01),
+        rgba(255,255,255,0.01) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* small hover indicators on sidebar items */
+.page-roulette .sidebar .check input[type="checkbox"]:hover + label {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ---------- Responsive adjustments ---------- */
 @media screen and (min-width: 1366px) {
     .page-roulette .levels-container {
         grid-column: 2;
