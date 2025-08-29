@@ -21,6 +21,7 @@ export default {
             <Spinner></Spinner>
         </main>
         <main v-else class="page-list">
+            <!-- Dark blurred background -->
             <div class="background" :style="backgroundStyle"></div>
 
             <div class="list-container">
@@ -69,35 +70,8 @@ export default {
                         </tr>
                     </table>
                 </div>
-
                 <div v-else class="level placeholder">
                     <p>Loading or no level selected...</p>
-                </div>
-            </div>
-
-            <div class="meta-container">
-                <div class="meta">
-                    <div class="errors" v-if="errors.length">
-                        <p class="error" v-for="error of errors">{{ error }}</p>
-                    </div>
-                    <div class="og">
-                        <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
-                    </div>
-                    <template v-if="editors && editors.length">
-                        <h3>GDPS Staff</h3>
-                        <ol class="editors">
-                            <li v-for="editor in editors" :key="editor.name">
-                                <img :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
-                                <a v-if="editor.link" target="_blank" :href="editor.link">{{ editor.name }}</a>
-                                <p v-else>{{ editor.name }}</p>
-                            </li>
-                        </ol>
-                    </template>
-                    <h3>Submission Requirements</h3>
-                    <p>Achieved the record without using hacks (FPS bypass allowed, up to 360fps)</p>
-                    <p>Recording must show previous attempts and full death animation before completion</p>
-                    <p>Insane and Extreme Demons require video proof including clicks</p>
-                    <p>Do not use secret routes or easy modes</p>
                 </div>
             </div>
         </main>
@@ -107,7 +81,6 @@ export default {
         editors: [],
         loading: true,
         selected: 0,
-        errors: [],
         store,
         roleIconMap,
     }),
@@ -123,7 +96,7 @@ export default {
             if (!this.level) return {};
             return {
                 backgroundImage: `url(${this.getThumbnail(this.level.verification)})`,
-                filter: "blur(12px) brightness(0.5)",
+                filter: "blur(12px) brightness(0.4)",
                 position: "absolute",
                 top: "0",
                 left: "0",
@@ -133,7 +106,7 @@ export default {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             };
-        }
+        },
     },
     methods: {
         embed,
@@ -142,15 +115,15 @@ export default {
             const id = url?.match(/v=([a-zA-Z0-9_-]+)/)?.[1];
             if (!id) return "";
             return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-        }
+        },
     },
     async mounted() {
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
-        if (!this.list) this.errors.push("Failed to load list. Retry later.");
-        if (!this.editors) this.errors.push("Failed to load list editors.");
+        if (!this.list) console.error("Failed to load list.");
+        if (!this.editors) console.error("Failed to load editors.");
 
         this.loading = false;
-    }
+    },
 };
