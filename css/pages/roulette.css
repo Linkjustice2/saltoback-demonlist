@@ -11,14 +11,13 @@
     width: 100%;
     margin: 0 auto; /* Center horizontally */
     transition: all 0.5s ease;
-    pointer-events: none; /* Remove button-like behavior */
 }
 
 .page-roulette.roulette-start .sidebar {
     margin-left: 2rem; /* Shift left when roulette starts */
-    pointer-events: auto; /* Restore interactions */
 }
 
+/* Sidebar links */
 .page-roulette .sidebar a {
     text-decoration: none;
     color: var(--color-on-background-hover);
@@ -30,10 +29,16 @@
     color: var(--color-primary);
 }
 
+/* Checkboxes */
 .page-roulette .sidebar .check {
     display: flex;
     gap: 0.75rem;
     align-items: center;
+}
+
+.page-roulette .sidebar .check input[type="checkbox"]:hover + label {
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
 .page-roulette .sidebar form {
@@ -42,12 +47,13 @@
     gap: 1rem;
 }
 
+/* Buttons */
 .page-roulette .sidebar .save .btns {
     display: flex;
     gap: 0.75rem;
 }
 
-/* Add section headers and dividers for "filling" */
+/* Section titles */
 .page-roulette .sidebar p.section-title {
     font-weight: 700;
     color: var(--color-primary);
@@ -64,7 +70,7 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center by default */
     transition: all 0.5s ease;
 }
 
@@ -192,7 +198,6 @@
 }
 
 /* ---------- Extras / Decorative ---------- */
-/* subtle background stripes */
 .page-roulette::before {
     content: '';
     position: absolute;
@@ -211,13 +216,7 @@
     pointer-events: none;
 }
 
-/* small hover indicators on sidebar items */
-.page-roulette .sidebar .check input[type="checkbox"]:hover + label {
-    color: var(--color-primary);
-    font-weight: 600;
-}
-
-/* ---------- Responsive adjustments ---------- */
+/* ---------- Responsive ---------- */
 @media screen and (min-width: 1366px) {
     .page-roulette .levels-container {
         grid-column: 2;
