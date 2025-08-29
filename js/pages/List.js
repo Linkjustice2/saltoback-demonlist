@@ -22,6 +22,7 @@ export default {
         </main>
         <main v-else class="page-list">
             <div class="background" :style="backgroundStyle"></div>
+
             <div class="list-container">
                 <table class="list" v-if="list.length">
                     <tr v-for="([level, err], i) in list" :key="i">
@@ -31,6 +32,7 @@ export default {
                         </td>
                         <td class="level" :class="{ 'active': selected === i, 'error': !level }">
                             <button @click="selected = i">
+                                <img v-if="level" :src="getThumbnail(level.verification)" class="thumbnail">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
                         </td>
@@ -120,7 +122,7 @@ export default {
         backgroundStyle() {
             if (!this.level) return {};
             return {
-                backgroundImage: `url(${this.getThumbnail()})`,
+                backgroundImage: `url(${this.getThumbnail(this.level.verification)})`,
                 filter: "blur(12px) brightness(0.5)",
                 position: "absolute",
                 top: "0",
@@ -136,11 +138,10 @@ export default {
     methods: {
         embed,
         score,
-        getThumbnail() {
-            if (!this.level) return "";
-            const id = this.level.verification.match(/v=([a-zA-Z0-9_-]+)/)?.[1];
+        getThumbnail(url) {
+            const id = url?.match(/v=([a-zA-Z0-9_-]+)/)?.[1];
             if (!id) return "";
-            return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+            return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
         }
     },
     async mounted() {
