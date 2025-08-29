@@ -1,55 +1,165 @@
-/* Dropdown wrapper */
+:root {
+    --color-background: #1c1b1f;
+    --color-on-background: white;
+    --color-background-hover: #27262c;
+    --color-on-background-hover: white;
+
+    --color-primary: #AB7835;
+    --gradient-primary: linear-gradient(
+        135deg,
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
+    );
+
+    --color-primary-disabled: #1f213c;
+    --color-on-primary: white;
+    --color-error: #de0000;
+    --color-on-error: white;
+}
+
+main.dark,
+header.dark {
+    color-scheme: dark;
+    --color-background: #1c1b1f;
+    --color-on-background: white;
+    --color-background-hover: #27262c;
+    --color-on-background-hover: white;
+
+    --color-primary: #AB7835;
+    --gradient-primary: linear-gradient(
+        135deg,
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
+    );
+
+    --color-primary-disabled: #1f213c;
+    --color-on-primary: white;
+    --color-error: #de0000;
+    --color-on-error: white;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+header,
+main {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    display: grid;
+    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
+    column-gap: 6rem;
+}
+
+/* HEADER with metallic shimmer + shadow */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 2rem;
+    height: 4.5rem;
+
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    animation: metallic-shimmer 10s linear infinite;
+
+    color: var(--color-on-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* metallic shimmer animation */
+@keyframes metallic-shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media screen and (min-width: 1366px) {
+    header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding-inline: 2rem;
+    }
+}
+
+header .logo {
+    justify-self: start;
+    align-self: center;
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+header .nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+/* ================= Fancy Dropdowns ================= */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown button */
 header .nav .dropbtn {
-    background: linear-gradient(135deg, #3d260f, #8c6227, #c49146, #eac87b);
-    color: var(--color-on-primary);
+    background: transparent;
+    color: var(--color-on-background);
     border: none;
     cursor: pointer;
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
-    border-radius: 0.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
 }
 
 header .nav .dropbtn:hover {
-    transform: translateY(-2px);
+    background-color: var(--color-background-hover);
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
 }
 
-/* Dropdown content */
 header .nav .dropdown-content {
     display: none;
     position: absolute;
-    background: linear-gradient(180deg, #27262c, #1c1b1f);
-    min-width: 180px;
+    background-color: var(--color-background-hover);
+    min-width: 160px;
     z-index: 10;
     flex-direction: column;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    padding: 0.25rem 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Individual links */
 header .nav .dropdown-content a {
     color: var(--color-on-background);
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 1rem;
     text-decoration: none;
     display: block;
-    border-radius: 0.3rem;
-    transition: background 0.3s ease, transform 0.2s ease;
+    border-radius: 0.15rem;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 header .nav .dropdown-content a:hover {
-    background: linear-gradient(90deg, #AB7835, #eac87b);
+    background-color: var(--color-primary);
     color: var(--color-on-primary);
-    transform: translateX(5px);
+    transform: translateX(4px);
 }
 
 /* Show dropdown on hover */
@@ -59,7 +169,7 @@ header .nav .dropdown:hover .dropdown-content {
     transform: translateY(0);
 }
 
-/* Mobile stacking */
+/* Mobile adjustments */
 @media screen and (max-width: 768px) {
     header .nav {
         flex-direction: column;
@@ -70,6 +180,52 @@ header .nav .dropdown:hover .dropdown-content {
         transform: translateY(0);
         opacity: 1;
         box-shadow: none;
-        margin-top: 0.3rem;
+        margin-top: 0.2rem;
     }
+}
+
+/* ================= Discord icon ================= */
+header .discord {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+header .discord:hover {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 12px #fff3;
+    transform: scale(1.1);
+}
+header .discord img,
+header .discord svg {
+    width: 24px;
+    height: 24px;
+}
+
+main {
+    height: 0;
+    flex: 1;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: 0.5rem;
+}
+main > div {
+    overflow-y: auto;
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: span 3;
+}
+
+input[type="checkbox"] {
+    height: 1.25rem;
+    width: 1.25rem;
+    cursor: pointer;
+    margin: 0;
 }
