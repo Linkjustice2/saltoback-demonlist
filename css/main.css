@@ -18,12 +18,9 @@
     --color-error: #de0000;
     --color-on-error: white;
 
-    /* Additional modern spacing variables */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 2rem;
     --border-radius: 0.35rem;
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
 }
 
 html,
@@ -31,39 +28,39 @@ body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-on-background);
 }
 
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
-/* Header & Main Layout */
 header,
 main {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
     display: grid;
-    grid-template-columns: minmax(var(--spacing-lg), 1fr) minmax(2fr, 2fr) minmax(var(--spacing-lg), 1fr);
-    column-gap: var(--spacing-lg);
+    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
+    column-gap: 6rem;
 }
 
-/* Header with metallic shimmer + shadow */
+/* HEADER with metallic shimmer + shadow */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: var(--spacing-lg);
+    padding-inline: 2rem;
     height: 4.5rem;
+
     background: var(--gradient-primary);
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
+
     color: var(--color-on-primary);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
-    transition: all 0.3s ease;
+    transition: box-shadow var(--transition-medium), transform var(--transition-medium);
 }
 
 @keyframes metallic-shimmer {
@@ -73,6 +70,8 @@ header {
 }
 
 header .logo {
+    justify-self: start;
+    align-self: center;
     display: flex;
     align-items: flex-end;
     gap: 1rem;
@@ -82,10 +81,10 @@ header .nav {
     flex: 1;
     display: flex;
     justify-content: center;
-    gap: 2.5rem;
-    transition: gap 0.3s ease;
+    gap: 3rem;
 }
 
+/* ================= Refined Fancy Dropdowns ================= */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
@@ -97,11 +96,11 @@ header .nav .dropbtn {
     color: var(--color-on-background);
     border: none;
     cursor: pointer;
-    padding: 0.6rem 1.25rem;
+    padding: 0.6rem 1.2rem;
     font-size: 1rem;
     font-weight: 600;
     border-radius: var(--border-radius);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,8 +108,8 @@ header .nav .dropbtn {
 
 header .nav .dropbtn:hover {
     background-color: var(--color-background-hover);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.35);
-    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 5px 14px rgba(0,0,0,0.35);
+    transform: translateY(-1px) scale(1.02);
 }
 
 header .nav .dropdown-content {
@@ -121,29 +120,31 @@ header .nav .dropdown-content {
     z-index: 10;
     flex-direction: column;
     border-radius: var(--border-radius);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.4);
-    padding: var(--spacing-xs) 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    padding: 0.3rem 0;
     transition: opacity 0.25s ease, transform 0.25s ease;
     opacity: 0;
     transform: translateY(12px);
+    text-align: center;
 }
 
 header .nav .dropdown-content a {
     color: var(--color-on-background);
-    padding: 0.6rem 1rem;
+    padding: 0.55rem 1rem;
     text-decoration: none;
     display: block;
     font-weight: 500;
     border-radius: var(--border-radius);
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
 header .nav .dropdown-content a:hover {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
-    transform: translateX(4px);
+    transform: translateX(3px);
 }
 
+/* Show dropdown on hover */
 header .nav .dropdown:hover .dropdown-content {
     display: flex;
     opacity: 1;
@@ -154,18 +155,18 @@ header .nav .dropdown:hover .dropdown-content {
 @media screen and (max-width: 768px) {
     header .nav {
         flex-direction: column;
-        gap: var(--spacing-xs);
+        gap: 0.5rem;
     }
     header .nav .dropdown-content {
         position: relative;
         transform: translateY(0);
         opacity: 1;
         box-shadow: none;
-        margin-top: var(--spacing-xs);
+        margin-top: 0.2rem;
     }
 }
 
-/* Discord Icon */
+/* ================= Discord icon ================= */
 header .discord {
     display: flex;
     align-items: center;
@@ -173,12 +174,12 @@ header .discord {
     background: rgba(0, 0, 0, 0.35);
     padding: 0.5rem;
     border-radius: 50%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
 }
 header .discord:hover {
     background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 14px #fff3;
-    transform: scale(1.12);
+    box-shadow: 0 0 12px #fff3;
+    transform: scale(1.08);
 }
 header .discord img,
 header .discord svg {
@@ -187,17 +188,14 @@ header .discord svg {
 }
 
 main {
+    height: 0;
     flex: 1;
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: minmax(0, 1fr);
     column-gap: 0.5rem;
-    overflow: hidden;
 }
-
 main > div {
     overflow-y: auto;
-    padding: var(--spacing-sm);
-    border-radius: var(--border-radius);
 }
 
 .spinner {
