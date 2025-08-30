@@ -34,7 +34,7 @@ export default {
                         <td class="level" :class="{ 'active': selected == i, 'error': !level }">
                             <button @click="selected = i">
                                 <span class="type-label-lg">
-                                    {{ level?.name || \`Unable to load (\${err}.json)\` }}
+                                    {{ level?.name || \`Error (\${err}.json)\` }}
                                 </span>
                             </button>
                         </td>
@@ -46,7 +46,7 @@ export default {
             <div class="level-container">
                 <div v-if="level" class="level">
 
-                    <h1 class="type-title-xl">{{ level.name }}</h1>
+                    <h1>{{ level.name }}</h1>
                     <LevelAuthors
                         :author="level.author"
                         :creators="level.creators"
@@ -58,55 +58,36 @@ export default {
                         id="videoframe"
                         :src="video"
                         frameborder="0"
-                        allowfullscreen
                     ></iframe>
 
                     <!-- Stats -->
                     <ul class="stats">
                         <li>
-                            <div class="type-title-sm">Points on Completion</div>
-                            <p class="type-label-md">
-                                {{ score(selected + 1, 100, level.percentToQualify) }}
-                            </p>
+                            <div class="type-title-sm">Points when completed</div>
+                            <p>{{ score(selected + 1, 100, level.percentToQualify) }}</p>
                         </li>
                         <li>
-                            <div class="type-title-sm">Level ID</div>
-                            <p class="type-label-md">{{ level.id }}</p>
+                            <div class="type-title-sm">ID</div>
+                            <p>{{ level.id }}</p>
                         </li>
                     </ul>
 
                     <!-- Records -->
-                    <h2 class="type-title-lg">Records</h2>
-                    <p v-if="selected + 1 <= 75">
-                        Achieve <strong>{{ level.percentToQualify }}%</strong> or higher to qualify
-                    </p>
-                    <p v-else-if="selected + 1 <= 150">
-                        Achieve <strong>100%</strong> or higher to qualify
-                    </p>
-                    <p v-else>
-                        This level does not accept new records.
-                    </p>
+                    <h2>Records</h2>
+                    <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
+                    <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
+                    <p v-else>This level does not accept new records.</p>
 
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
                             <td class="percent">
-                                <p class="type-label-md">{{ record.percent }}%</p>
+                                <p>{{ record.percent }}%</p>
                             </td>
                             <td class="user">
-                                <a
-                                    :href="record.link"
-                                    target="_blank"
-                                    class="type-label-lg"
-                                >
-                                    {{ record.user }}
-                                </a>
+                                <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
                             </td>
                             <td class="mobile">
-                                <img
-                                    v-if="record.mobile"
-                                    :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`"
-                                    alt="Mobile device"
-                                >
+                                <img v-if="record.mobile" :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
                             </td>
                         </tr>
                     </table>
@@ -114,7 +95,7 @@ export default {
 
                 <!-- No level selected -->
                 <div v-else class="level" style="height: 100%; justify-content: center; align-items: center;">
-                    <p class="type-label-lg">No level selected 😢</p>
+                    <p>(ノಠ益ಠ)ノ彡┻━┻</p>
                 </div>
             </div>
 
@@ -124,49 +105,34 @@ export default {
 
                     <!-- Errors -->
                     <div class="errors" v-show="errors.length > 0">
-                        <p class="error" v-for="error of errors">⚠️ {{ error }}</p>
+                        <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
 
                     <!-- Original Credit -->
                     <div class="og">
-                        <p class="type-label-md">
-                            Website layout designed by
-                            <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a>
-                        </p>
+                        <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
                     </div>
 
                     <!-- Editors -->
                     <template v-if="editors">
-                        <h3 class="type-title-md">GDPS Staff</h3>
+                        <h3>GDPS Staff</h3>
                         <ol class="editors">
                             <li v-for="editor in editors">
-                                <img
-                                    :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`"
-                                    :alt="editor.role"
-                                >
-                                <a
-                                    v-if="editor.link"
-                                    class="type-label-lg link"
-                                    target="_blank"
-                                    :href="editor.link"
-                                >
-                                    {{ editor.name }}
-                                </a>
+                                <img :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
+                                <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
                                 <p v-else>{{ editor.name }}</p>
                             </li>
                         </ol>
                     </template>
 
                     <!-- Submission Requirements -->
-                    <h3 class="type-title-md">Submission Guidelines</h3>
-                    <ul class="submission-reqs">
-                        <li>Records must be achieved without hacks (FPS bypass up to 360fps allowed).</li>
-                        <li>Ensure you are playing the correct level; verify the level ID before submission.</li>
-                        <li>Insane/Extreme Demons require full video proof.</li>
-                        <li>Show the full death animation unless it’s a first-attempt completion.</li>
-                        <li>Endwall must be hit; secret or bug routes are not allowed.</li>
-                        <li>No easy modes; only unmodified completions count.</li>
-                    </ul>
+                    <h3>Submission Requirements</h3>
+                    <p>Achieved the record without using hacks (FPS bypass allowed up to 360fps).</p>
+                    <p>Must be on the listed level; check the level ID before submitting.</p>
+                    <p>Insane/Extreme Demons require full video proof.</p>
+                    <p>Show full death animation unless first attempt completion.</p>
+                    <p>Player must hit endwall; secret/bug routes not allowed.</p>
+                    <p>Do not use easy modes; only unmodified completion counts.</p>
 
                 </div>
             </div>
@@ -209,10 +175,10 @@ export default {
         this.editors = await fetchEditors();
 
         if (!this.list) {
-            this.errors = ["Failed to load list. Please retry or contact GDPS staff."];
+            this.errors = ["Failed to load list. Retry in a few minutes or notify list staff."];
         } else {
             this.errors.push(
-                ...this.list.filter(([_, err]) => err).map(([_, err]) => `Unable to load level (${err}.json)`)
+                ...this.list.filter(([_, err]) => err).map(([_, err]) => `Failed to load level. (${err}.json)` )
             );
             if (!this.editors) this.errors.push("Failed to load list editors.");
         }
