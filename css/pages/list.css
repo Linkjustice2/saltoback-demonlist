@@ -1,6 +1,6 @@
 /* === Page List Modernized — Fully Rounded Buttons & Rank Boxes === */
 
-/* Full-page blurred, dark background */
+/* Full-page very blurry and dark background */
 .page-list::before {
     content: "";
     position: fixed;
@@ -11,7 +11,7 @@
     background: inherit; /* uses whatever background JS sets */
     background-size: cover;
     background-position: center;
-    filter: blur(12px) brightness(0.4); /* blur + darken */
+    filter: blur(25px) brightness(0.2); /* stronger blur + darker */
     z-index: -1; /* behind all content */
     pointer-events: none; /* don't block clicks */
 }
