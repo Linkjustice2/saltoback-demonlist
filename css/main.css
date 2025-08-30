@@ -224,9 +224,10 @@ main > div {
     overflow-y: auto;
 }
 
-/* ===== New: Round right-side buttons in main panel ===== */
-main > div button {
+/* ===== New: Round all direct children of right panel (boxy buttons) ===== */
+main > div > * {
     border-radius: 0.8rem;
+    overflow: hidden;
 }
 
 .spinner {
