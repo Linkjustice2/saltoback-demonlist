@@ -258,7 +258,7 @@ input[type="checkbox"] {
     background-color: var(--color-on-surface);
     color: var(--color-on-background);
     padding: 0.5rem 0.75rem;
-    border-radius: 0.7rem; /* slightly less pill */
+    border-radius:  3rem; /* slightly less pill */
     min-width: 2.5rem;
     font-weight: 600;
     box-sizing: border-box;
