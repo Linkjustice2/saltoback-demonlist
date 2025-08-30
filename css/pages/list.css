@@ -1,13 +1,41 @@
-/* =========================
-   LIST CSS
-   ========================= */
-
-/* Root Variables */
 :root {
-    --color-on-surface: #1c1b1f;
+    --color-background: #1c1b1f;
+    --color-on-background: white;
+    --color-background-hover: #27262c;
+    --color-on-background-hover: white;
+
+    --color-primary: #AB7835;
+    --gradient-primary: linear-gradient(
+        135deg,
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
+    );
+    --color-primary-disabled: #1f213c;
+    --color-on-primary: white;
+    --color-error: #de0000;
+    --color-on-error: white;
+
+    --border-radius: 0.35rem;
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
 }
 
-/* Body overlay */
+/* Body background image & overlay */
+body {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    color: white;
+}
+
 body::before {
     content: "";
     position: fixed;
@@ -18,7 +46,7 @@ body::before {
     z-index: -1;
 }
 
-/* Search Bar */
+/* Search bar */
 .search-bar {
     width: 100%;
     padding: 10px 14px;
@@ -29,7 +57,10 @@ body::before {
     font-size: 14px;
     transition: all 0.2s ease-in-out;
 }
-.search-bar::placeholder { color: #ccc; font-style: italic; }
+.search-bar::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
 .search-bar:focus {
     outline: none;
     border-color: #ffcc33;
@@ -37,12 +68,22 @@ body::before {
     background-color: #222;
 }
 
-/* List styling */
+/* Page List */
+.page-list .list-container,
+.page-list .level-container,
+.page-list .meta-container {
+    padding-block: 1.5rem;
+}
+.page-list .list-container { padding-inline: 1rem; }
+.page-list .meta-container { padding-right: 2rem; }
+
 .page-list .list {
+    table-layout: auto;
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 0.5rem;
 }
+
 .page-list .list tr {
     background-color: var(--color-background-hover);
     border-radius: 2rem;
@@ -51,24 +92,23 @@ body::before {
     overflow: hidden;
 }
 .page-list .list tr:hover {
+    background: var(--color-background-hover);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
-.page-list .list .level button {
-    width: 100%;
-    text-align: start;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    color: var(--color-on-background);
-    transition: all 0.3s ease;
-}
-.page-list .list .level button:hover { color: var(--color-on-primary); }
 
-/* ===== MOBILE ONLY FIXES ===== */
-@media (max-width: 768px) {
-    .page-list .list tr { flex-direction: column; }
-    .page-list .list .level button { font-size: 0.75rem; padding: 0.4rem 0.6rem; }
-    .search-bar { font-size: 0.8rem; padding: 6px 10px; border-radius: 0.6rem; }
+.page-list .list .rank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+    min-width: 2.5rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
