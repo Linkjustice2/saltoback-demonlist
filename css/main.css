@@ -1,6 +1,7 @@
-/* =========================
-   MAIN CSS (Mobile-Accessible)
-   ========================= */
+refrence this code as "MAIN CSS", make this code acessible on mobile
+
+https://71c773b3.saltoback-demonlist.pages.dev/#
+
 
 :root {
     --color-background: #1c1b1f;
@@ -27,7 +28,8 @@
     --transition-medium: 0.3s ease;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
@@ -38,7 +40,8 @@ body {
     flex-direction: column;
 }
 
-header, main {
+header,
+main {
     background-color: var(--color-background);
     color: var(--color-on-background);
     display: grid;
@@ -441,58 +444,13 @@ input[type="checkbox"] {
     text-decoration: underline;
 }
 
-/* ===== MOBILE ADJUSTMENTS ===== */
+/* Mobile adjustments */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        height: auto;
-        padding: 0.5rem 1rem;
-        row-gap: 0.5rem;
-    }
-
-    header .nav {
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        align-items: center;
-    }
-
-    header .nav .dropdown-content {
-        position: relative;
-        min-width: auto;
-        width: 100%;
-        transform: translateY(0);
-        opacity: 1;
-        display: none;
-    }
-
-    header .nav .dropdown:hover .dropdown-content {
-        display: flex;
-    }
-
-    main {
-        grid-template-columns: 1fr;
-        column-gap: 0;
-        row-gap: 1rem;
-    }
-
     .page-list .list tr {
         display: flex;
         flex-direction: column;
         margin-bottom: 0.5rem;
     }
-
-    .page-list .level-container .level {
-        max-width: 100%;
-        padding: 1rem;
-    }
-
-    .page-list .level-container .level .stats {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .page-list .meta {
-        padding: 0 1rem;
-    }
 }
+
+
