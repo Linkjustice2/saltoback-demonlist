@@ -185,8 +185,9 @@ main {
     height: 0;
     flex: 1;
     display: grid;
-    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: 280px 1fr 300px;
     column-gap: 0.5rem;
+    padding: 1rem;
 }
 
 main > div {
@@ -333,9 +334,6 @@ main > div {
     border-radius: 0.7rem;
 }
 
-/* (Truncated: level-container & meta-container continue…) */
-
-
 /* =========================
    Mobile Responsive Addon
    ========================= */
@@ -376,7 +374,16 @@ main > div {
 
     main {
         grid-template-columns: 1fr;
-        padding: 0.5rem;
+        grid-template-rows: auto;
+        padding: 0.75rem;
+        row-gap: 1rem;
+    }
+
+    .page-list .list {
+        display: flex;
+        flex-direction: column;
+        max-height: 250px;
+        overflow-y: auto;
     }
 
     .page-list .list tr {
@@ -386,14 +393,17 @@ main > div {
         gap: 0.5rem;
     }
 
-    .page-list .level-container .level {
-        padding: 1rem;
-        gap: 1rem;
+    .search-bar {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
     }
 
-    .page-list .level-container .level .stats {
-        flex-direction: column;
-        gap: 1rem;
+    .page-list .level-container iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 0.5rem;
     }
 
     .page-list .meta-container {
@@ -421,6 +431,11 @@ main > div {
 
     .page-list .list tr {
         font-size: 0.9rem;
+    }
+
+    .page-list .level-container iframe {
+        aspect-ratio: 16 / 9;
+        max-height: 220px;
     }
 
     .page-list .level-container .level {
