@@ -135,7 +135,7 @@ export default {
                     </template>
 
                     <!-- Submission Requirements -->
-                    <h3>SUBMISSION REQUIREMENTS</h3>
+                    <h3>Submission Requirements</h3>
                     <p>Achieved the record without using hacks (FPS bypass allowed up to 360fps).</p>
                     <p>Must be on the listed level; check the level ID before submitting.</p>
                     <p>Insane/Extreme Demons require full video proof.</p>
