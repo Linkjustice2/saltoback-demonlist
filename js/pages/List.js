@@ -31,7 +31,7 @@ export default {
                     type="text"
                     v-model="searchQuery"
                     placeholder="Search levels..."
-                    class="level-search"
+                    class="search-bar"
                 />
 
                 <table class="list" v-if="filteredList.length">
