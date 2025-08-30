@@ -124,7 +124,7 @@ header .nav .dropbtn {
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
     font-weight: 600; /* bolder text */
-    border-radius: 0.3rem;
+    border-radius: 0.8rem; /* increased for rounded corners */
     transition: all 0.2s ease;
     display: flex;
     justify-content: center;
@@ -159,7 +159,7 @@ header .nav .dropdown-content a {
     text-decoration: none;
     display: block;
     font-weight: 500; /* slightly bolder */
-    border-radius: 0.2rem;
+    border-radius: 0.5rem; /* increased for rounded corners */
     transition: background 0.2s ease, transform 0.2s ease;
     text-align: center;
 }
