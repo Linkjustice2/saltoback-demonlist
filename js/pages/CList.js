@@ -34,11 +34,11 @@ export default {
                 <table class="list" v-if="filteredList.length">
                     <tr v-for="({ item: [level, err], idx }, i) in filteredList" :key="i">
                         <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-if="idx + 1 <= 150" class="type-label-lg">#{{ idx + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
+                        <td class="level" :class="{ 'active': selected == idx, 'error': !level }">
+                            <button @click="selected = idx">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
                         </td>
@@ -142,11 +142,11 @@ export default {
             return this.list[this.selected]?.[0];
         },
         filteredList() {
-            if (!this.searchQuery) return this.list.map((item, idx) => ({ item: [item, null], idx }));
+            if (!this.searchQuery) return this.list.map((item, idx) => ({ item, idx }));
             const query = this.searchQuery.toLowerCase();
             return this.list
-                .map((item, idx) => ({ item: [item[0], item[1]], idx }))
-                .filter(({ item }) => item[0]?.name.toLowerCase().includes(query));
+                .map((item, idx) => ({ item, idx }))
+                .filter(({ item }) => item[0]?.name?.toLowerCase().includes(query));
         },
         video() {
             if (!this.level.showcase) {
