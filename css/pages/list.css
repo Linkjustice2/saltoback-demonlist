@@ -1,4 +1,4 @@
-/* === Page List Modernized — Fully Rounded Buttons & Rank Boxes === */
+/* === Page List Modernized — Fully Rounded Buttons & Rank Boxes (Blurred Dark Background) === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -23,7 +23,8 @@
 }
 
 .page-list .list tr {
-    background-color: var(--color-background-hover);
+    background-color: rgba(0, 0, 0, 0.6); /* darker background */
+    backdrop-filter: blur(8px); /* blur effect */
     border-radius: 1rem; /* row rounding */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
@@ -31,7 +32,8 @@
 }
 
 .page-list .list tr:hover {
-    background: var(--color-background-hover);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
@@ -44,7 +46,7 @@
     background-color: var(--color-on-surface); /* black box */
     color: var(--color-on-background);
     padding: 0.5rem 0.75rem;
-    border-radius: 1rem; /* fully rounded */
+    border-radius: 1rem;
     min-width: 2.5rem;
     font-weight: 600;
     box-sizing: border-box;
@@ -65,7 +67,7 @@
     text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-radius: 1rem; /* full rounding */
+    border-radius: 1rem;
     cursor: pointer;
     color: var(--color-on-background);
     transition: all 0.3s ease;
@@ -76,7 +78,7 @@
 .page-list .list .level button:hover {
     background: var(--gradient-primary); /* golden hover */
     color: var(--color-on-primary);
-    border-radius: 1rem; /* preserve full rounding */
+    border-radius: 1rem;
 }
 
 /* Error button style */
@@ -101,7 +103,8 @@
     gap: 1.5rem;
     padding: 1.5rem;
     max-width: 48rem;
-    background-color: var(--color-background-hover);
+    background-color: rgba(0,0,0,0.5); /* semi-transparent dark */
+    backdrop-filter: blur(12px);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
@@ -117,6 +120,8 @@
 /* Video card */
 .page-list .level-container .level .video {
     aspect-ratio: 16/9;
+    background-color: rgba(0,0,0,0.3);
+    backdrop-filter: blur(6px);
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
