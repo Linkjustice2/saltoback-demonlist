@@ -35,11 +35,21 @@ body {
     display: flex;
     flex-direction: column;
 
-    background-image: url('images/background.jpg'); /* <-- replace with your path */
+    /* Background image from external URL */
+    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.6); /* dark overlay */
+    backdrop-filter: blur(8px); /* blur the background */
+    z-index: -1;
 }
 
 body::before {
