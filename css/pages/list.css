@@ -24,15 +24,14 @@
 
 .page-list .list tr {
     background-color: var(--color-background-hover);
-    border-radius: 1rem; /* row rounding */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     overflow: hidden;
 }
 
 .page-list .list tr:hover {
-    background: var(--color-background-hover);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
 
@@ -41,16 +40,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-on-surface); /* black box */
+    background-color: var(--color-on-surface);
     color: var(--color-on-background);
-    padding: 0.5rem 0.75rem;
-    border-radius: 1rem; /* fully rounded */
+    padding: 0.55rem 0.75rem;
+    border-radius: 1rem;
     min-width: 2.5rem;
     font-weight: 600;
     box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: transform 0.2s ease;
 }
 
 /* Level column */
@@ -60,23 +60,23 @@
 
 /* Fully rounded buttons */
 .page-list .list .level button {
-    background: var(--color-on-surface); /* black/dark button */
+    background: var(--color-on-surface);
     width: 100%;
     text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-radius: 1rem; /* full rounding */
+    border-radius: 1rem;
     cursor: pointer;
     color: var(--color-on-background);
-    transition: all 0.3s ease;
+    transition: all 0.25s ease, box-shadow 0.25s ease;
     box-sizing: border-box;
 }
 
-/* Hover effect with full rounding */
 .page-list .list .level button:hover {
-    background: var(--gradient-primary); /* golden hover */
+    background: var(--gradient-primary);
     color: var(--color-on-primary);
-    border-radius: 1rem; /* preserve full rounding */
+    border-radius: 1rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
 }
 
 /* Error button style */
@@ -84,14 +84,12 @@
     color: var(--color-error);
     cursor: not-allowed;
     text-decoration: line-through;
-    border-radius: 1rem;
 }
 
 /* Active button style */
 .page-list .list .level.active button {
     background: var(--gradient-primary);
     color: var(--color-on-primary);
-    border-radius: 1rem;
 }
 
 /* Level container */
@@ -103,7 +101,8 @@
     max-width: 48rem;
     background-color: var(--color-background-hover);
     border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transition: box-shadow 0.25s ease;
 }
 
 /* Level authors */
@@ -119,7 +118,7 @@
     aspect-ratio: 16/9;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
 /* Stats */
