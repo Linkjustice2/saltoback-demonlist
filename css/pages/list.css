@@ -1,42 +1,71 @@
-/* === Search Bar === */
-.page-list .search-container {
+.page-list {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-    position: relative;
-}
-
-.page-list .search-container input[type="text"] {
-    width: 100%;
-    padding: 0.7rem 1rem 0.7rem 2.5rem;
-    border: none;
-    border-radius: 1.5rem; /* pill shape */
-    font-size: 0.95rem;
-    font-family: "Inter", "Segoe UI", sans-serif;
+    flex-direction: column;
+    height: 100%;
+    background: var(--color-background);
     color: var(--color-on-background);
-    background-color: var(--color-surface);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    transition: all 0.25s ease;
+    font-family: Arial, sans-serif;
 }
 
-.page-list .search-container input[type="text"]::placeholder {
-    color: rgba(255,255,255,0.55);
-    font-style: italic;
+/* Header styling */
+.page-list h1 {
+    padding: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-bottom: 1px solid var(--color-outline);
 }
 
-.page-list .search-container input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--gradient-primary), 0 4px 10px rgba(0,0,0,0.3);
-    background-color: var(--color-background-hover);
+/* Table styling */
+.page-list table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* Optional 🔍 icon inside */
-.page-list .search-container::before {
-    content: "🔍";
-    position: absolute;
-    left: 1rem;
-    font-size: 1rem;
-    color: rgba(255,255,255,0.65);
-    pointer-events: none;
+.page-list td {
+    padding: 0.5rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-outline);
+}
+
+/* Rank numbers */
+.page-list .rank {
+    width: 3rem;
+    text-align: right;
+    color: var(--color-on-background);
+    font-weight: bold;
+}
+
+/* Level button cells */
+.page-list .level {
+    padding-left: 0.5rem;
+}
+
+.page-list .level button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--color-surface);
+    color: var(--color-on-surface);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.page-list .level button:hover {
+    background: var(--color-surface-variant);
+    transform: translateX(2px);
+}
+
+.page-list .level.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    font-weight: bold;
+}
+
+/* Error state */
+.page-list .level.error button {
+    background: var(--color-error);
+    color: var(--color-on-error);
 }
