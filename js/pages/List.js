@@ -21,8 +21,6 @@ export default {
             <Spinner></Spinner>
         </main>
         <main v-else class="page-list">
-            <div class="background" :style="backgroundStyle"></div>
-
             <div class="list-container">
                 <table class="list" v-if="list.length">
                     <tr v-for="([level, err], i) in list" :key="i">
@@ -90,31 +88,6 @@ export default {
             if (!this.level) return "";
             return embed(this.level.verification);
         },
-        backgroundStyle() {
-            if (!this.level) return {};
-            const thumbnail = this.getThumbnail(this.level.verification);
-            return {
-                backgroundImage: `url(${thumbnail})`,
-                filter: "blur(12px) brightness(0.4)",
-                position: "absolute",
-                top: "0",
-                left: "0",
-                width: "100%",
-                height: "100%",
-                zIndex: "-1",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-            };
-        },
-    },
-    methods: {
-        embed,
-        score,
-        getThumbnail(url) {
-            const id = url?.match(/v=([a-zA-Z0-9_-]+)/)?.[1];
-            if (!id) return "";
-            return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-        },
     },
     async mounted() {
         this.list = await fetchList();
@@ -124,5 +97,9 @@ export default {
         if (!this.editors) console.error("Failed to load editors.");
 
         this.loading = false;
+    },
+    methods: {
+        embed,
+        score,
     },
 };
