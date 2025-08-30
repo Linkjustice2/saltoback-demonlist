@@ -20,7 +20,7 @@ export default {
         <main v-if="loading" class="page-list">
             <Spinner></Spinner>
         </main>
-        <main v-else class="page-list" :style="currentLevelBackground">
+        <main v-else class="page-list">
             <div class="list-container">
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list" :key="i">
@@ -123,11 +123,7 @@ export default {
             return embed(this.level.showcase || this.level.verification);
         },
         currentLevelBackground() {
-            if (!this.level) return {};
-            const thumbnail = this.getThumbnail(this.level);
-            return {
-                '--page-bg': `url(${thumbnail})` // only set CSS variable
-            };
+            return {}; // <-- no background image
         }
     },
     methods: {
