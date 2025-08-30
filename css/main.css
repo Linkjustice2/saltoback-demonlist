@@ -36,7 +36,7 @@ body {
     flex-direction: column;
 
     /* Background image from external URL */
-    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
+    background-image: url('assets/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
