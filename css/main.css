@@ -1,3 +1,4 @@
+/* ================= Root Variables ================= */
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -13,6 +14,14 @@
         #eac87b 100%
     );
 
+    --gradient-primary-hover: linear-gradient(
+        135deg,
+        #38250d 0%,
+        #7b5b1f 35%,
+        #b6893f 65%,
+        #d8b568 100%
+    );
+
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
     --color-error: #de0000;
@@ -23,64 +32,48 @@
     --transition-medium: 0.3s ease;
 }
 
-html,
+/* ================= Background ================= */
+html {
+    height: 100%;
+    background: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80') no-repeat center center fixed;
+    background-size: cover;
+}
+
 body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
+    position: relative;
+    color: white;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
+/* Overlay for darkening background */
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    pointer-events: none;
+    z-index: 0;
 }
 
-/* ===== Custom Scrollbar ===== */
-body::-webkit-scrollbar,
-main > div::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+/* Ensure content appears above overlay */
+header, main, .page-list {
+    position: relative;
+    z-index: 1;
 }
 
-body::-webkit-scrollbar-track,
-main > div::-webkit-scrollbar-track {
-    background: #1c1b1f;
-    border-radius: 6px;
-}
-
-body::-webkit-scrollbar-thumb,
-main > div::-webkit-scrollbar-thumb {
-    background: #c49146;
-    border-radius: 6px;
-    border: 3px solid #1c1b1f;
-}
-
-body::-webkit-scrollbar-thumb:hover,
-main > div::-webkit-scrollbar-thumb:hover {
-    background: #eac87b;
-}
-
-header,
-main {
-    background-color: var(--color-background);
-    color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
-    column-gap: 6rem;
-}
-
-/* HEADER with metallic shimmer + shadow */
+/* ================= Header ================= */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 2rem;
     height: 4.5rem;
-
     background: var(--gradient-primary);
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
-
     color: var(--color-on-primary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
@@ -94,14 +87,7 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-header .logo {
-    justify-self: start;
-    align-self: center;
-    display: flex;
-    align-items: flex-end;
-    gap: 1rem;
-}
-
+/* Navigation */
 header .nav {
     flex: 1;
     display: flex;
@@ -109,7 +95,6 @@ header .nav {
     gap: 3rem;
 }
 
-/* ================= Refined Fancy Dropdowns ================= */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
@@ -169,29 +154,13 @@ header .nav .dropdown-content a:hover {
     transform: translateX(3px);
 }
 
-/* Show dropdown on hover */
 header .nav .dropdown:hover .dropdown-content {
     display: flex;
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Mobile adjustments */
-@media screen and (max-width: 768px) {
-    header .nav {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    header .nav .dropdown-content {
-        position: relative;
-        transform: translateY(0);
-        opacity: 1;
-        box-shadow: none;
-        margin-top: 0.2rem;
-    }
-}
-
-/* ================= Discord icon ================= */
+/* Discord Icon */
 header .discord {
     display: flex;
     align-items: center;
@@ -201,17 +170,20 @@ header .discord {
     border-radius: 50%;
     transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
 }
+
 header .discord:hover {
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 12px #fff3;
     transform: scale(1.08);
 }
+
 header .discord img,
 header .discord svg {
     width: 24px;
     height: 24px;
 }
 
+/* ================= Main ================= */
 main {
     height: 0;
     flex: 1;
@@ -219,20 +191,164 @@ main {
     grid-template-rows: minmax(0, 1fr);
     column-gap: 0.5rem;
 }
+
 main > div {
     overflow-y: auto;
 }
 
-.spinner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: span 3;
+/* ================= Page List ================= */
+.page-list .list-container,
+.page-list .level-container,
+.page-list .meta-container {
+    padding-block: 1.5rem;
 }
 
-input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
+.page-list .list-container {
+    padding-inline: 1rem;
+}
+
+.page-list .meta-container {
+    padding-right: 2rem;
+}
+
+.page-list .list {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+}
+
+.page-list .list tr {
+    background-color: var(--color-background-hover);
+    border-radius: 2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.page-list .list tr:hover {
+    background: var(--color-background-hover);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.page-list .list .rank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+    min-width: 2.5rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.page-list .list .level {
+    width: 100%;
+}
+
+.page-list .list .level button {
+    background: var(--color-on-surface);
+    width: 100%;
+    text-align: start;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
     cursor: pointer;
-    margin: 0;
+    color: var(--color-on-background);
+    transition: all 0.3s ease, background 0.5s ease;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.page-list .list .level button::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: inherit;
+    background: var(--gradient-primary-hover);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.page-list .list .level button:hover::after {
+    opacity: 1;
+}
+
+.page-list .list .level button:hover {
+    color: var(--color-on-primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-list .list .level.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.7rem;
+}
+
+.page-list .list .level.error button {
+    color: var(--color-error);
+    cursor: not-allowed;
+    text-decoration: line-through;
+    border-radius: 0.7rem;
+}
+
+/* ================= Search Bar ================= */
+.search-bar {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #444;
+    border-radius: 0.9rem;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-bar::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #ffcc33;
+    box-shadow: 0 0 8px rgba(255, 204, 51, 0.5);
+    background-color: #222;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+    .page-list .list tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+
+    .page-list .level-container .level {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .page-list .level-container .level .stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .page-list .list .rank,
+    .page-list .level-container .level .records .percent,
+    .page-list .level-container .level .records .hz {
+        text-align: start;
+    }
 }
