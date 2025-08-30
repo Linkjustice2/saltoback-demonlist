@@ -35,6 +35,31 @@ body {
     flex-direction: column;
 }
 
+/* ===== Custom Scrollbar ===== */
+body::-webkit-scrollbar,
+main > div::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+body::-webkit-scrollbar-track,
+main > div::-webkit-scrollbar-track {
+    background: #1c1b1f;
+    border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb,
+main > div::-webkit-scrollbar-thumb {
+    background: #c49146;
+    border-radius: 6px;
+    border: 3px solid #1c1b1f;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+main > div::-webkit-scrollbar-thumb:hover {
+    background: #eac87b;
+}
+
 header,
 main {
     background-color: var(--color-background);
@@ -69,16 +94,14 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-/* LOGO */
 header .logo {
     justify-self: start;
     align-self: center;
     display: flex;
-    align-items: center; /* center vertically instead of flex-end */
+    align-items: flex-end;
     gap: 1rem;
 }
 
-/* NAVIGATION */
 header .nav {
     flex: 1;
     display: flex;
@@ -93,25 +116,22 @@ header .nav .dropdown {
     text-align: center;
 }
 
-header .nav .dropbtn,
-header .nav button {
+header .nav .dropbtn {
     background: transparent;
     color: var(--color-on-background);
     border: none;
     cursor: pointer;
-    padding: 0.6rem 1.2rem; /* same padding for all buttons */
+    padding: 0.6rem 1.2rem;
     font-size: 1rem;
     font-weight: 600;
-    line-height: 1.4; /* consistent line-height */
     border-radius: var(--border-radius);
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     display: flex;
     justify-content: center;
-    align-items: center; /* vertically center text */
-    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    align-items: center;
 }
 
-header .nav .dropbtn:hover,
-header .nav button:hover {
+header .nav .dropbtn:hover {
     background-color: var(--color-background-hover);
     box-shadow: 0 5px 14px rgba(0,0,0,0.35);
     transform: translateY(-1px) scale(1.02);
@@ -192,7 +212,6 @@ header .discord svg {
     height: 24px;
 }
 
-/* MAIN */
 main {
     height: 0;
     flex: 1;
