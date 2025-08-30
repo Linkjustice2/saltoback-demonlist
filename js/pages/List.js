@@ -20,7 +20,10 @@ export default {
         <main v-if="loading" class="page-list">
             <Spinner></Spinner>
         </main>
-        <main v-else class="page-list" :style="currentLevelBackground">
+        <main v-else class="page-list">
+            <!-- Blurred background -->
+            <div class="background-blur" :style="{ backgroundImage: \`url(\${getThumbnail(level)})\` }"></div>
+
             <div class="list-container">
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list" :key="i">
@@ -121,16 +124,6 @@ export default {
             if (!this.level) return '';
             if (!this.level.showcase) return embed(this.level.verification);
             return embed(this.level.showcase || this.level.verification);
-        },
-        currentLevelBackground() {
-            if (!this.level) return {};
-            const thumbnail = this.getThumbnail(this.level);
-            return {
-                backgroundImage: `url(${thumbnail})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-            };
         }
     },
     methods: {
