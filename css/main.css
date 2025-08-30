@@ -35,21 +35,11 @@ body {
     display: flex;
     flex-direction: column;
 
-    /* Background image from external URL */
-    background-image: url('assets/background.jpg');
+    background-image: url('assets/background.jpg'); /* local image path */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0,0,0,0.6); /* dark overlay */
-    backdrop-filter: blur(8px); /* blur the background */
-    z-index: -1;
 }
 
 body::before {
