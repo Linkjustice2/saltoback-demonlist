@@ -1,175 +1,42 @@
-/* === Page List Container === */
-.page-list {
-    display: flex;
-    flex: 1;
-    height: 100%;
-    overflow: hidden;
-    background: var(--color-background);
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    letter-spacing: 0.2px;
-}
-
-/* === Left side list === */
-.page-list .list-container {
-    flex: 0 0 280px;
-    display: flex;
-    flex-direction: column;
-    background: var(--color-surface);
-    border-right: 1px solid var(--color-border);
-    overflow-y: auto;
-}
-
 /* === Search Bar === */
 .page-list .search-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1.5rem auto 2rem;
-    max-width: 28rem;
-    width: 100%;
+    margin: 1rem;
     position: relative;
-    padding: 0 1rem;
 }
 
 .page-list .search-container input[type="text"] {
     width: 100%;
-    padding: 0.85rem 1rem;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
     border: none;
-    border-radius: 2rem; /* pill shape */
-    font-size: 1rem;
+    border-radius: 1.5rem; /* pill shape */
+    font-size: 0.95rem;
     font-family: "Inter", "Segoe UI", sans-serif;
     color: var(--color-on-background);
-    background-color: var(--color-background-hover);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    background-color: var(--color-surface);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     transition: all 0.25s ease;
 }
 
 .page-list .search-container input[type="text"]::placeholder {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.55);
     font-style: italic;
 }
 
 .page-list .search-container input[type="text"]:focus {
     outline: none;
-    box-shadow: 0 0 0 3px var(--gradient-primary), 0 4px 12px rgba(0,0,0,0.2);
-    background-color: var(--color-on-surface);
+    box-shadow: 0 0 0 2px var(--gradient-primary), 0 4px 10px rgba(0,0,0,0.3);
+    background-color: var(--color-background-hover);
 }
 
 /* Optional 🔍 icon inside */
 .page-list .search-container::before {
     content: "🔍";
     position: absolute;
-    left: 2rem;
+    left: 1rem;
     font-size: 1rem;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.65);
     pointer-events: none;
-}
-
-.page-list .search-container input[type="text"] {
-    padding-left: 2.5rem;
-}
-
-/* === Levels list === */
-.page-list .list {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.page-list .list tr {
-    border-bottom: 1px solid var(--color-border);
-}
-
-.page-list .list td {
-    padding: 0.5rem;
-    vertical-align: middle;
-}
-
-.page-list .list .rank {
-    width: 2.5rem;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    color: var(--color-on-surface);
-}
-
-.page-list .list .level button {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: 1rem; /* rounded boxes under pill gradients */
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    text-align: left;
-    color: var(--color-on-surface);
-    background: var(--color-background-hover);
-    transition: color 0.25s ease, background 0.25s ease;
-}
-
-.page-list .list .level button:hover,
-.page-list .list .level.active button {
-    font-weight: 600;
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
-    text-shadow: 0 1px 4px rgba(0,0,0,0.35);
-}
-
-/* === Right side content === */
-.page-list .level-container {
-    flex: 1;
-    overflow-y: auto;
-    padding: 2rem;
-    color: var(--color-on-background);
-}
-
-.page-list .level-container .level h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-/* Stats section */
-.page-list .level-container .level .stats {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.page-list .level-container .level .stats li {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--color-on-surface);
-}
-
-/* Records table */
-.page-list .level-container .level .records {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.page-list .level-container .level .records th,
-.page-list .level-container .level .records td {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.page-list .level-container .level .records .user {
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .hz {
-    font-size: 0.85rem;
-    color: var(--color-on-surface);
-    opacity: 0.85;
-}
-
-/* Error messages */
-.page-list .meta .errors .error {
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.2px;
 }
