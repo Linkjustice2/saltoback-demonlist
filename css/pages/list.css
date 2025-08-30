@@ -1,3 +1,4 @@
+/* Global Styles */
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -32,39 +33,40 @@
     --transition-medium: 0.3s ease;
 }
 
-html,
+/* Body Background */
 body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
+    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    color: white;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: -1;
 }
 
-header,
-main {
-    background-color: var(--color-background);
-    color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
-    column-gap: 6rem;
-}
-
-/* HEADER with metallic shimmer + shadow */
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 2rem;
     height: 4.5rem;
-
     background: var(--gradient-primary);
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
-
     color: var(--color-on-primary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
@@ -78,14 +80,7 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-header .logo {
-    justify-self: start;
-    align-self: center;
-    display: flex;
-    align-items: flex-end;
-    gap: 1rem;
-}
-
+/* Navigation */
 header .nav {
     flex: 1;
     display: flex;
@@ -93,7 +88,6 @@ header .nav {
     gap: 3rem;
 }
 
-/* ================= Refined Fancy Dropdowns ================= */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
@@ -153,29 +147,13 @@ header .nav .dropdown-content a:hover {
     transform: translateX(3px);
 }
 
-/* Show dropdown on hover */
 header .nav .dropdown:hover .dropdown-content {
     display: flex;
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Mobile adjustments */
-@media screen and (max-width: 768px) {
-    header .nav {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    header .nav .dropdown-content {
-        position: relative;
-        transform: translateY(0);
-        opacity: 1;
-        box-shadow: none;
-        margin-top: 0.2rem;
-    }
-}
-
-/* ================= Discord icon ================= */
+/* Discord Icon */
 header .discord {
     display: flex;
     align-items: center;
@@ -185,17 +163,20 @@ header .discord {
     border-radius: 50%;
     transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
 }
+
 header .discord:hover {
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 12px #fff3;
     transform: scale(1.08);
 }
+
 header .discord img,
 header .discord svg {
     width: 24px;
     height: 24px;
 }
 
+/* Main Content */
 main {
     height: 0;
     flex: 1;
@@ -203,10 +184,12 @@ main {
     grid-template-rows: minmax(0, 1fr);
     column-gap: 0.5rem;
 }
+
 main > div {
     overflow-y: auto;
 }
 
+/* Spinner */
 .spinner {
     display: flex;
     align-items: center;
@@ -214,279 +197,7 @@ main > div {
     grid-column: span 3;
 }
 
-input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
-    cursor: pointer;
-    margin: 0;
-}
-
-/* === Page List Modernized — Slightly Rounded Buttons & Rank Boxes === */
-
-.page-list .list-container,
-.page-list .level-container,
-.page-list .meta-container {
-    padding-block: 1.5rem;
-}
-
-.page-list .list-container {
-    padding-inline: 1rem;
-}
-
-.page-list .meta-container {
-    padding-right: 2rem;
-}
-
-/* List Table */
-.page-list .list {
-    table-layout: auto;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
-}
-
-.page-list .list tr {
-    background-color: var(--color-background-hover);
-    border-radius: 2rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.page-list .list tr:hover {
-    background: var(--color-background-hover);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
-}
-
-/* Rank column (black number box) — slightly less pill */
-.page-list .list .rank {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-on-surface);
-    color: var(--color-on-background);
-    padding: 0.5rem 0.75rem;
-    border-radius: 2rem; /* slightly less pill */
-    min-width: 2.5rem;
-    font-weight: 600;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Level column */
-.page-list .list .level {
-    width: 100%;
-}
-
-/* Slightly less pill buttons */
-.page-list .list .level button {
-    background: var(--color-on-surface);
-    width: 100%;
-    text-align: start;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    color: var(--color-on-background);
-    transition: all 0.3s ease, background 0.5s ease;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-    z-index: 0;
-}
-
-/* Pseudo-element for hover gradient, behind text */
-.page-list .list .level button::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border-radius: inherit;
-    background: var(--gradient-primary-hover);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Hover effect: slightly faded gradient */
-.page-list .list .level button:hover::after {
-    opacity: 1;
-}
-
-.page-list .list .level button:hover {
-    color: var(--color-on-primary);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Active button: full vibrant gradient */
-.page-list .list .level.active button {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
-    border-radius: 0.7rem;
-}
-
-/* Error state */
-.page-list .list .level.error button {
-    color: var(--color-error);
-    cursor: not-allowed;
-    text-decoration: line-through;
-    border-radius: 0.7rem;
-}
-
-/* Level container */
-.page-list .level-container .level {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    max-width: 48rem;
-    background-color: var(--color-background-hover);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Level authors */
-.page-list .level-container .level .level-authors {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-auto-rows: max-content;
-    gap: 1rem;
-}
-
-/* Video card */
-.page-list .level-container .level .video {
-    aspect-ratio: 16/9;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* Stats */
-.page-list .level-container .level .stats {
-    display: flex;
-    justify-content: space-evenly;
-    text-align: center;
-    gap: 2rem;
-}
-
-.page-list .level-container .level .stats li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* Records Table */
-.page-list .level-container .level .records {
-    table-layout: fixed;
-    width: 100%;
-}
-
-.page-list .level-container .level .records tr td:not(:last-child) {
-    padding-right: 1rem;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .user,
-.page-list .level-container .level .records .hz {
-    padding-block: 0.75rem;
-}
-
-.page-list .level-container .level .records .user {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .hz {
-    text-align: end;
-    font-weight: 500;
-}
-
-/* Meta container links */
-.page-list .meta-container .og a:hover,
-.page-list .level-container .level .records a:hover {
-    text-decoration: underline;
-}
-
-/* Meta info */
-.page-list .meta {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.page-list .meta .errors {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.page-list .meta .errors .error {
-    padding: 1rem 1.25rem;
-    background-color: var(--color-error);
-    color: var(--color-on-error);
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-/* Editors */
-.page-list .meta .editors {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.page-list .meta .editors li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.page-list .meta .editors li img {
-    height: 1.25rem;
-    width: auto;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.page-list .meta .editors li a:hover {
-    text-decoration: underline;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .page-list .list tr {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1rem;
-    }
-
-    .page-list .level-container .level {
-        padding: 1rem;
-        max-width: 100%;
-    }
-
-    .page-list .level-container .level .stats {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .page-list .list .rank,
-    .page-list .level-container .level .records .percent,
-    .page-list .level-container .level .records .hz {
-        text-align: start;
-    }
-}
-
-/* === Search Bar Styling (Black + Gold Theme) === */
+/* Search Bar */
 .search-bar {
     width: 100%;
     padding: 10px 14px;
@@ -509,3 +220,121 @@ input[type="checkbox"] {
     box-shadow: 0 0 8px rgba(255, 204, 51, 0.5);
     background-color: #222;
 }
+
+/* Page List */
+.page-list .list-container,
+.page-list .level-container,
+.page-list .meta-container {
+    padding-block: 1.5rem;
+}
+
+.page-list .list-container {
+    padding-inline: 1rem;
+}
+
+.page-list .meta-container {
+    padding-right: 2rem;
+}
+
+.page-list .list {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+}
+
+.page-list .list tr {
+    background-color: var(--color-background-hover);
+    border-radius: 2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.page-list .list tr:hover {
+    background: var(--color-background-hover);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.page-list .list .rank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+    min-width: 2.5rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.page-list .list .level {
+    width: 100%;
+}
+
+.page-list .list .level button {
+    background: var(--color-on-surface);
+    width: 100%;
+    text-align: start;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    color: var(--color-on-background);
+    transition: all 0.3s ease, background 0.5s ease;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.page-list .list .level button::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: inherit;
+    background: var(--gradient-primary-hover);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.page-list .list .level button:hover::after {
+    opacity: 1;
+}
+
+.page-list .list .level button:hover {
+    color: var(--color-on-primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-list .list .level.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.7rem;
+}
+
+.page-list .list .level.error button {
+    color: var(--color-error);
+    cursor: not-allowed;
+    text-decoration: line-through;
+    border-radius: 0.7rem;
+}
+
+.page-list .level-container .level {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-width: 48rem;
+    background-color: var
+::contentReference[oaicite:0]{index=0}
+ 
