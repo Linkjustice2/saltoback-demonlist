@@ -22,8 +22,17 @@ export default {
         </main>
         <main v-else class="page-list">
             <div class="list-container">
-                <table class="list" v-if="list">
-                    <tr v-for="([level, err], i) in list">
+
+                <!-- Modern Dark Search Bar -->
+                <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Search challenges..."
+                    class="search-bar"
+                />
+
+                <table class="list" v-if="filteredList.length">
+                    <tr v-for="({ item: [level, err], idx }, i) in filteredList" :key="i">
                         <td class="rank">
                             <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
@@ -36,6 +45,7 @@ export default {
                     </tr>
                 </table>
             </div>
+
             <div class="level-container">
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
@@ -124,30 +134,31 @@ export default {
         selected: 0,
         errors: [],
         roleIconMap,
-        store
+        store,
+        searchQuery: "", // reactive search
     }),
     computed: {
         level() {
-            return this.list[this.selected][0];
+            return this.list[this.selected]?.[0];
+        },
+        filteredList() {
+            if (!this.searchQuery) return this.list.map((item, idx) => ({ item: [item, null], idx }));
+            const query = this.searchQuery.toLowerCase();
+            return this.list
+                .map((item, idx) => ({ item: [item[0], item[1]], idx }))
+                .filter(({ item }) => item[0]?.name.toLowerCase().includes(query));
         },
         video() {
             if (!this.level.showcase) {
                 return embed(this.level.verification);
             }
-
-            return embed(
-                this.toggledShowcase
-                    ? this.level.showcase
-                    : this.level.verification
-            );
+            return embed(this.level.showcase || this.level.verification);
         },
     },
     async mounted() {
-        // Hide loading spinner
         this.list = await fetchChallengeList();
         this.editors = await fetchEditors();
 
-        // Error handling
         if (!this.list) {
             this.errors = [
                 "Failed to load list. Retry in a few minutes or notify list staff.",
@@ -156,9 +167,7 @@ export default {
             this.errors.push(
                 ...this.list
                     .filter(([_, err]) => err)
-                    .map(([_, err]) => {
-                        return `Failed to load level. (${err}.json)`;
-                    })
+                    .map(([_, err]) => `Failed to load level. (${err}.json)`)
             );
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
