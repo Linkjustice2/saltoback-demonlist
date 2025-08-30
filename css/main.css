@@ -30,9 +30,25 @@ body {
     font-family: "Segoe UI", Roboto, sans-serif;
 }
 
+/* === BODY BACKGROUND IMAGE + BLUR + DARK OVERLAY === */
 body {
     display: flex;
     flex-direction: column;
+
+    background-image: url('images/background.jpg'); /* <-- replace with your path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.6); /* dark overlay */
+    backdrop-filter: blur(8px); /* blur the background */
+    z-index: -1;
 }
 
 header,
@@ -440,4 +456,5 @@ input[type="checkbox"] {
     border-radius: 0.9rem; /* slightly less pill */
     background-color: var(--color-on-surface);
     color: var(--color-on-background);
-    font-size: 14px
+    font-size: 14px;
+}
