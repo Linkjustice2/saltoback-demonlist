@@ -13,6 +13,15 @@
         #eac87b 100%
     );
 
+    /* Slightly less vibrant gradient for hover */
+    --gradient-primary-hover: linear-gradient(
+        135deg,
+        #38250d 0%,
+        #7b5b1f 35%,
+        #b6893f 65%,
+        #d8b568 100%
+    );
+
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
     --color-error: #de0000;
@@ -279,29 +288,31 @@ input[type="checkbox"] {
     text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-radius: 0.2rem; /* slightly less pill */
+    border-radius: 0.2rem;
     cursor: pointer;
     color: var(--color-on-background);
     transition: all 0.3s ease, background 0.5s ease;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    z-index: 0;
 }
 
-/* Add pseudo-element for gradient fade effect */
+/* Pseudo-element for hover gradient, behind text */
 .page-list .list .level button::after {
     content: "";
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     border-radius: inherit;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary-hover);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
+    z-index: -1;
 }
 
-/* Hover effect */
+/* Hover effect: slightly faded gradient */
 .page-list .list .level button:hover::after {
     opacity: 1;
 }
@@ -312,16 +323,18 @@ input[type="checkbox"] {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Active button: full vibrant gradient */
+.page-list .list .level.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.7rem;
+}
+
+/* Error state */
 .page-list .list .level.error button {
     color: var(--color-error);
     cursor: not-allowed;
     text-decoration: line-through;
-    border-radius: 0.7rem;
-}
-
-.page-list .list .level.active button {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
     border-radius: 0.7rem;
 }
 
@@ -478,7 +491,7 @@ input[type="checkbox"] {
     width: 100%;
     padding: 10px 14px;
     border: 1px solid #444;
-    border-radius: 0.9rem; /* slightly less pill */
+    border-radius: 0.9rem;
     background-color: var(--color-on-surface);
     color: var(--color-on-background);
     font-size: 14px;
