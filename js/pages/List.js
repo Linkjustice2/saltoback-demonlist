@@ -127,10 +127,7 @@ export default {
             const thumbnail = this.getThumbnail(this.level);
             return {
                 backgroundImage: `url(${thumbnail})`,
-                '--page-bg': `url(${thumbnail})`, // <-- CSS variable for blurred background
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
+                '--page-bg': `url(${thumbnail})` // <-- only change: CSS variable for blurred background
             };
         }
     },
