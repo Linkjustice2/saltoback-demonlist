@@ -1,4 +1,4 @@
-/* === Page List Modernized — Fully Rounded Buttons & Rank Boxes === */
+/* === Page List Modernized — Fully Rounded Buttons, Rank Boxes, and Improved Text === */
 
 .page-list .list-container,
 .page-list .level-container,
@@ -20,6 +20,9 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 0.5rem;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
 .page-list .list tr {
@@ -36,17 +39,19 @@
     transform: translateY(-2px);
 }
 
-/* Rank column (black number box) — ROUNDED CORNERS */
+/* Rank column (black number box) — Rounded Corners */
 .page-list .list .rank {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-on-surface); /* black box */
+    background-color: var(--color-on-surface);
     color: var(--color-on-background);
     padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem; /* rounded corners */
+    border-radius: 0.75rem; /* stronger rounding */
     min-width: 2.5rem;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
     box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -60,23 +65,31 @@
 
 /* Fully rounded buttons */
 .page-list .list .level button {
-    background: var(--color-on-surface); /* black/dark button */
+    background: var(--color-on-surface);
     width: 100%;
     text-align: start;
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1.2rem;
     border: none;
     border-radius: 1rem; /* full rounding */
     cursor: pointer;
     color: var(--color-on-background);
-    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.25s ease;
     box-sizing: border-box;
 }
 
-/* Hover effect with full rounding */
 .page-list .list .level button:hover {
-    background: var(--gradient-primary); /* golden hover */
+    background: var(--gradient-primary);
     color: var(--color-on-primary);
-    border-radius: 1rem; /* preserve full rounding */
+    border-radius: 1rem;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.page-list .list .level button:focus {
+    outline: 2px solid var(--gradient-primary);
+    outline-offset: 2px;
 }
 
 /* Error button style */
@@ -85,6 +98,7 @@
     cursor: not-allowed;
     text-decoration: line-through;
     border-radius: 1rem;
+    opacity: 0.7;
 }
 
 /* Active button style */
@@ -92,6 +106,7 @@
     background: var(--gradient-primary);
     color: var(--color-on-primary);
     border-radius: 1rem;
+    font-weight: 600;
 }
 
 /* Level container */
@@ -99,11 +114,19 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 1.5rem;
+    padding: 1.75rem;
     max-width: 48rem;
     background-color: var(--color-background-hover);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* Level title text */
+.page-list .level-container .level h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
 }
 
 /* Level authors */
@@ -112,6 +135,8 @@
     grid-template-columns: max-content 1fr;
     grid-auto-rows: max-content;
     gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-on-surface);
 }
 
 /* Video card */
@@ -134,13 +159,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.page-list .level-container .level .stats li span {
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 /* Records Table */
 .page-list .level-container .level .records {
     table-layout: fixed;
     width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.page-list .level-container .level .records tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.page-list .level-container .level .records tr:last-child {
+    border-bottom: none;
 }
 
 .page-list .level-container .level .records tr td:not(:last-child) {
@@ -158,12 +199,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: 500;
 }
 
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .hz {
     text-align: end;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* Meta container links */
@@ -177,6 +219,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .page-list .meta .errors {
@@ -191,6 +235,7 @@
     color: var(--color-on-error);
     border-radius: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-weight: 600;
 }
 
 /* Editors */
@@ -234,8 +279,7 @@
         flex-direction: column;
         gap: 1rem;
     }
-    
-    /* Right-aligned text adjustments */
+
     .page-list .list .rank,
     .page-list .level-container .level .records .percent,
     .page-list .level-container .level .records .hz {
