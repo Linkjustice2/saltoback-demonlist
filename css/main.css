@@ -69,14 +69,16 @@ header {
     100% { background-position: 0% 50%; }
 }
 
+/* LOGO */
 header .logo {
     justify-self: start;
     align-self: center;
     display: flex;
-    align-items: flex-end;
+    align-items: center; /* center vertically instead of flex-end */
     gap: 1rem;
 }
 
+/* NAVIGATION */
 header .nav {
     flex: 1;
     display: flex;
@@ -91,22 +93,25 @@ header .nav .dropdown {
     text-align: center;
 }
 
-header .nav .dropbtn {
+header .nav .dropbtn,
+header .nav button {
     background: transparent;
     color: var(--color-on-background);
     border: none;
     cursor: pointer;
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1.2rem; /* same padding for all buttons */
     font-size: 1rem;
     font-weight: 600;
+    line-height: 1.4; /* consistent line-height */
     border-radius: var(--border-radius);
-    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* vertically center text */
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-header .nav .dropbtn:hover {
+header .nav .dropbtn:hover,
+header .nav button:hover {
     background-color: var(--color-background-hover);
     box-shadow: 0 5px 14px rgba(0,0,0,0.35);
     transform: translateY(-1px) scale(1.02);
@@ -187,6 +192,7 @@ header .discord svg {
     height: 24px;
 }
 
+/* MAIN */
 main {
     height: 0;
     flex: 1;
