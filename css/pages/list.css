@@ -1,5 +1,5 @@
 /* =========================
-   Your Existing CSS (unchanged for desktop)
+   Your Existing CSS
    ========================= */
 
 /* Global Styles */
@@ -18,6 +18,7 @@
         #eac87b 100%
     );
 
+    /* Slightly less vibrant gradient for hover */
     --gradient-primary-hover: linear-gradient(
         135deg,
         #38250d 0%,
@@ -56,7 +57,7 @@ body::before {
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
     z-index: -1;
 }
 
@@ -334,7 +335,7 @@ main > div {
 }
 
 /* =========================
-   Mobile Responsive Addon (only changes mobile)
+   Mobile Responsive Addon
    ========================= */
 @media (max-width: 768px) {
     header {
@@ -371,7 +372,6 @@ main > div {
         margin-top: 0.5rem;
     }
 
-    /* stack all columns vertically */
     main {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
@@ -379,19 +379,11 @@ main > div {
         row-gap: 1rem;
     }
 
-    /* order: list first, then level details, then meta */
-    .page-list .list-container {
-        order: 1;
-        max-height: 220px;
+    .page-list .list {
+        display: flex;
+        flex-direction: column;
+        max-height: 250px;
         overflow-y: auto;
-    }
-
-    .page-list .level-container {
-        order: 2;
-    }
-
-    .page-list .meta-container {
-        order: 3;
     }
 
     .page-list .list tr {
