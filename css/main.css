@@ -1,3 +1,4 @@
+/* === Root Variables === */
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -480,9 +481,25 @@ input[type="checkbox"] {
         margin-top: 0.5rem;
     }
 
+    /* Stack layout vertically: list -> level -> meta */
     main {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-auto-flow: row;
         padding: 0.5rem;
+    }
+
+    .page-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .page-list .list-container,
+    .page-list .level-container,
+    .page-list .meta-container {
+        width: 100%;
+        padding: 1rem;
     }
 
     .page-list .list tr {
@@ -500,10 +517,6 @@ input[type="checkbox"] {
     .page-list .level-container .level .stats {
         flex-direction: column;
         gap: 1rem;
-    }
-
-    .page-list .meta-container {
-        padding: 1rem;
     }
 }
 
