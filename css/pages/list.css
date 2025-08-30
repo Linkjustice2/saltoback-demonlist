@@ -1,8 +1,8 @@
 /* =========================
-   LIST CSS — Full Version
+   LIST CSS
    ========================= */
 
-/* Root */
+/* Root Variables */
 :root {
     --color-on-surface: #1c1b1f;
 }
@@ -64,11 +64,9 @@ body::before {
     color: var(--color-on-background);
     transition: all 0.3s ease;
 }
-.page-list .list .level button:hover {
-    color: var(--color-on-primary);
-}
+.page-list .list .level button:hover { color: var(--color-on-primary); }
 
-/* MOBILE ZOOM OUT */
+/* ===== MOBILE ONLY FIXES ===== */
 @media (max-width: 768px) {
     .page-list .list tr { flex-direction: column; }
     .page-list .list .level button { font-size: 0.75rem; padding: 0.4rem 0.6rem; }
