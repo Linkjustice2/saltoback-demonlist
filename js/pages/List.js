@@ -26,7 +26,7 @@ export default {
             <!-- List Table -->
             <div class="list-container">
 
-                <!-- Search Bar -->
+                <!-- Modern Dark Search Bar -->
                 <input
                     type="text"
                     v-model="searchQuery"
@@ -35,13 +35,13 @@ export default {
                 />
 
                 <table class="list" v-if="filteredList.length">
-                    <tr v-for="([level, err], i) in filteredList" :key="i">
+                    <tr v-for="({ item: [level, err], idx }, i) in filteredList" :key="idx">
                         <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-if="idx + 1 <= 150" class="type-label-lg">#{{ idx + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
+                        <td class="level" :class="{ 'active': selected == idx, 'error': !level }">
+                            <button @click="selected = idx">
                                 <span class="type-label-lg">
                                     {{ level?.name || \`Error (\${err}.json)\` }}
                                 </span>
@@ -156,18 +156,18 @@ export default {
         errors: [],
         roleIconMap,
         store,
-        searchQuery: "", // new reactive property
+        searchQuery: "", // reactive search
     }),
     computed: {
         level() {
             return this.list[this.selected]?.[0];
         },
         filteredList() {
-            if (!this.searchQuery) return this.list;
+            if (!this.searchQuery) return this.list.map((item, idx) => ({ item, idx }));
             const query = this.searchQuery.toLowerCase();
-            return this.list.filter(([level]) => 
-                level?.name.toLowerCase().includes(query)
-            );
+            return this.list
+                .map((item, idx) => ({ item, idx }))
+                .filter(({ item }) => item[0]?.name.toLowerCase().includes(query));
         },
         video() {
             if (!this.level) return '';
