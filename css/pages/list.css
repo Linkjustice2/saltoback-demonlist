@@ -242,3 +242,27 @@
         text-align: start;
     }
 }
+
+/* === Search Bar Styling (Black + Gold Theme) === */
+.search-bar {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #444;
+    border-radius: 9999px; /* fully rounded */
+    background-color: var(--color-on-surface); /* match black buttons */
+    color: var(--color-on-background);
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-bar::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #ffcc33; /* gold highlight */
+    box-shadow: 0 0 8px rgba(255, 204, 51, 0.5);
+    background-color: #222;
+}
