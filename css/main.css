@@ -44,19 +44,29 @@ main {
     column-gap: 6rem;
 }
 
-/* ORIGINAL HEADER STYLING */
+/* HEADER with metallic shimmer + shadow */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 2rem;
     height: 4.5rem;
-    background-color: var(--color-background);
-    color: var(--color-on-background);
+
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    animation: metallic-shimmer 10s linear infinite;
+
+    color: var(--color-on-primary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     transition: box-shadow var(--transition-medium), transform var(--transition-medium);
+}
+
+@keyframes metallic-shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 header .logo {
@@ -74,6 +84,7 @@ header .nav {
     gap: 3rem;
 }
 
+/* ================= Refined Fancy Dropdowns ================= */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
@@ -139,6 +150,7 @@ header .nav .dropdown:hover .dropdown-content {
     transform: translateY(0);
 }
 
+/* Discord icon */
 header .discord {
     display: flex;
     align-items: center;
@@ -159,7 +171,6 @@ header .discord svg {
     height: 24px;
 }
 
-/* MAIN & SCROLLBAR */
 main {
     height: 0;
     flex: 1;
@@ -171,6 +182,7 @@ main > div {
     overflow-y: auto;
 }
 
+/* ===== Scrollbar Styling ===== */
 main > div::-webkit-scrollbar {
     width: 12px;
 }
@@ -190,6 +202,7 @@ main > div::-webkit-scrollbar-thumb:hover {
     background: var(--gradient-primary);
 }
 
+/* Firefox */
 main > div {
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary) var(--color-background);
@@ -209,7 +222,7 @@ input[type="checkbox"] {
     margin: 0;
 }
 
-/* ===== SALTOBACK LISTS v2.0.0 ===== */
+/* === Page List Modernized — Slightly Rounded Buttons & Rank Boxes === */
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
@@ -322,4 +335,14 @@ input[type="checkbox"] {
     aspect-ratio: 16/9;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Stats */
+.page-list .level-container .level .stats {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    gap: 2rem;
+}
+
