@@ -1,4 +1,8 @@
+/* =========================
+   MAIN CSS
+   ========================= */
 
+/* === Global Variables === */
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -24,8 +28,8 @@
     --transition-medium: 0.3s ease;
 }
 
-html,
-body {
+/* === Base Styles === */
+html, body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
@@ -36,8 +40,7 @@ body {
     flex-direction: column;
 }
 
-header,
-main {
+header, main {
     background-color: var(--color-background);
     color: var(--color-on-background);
     display: grid;
@@ -193,18 +196,15 @@ main > div {
 main > div::-webkit-scrollbar {
     width: 12px;
 }
-
 main > div::-webkit-scrollbar-track {
     background: var(--color-background);
     border-radius: 6px;
 }
-
 main > div::-webkit-scrollbar-thumb {
     background: var(--color-primary);
     border-radius: 6px;
     border: 3px solid var(--color-background);
 }
-
 main > div::-webkit-scrollbar-thumb:hover {
     background: var(--gradient-primary);
 }
@@ -440,13 +440,60 @@ input[type="checkbox"] {
     text-decoration: underline;
 }
 
-/* Mobile adjustments */
+/* ===== Mobile adjustments / Zoomed out ===== */
 @media (max-width: 768px) {
+    /* Page list rows stacked vertically with padding adjustments */
     .page-list .list tr {
         display: flex;
         flex-direction: column;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    /* Level container scaling */
+    .page-list .level-container .level {
+        padding: 1rem;
+        max-width: 100%;
+        gap: 1rem;
+    }
+
+    /* Adjust font sizes for smaller screens */
+    header, header .logo, header .nav .dropbtn, .page-list .list .level button {
+        font-size: 0.85rem;
+    }
+
+    /* Reduce spacing in nav */
+    header .nav {
+        gap: 1rem;
+    }
+
+    /* Meta container adjustments */
+    .page-list .meta {
+        gap: 1rem;
+    }
+
+    .page-list .meta .errors .error,
+    .page-list .meta .editors li {
+        padding: 0.75rem;
+    }
+
+    /* Video card and stats scaling */
+    .page-list .level-container .level .video {
+        aspect-ratio: 16/9;
+        border-radius: 0.75rem;
+    }
+
+    .page-list .level-container .level .stats {
+        gap: 1rem;
+    }
+
+    /* Table cells scaling */
+    .page-list .level-container .level .records tr td:not(:last-child) {
+        padding-right: 0.5rem;
+    }
+
+    /* Scrollbar smaller on mobile */
+    main > div::-webkit-scrollbar {
+        width: 8px;
     }
 }
-
-
