@@ -1,5 +1,49 @@
-/* === Page List Modernized — Fully Rounded Buttons & Rank Boxes === */
+:root {
+    --color-background: #1c1b1f;
+    --color-on-background: white;
+    --color-background-hover: #27262c;
+    --color-on-background-hover: white;
 
+    --color-primary: #AB7835;
+    --gradient-primary: linear-gradient(
+        135deg,
+        #3d260f 0%,
+        #8c6227 35%,
+        #c49146 65%,
+        #eac87b 100%
+    );
+
+    --color-primary-disabled: #1f213c;
+    --color-on-primary: white;
+    --color-error: #de0000;
+    --color-on-error: white;
+
+    --border-radius: 0.35rem;
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+}
+
+/* Body & general layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header, main {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    display: grid;
+    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
+    column-gap: 6rem;
+}
+
+/* === Page List Modernized — Fully Rounded Buttons & Rank Boxes === */
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
@@ -14,7 +58,7 @@
     padding-right: 2rem;
 }
 
-/* List Table */
+/* List Table as pills */
 .page-list .list {
     table-layout: auto;
     width: 100%;
@@ -23,8 +67,10 @@
 }
 
 .page-list .list tr {
+    display: flex;
+    align-items: center;
     background-color: var(--color-background-hover);
-    border-radius: 1rem; /* row rounding */
+    border-radius: 2rem; /* fully pill-shaped */
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     overflow: hidden;
@@ -36,7 +82,7 @@
     transform: translateY(-2px);
 }
 
-/* Rank column (black number box) — ROUNDED CORNERS */
+/* Rank column as rounded pill */
 .page-list .list .rank {
     display: flex;
     justify-content: center;
@@ -44,39 +90,40 @@
     background-color: var(--color-on-surface); /* black box */
     color: var(--color-on-background);
     padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem; /* rounded corners */
+    border-radius: 2rem; /* fully pill */
     min-width: 2.5rem;
     font-weight: 600;
     box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-left: 0.5rem;
 }
 
-/* Level column */
+/* Level column fills remaining space */
 .page-list .list .level {
     width: 100%;
 }
 
-/* Fully rounded buttons */
+/* Fully rounded buttons inside pill row */
 .page-list .list .level button {
     background: var(--color-on-surface); /* black/dark button */
     width: 100%;
     text-align: start;
     padding: 0.75rem 1rem;
     border: none;
-    border-radius: 1rem; /* full rounding */
+    border-radius: 2rem; /* match pill row */
     cursor: pointer;
     color: var(--color-on-background);
     transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
-/* Hover effect with full rounding */
+/* Hover effect */
 .page-list .list .level button:hover {
     background: var(--gradient-primary); /* golden hover */
     color: var(--color-on-primary);
-    border-radius: 1rem; /* preserve full rounding */
+    border-radius: 2rem;
 }
 
 /* Error button style */
@@ -84,14 +131,14 @@
     color: var(--color-error);
     cursor: not-allowed;
     text-decoration: line-through;
-    border-radius: 1rem;
+    border-radius: 2rem;
 }
 
 /* Active button style */
 .page-list .list .level.active button {
     background: var(--gradient-primary);
     color: var(--color-on-primary);
-    border-radius: 1rem;
+    border-radius: 2rem;
 }
 
 /* Level container */
@@ -104,14 +151,6 @@
     background-color: var(--color-background-hover);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Level authors */
-.page-list .level-container .level .level-authors {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-auto-rows: max-content;
-    gap: 1rem;
 }
 
 /* Video card */
@@ -220,7 +259,6 @@
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .page-list .list tr {
-        display: flex;
         flex-direction: column;
         margin-bottom: 1rem;
     }
@@ -235,7 +273,6 @@
         gap: 1rem;
     }
     
-    /* Right-aligned text adjustments */
     .page-list .list .rank,
     .page-list .level-container .level .records .percent,
     .page-list .level-container .level .records .hz {
@@ -265,4 +302,24 @@
     border-color: #ffcc33; /* gold highlight */
     box-shadow: 0 0 8px rgba(255, 204, 51, 0.5);
     background-color: #222;
+}
+
+/* === Custom Scrollbar === */
+.page-list::-webkit-scrollbar {
+    width: 12px;
+}
+
+.page-list::-webkit-scrollbar-track {
+    background: #1c1b1f;
+    border-radius: 8px;
+}
+
+.page-list::-webkit-scrollbar-thumb {
+    background: #AB7835;
+    border-radius: 8px;
+    border: 3px solid #1c1b1f;
+}
+
+.page-list::-webkit-scrollbar-thumb:hover {
+    background: #eac87b;
 }
