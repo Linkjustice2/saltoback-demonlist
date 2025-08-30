@@ -32,7 +32,6 @@ export default {
                         </td>
                         <td class="level" :class="{ 'active': selected === i, 'error': !level }">
                             <button @click="selected = i">
-                                <img v-if="level" :src="getThumbnail(level.verification)" class="thumbnail">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
                         </td>
@@ -93,8 +92,9 @@ export default {
         },
         backgroundStyle() {
             if (!this.level) return {};
+            const thumbnail = this.getThumbnail(this.level.verification);
             return {
-                backgroundImage: `url(${this.getThumbnail(this.level.verification)})`,
+                backgroundImage: `url(${thumbnail})`,
                 filter: "blur(12px) brightness(0.4)",
                 position: "absolute",
                 top: "0",
