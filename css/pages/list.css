@@ -1,288 +1,175 @@
-/* === Page List Modernized — Fully Rounded Buttons, Rank Boxes, and Improved Text === */
-
-.page-list .list-container,
-.page-list .level-container,
-.page-list .meta-container {
-    padding-block: 1.5rem;
-}
-
-.page-list .list-container {
-    padding-inline: 1rem;
-}
-
-.page-list .meta-container {
-    padding-right: 2rem;
-}
-
-/* List Table */
-.page-list .list {
-    table-layout: auto;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
-    font-family: "Inter", "Segoe UI", sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-.page-list .list tr {
-    background-color: var(--color-background-hover);
-    border-radius: 1rem; /* row rounding */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+/* === Page List Container === */
+.page-list {
+    display: flex;
+    flex: 1;
+    height: 100%;
     overflow: hidden;
+    background: var(--color-background);
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
 }
 
-.page-list .list tr:hover {
-    background: var(--color-background-hover);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
+/* === Left side list === */
+.page-list .list-container {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    overflow-y: auto;
 }
 
-/* Rank column (black number box) — Rounded Corners */
-.page-list .list .rank {
+/* === Search Bar === */
+.page-list .search-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-on-surface);
-    color: var(--color-on-background);
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.75rem; /* stronger rounding */
-    min-width: 2.5rem;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    margin: 1.5rem auto 2rem;
+    max-width: 28rem;
+    width: 100%;
+    position: relative;
+    padding: 0 1rem;
 }
 
-/* Level column */
-.page-list .list .level {
+.page-list .search-container input[type="text"] {
     width: 100%;
-}
-
-/* Fully rounded buttons */
-.page-list .list .level button {
-    background: var(--color-on-surface);
-    width: 100%;
-    text-align: start;
-    padding: 0.85rem 1.2rem;
+    padding: 0.85rem 1rem;
     border: none;
-    border-radius: 1rem; /* full rounding */
-    cursor: pointer;
-    color: var(--color-on-background);
-    font-weight: 500;
+    border-radius: 2rem; /* pill shape */
     font-size: 1rem;
-    transition: all 0.25s ease;
-    box-sizing: border-box;
-}
-
-.page-list .list .level button:hover {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
-    border-radius: 1rem;
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.page-list .list .level button:focus {
-    outline: 2px solid var(--gradient-primary);
-    outline-offset: 2px;
-}
-
-/* Error button style */
-.page-list .list .level.error button {
-    color: var(--color-error);
-    cursor: not-allowed;
-    text-decoration: line-through;
-    border-radius: 1rem;
-    opacity: 0.7;
-}
-
-/* Active button style */
-.page-list .list .level.active button {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
-    border-radius: 1rem;
-    font-weight: 600;
-}
-
-/* Level container */
-.page-list .level-container .level {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.75rem;
-    max-width: 48rem;
-    background-color: var(--color-background-hover);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     font-family: "Inter", "Segoe UI", sans-serif;
+    color: var(--color-on-background);
+    background-color: var(--color-background-hover);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: all 0.25s ease;
 }
 
-/* Level title text */
-.page-list .level-container .level h2 {
-    font-size: 1.4rem;
+.page-list .search-container input[type="text"]::placeholder {
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+}
+
+.page-list .search-container input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--gradient-primary), 0 4px 12px rgba(0,0,0,0.2);
+    background-color: var(--color-on-surface);
+}
+
+/* Optional 🔍 icon inside */
+.page-list .search-container::before {
+    content: "🔍";
+    position: absolute;
+    left: 2rem;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    pointer-events: none;
+}
+
+.page-list .search-container input[type="text"] {
+    padding-left: 2.5rem;
+}
+
+/* === Levels list === */
+.page-list .list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.page-list .list tr {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.page-list .list td {
+    padding: 0.5rem;
+    vertical-align: middle;
+}
+
+.page-list .list .rank {
+    width: 2.5rem;
+    text-align: center;
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-/* Level authors */
-.page-list .level-container .level .level-authors {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-auto-rows: max-content;
-    gap: 1rem;
-    font-size: 0.9rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     color: var(--color-on-surface);
 }
 
-/* Video card */
-.page-list .level-container .level .video {
-    aspect-ratio: 16/9;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.page-list .list .level button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem; /* rounded boxes under pill gradients */
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: var(--color-on-surface);
+    background: var(--color-background-hover);
+    transition: color 0.25s ease, background 0.25s ease;
 }
 
-/* Stats */
+.page-list .list .level button:hover,
+.page-list .list .level.active button {
+    font-weight: 600;
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
+/* === Right side content === */
+.page-list .level-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    color: var(--color-on-background);
+}
+
+.page-list .level-container .level h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Stats section */
 .page-list .level-container .level .stats {
     display: flex;
-    justify-content: space-evenly;
-    text-align: center;
     gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .page-list .level-container .level .stats li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 0.9rem;
     font-weight: 500;
+    color: var(--color-on-surface);
 }
 
-.page-list .level-container .level .stats li span {
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-/* Records Table */
+/* Records table */
 .page-list .level-container .level .records {
-    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.95rem;
 }
 
-.page-list .level-container .level .records tr {
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.page-list .level-container .level .records tr:last-child {
-    border-bottom: none;
-}
-
-.page-list .level-container .level .records tr td:not(:last-child) {
-    padding-right: 1rem;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .user,
-.page-list .level-container .level .records .hz {
-    padding-block: 0.75rem;
+.page-list .level-container .level .records th,
+.page-list .level-container .level .records td {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .page-list .level-container .level .records .user {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 0.95rem;
     font-weight: 500;
 }
 
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .hz {
-    text-align: end;
-    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-on-surface);
+    opacity: 0.85;
 }
 
-/* Meta container links */
-.page-list .meta-container .og a:hover,
-.page-list .level-container .level .records a:hover {
-    text-decoration: underline;
-}
-
-/* Meta info */
-.page-list .meta {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.page-list .meta .errors {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
+/* Error messages */
 .page-list .meta .errors .error {
-    padding: 1rem 1.25rem;
-    background-color: var(--color-error);
-    color: var(--color-on-error);
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-size: 0.95rem;
     font-weight: 600;
-}
-
-/* Editors */
-.page-list .meta .editors {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.page-list .meta .editors li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.page-list .meta .editors li img {
-    height: 1.25rem;
-    width: auto;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.page-list .meta .editors li a:hover {
-    text-decoration: underline;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .page-list .list tr {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1rem;
-    }
-
-    .page-list .level-container .level {
-        padding: 1rem;
-        max-width: 100%;
-    }
-
-    .page-list .level-container .level .stats {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .page-list .list .rank,
-    .page-list .level-container .level .records .percent,
-    .page-list .level-container .level .records .hz {
-        text-align: start;
-    }
+    letter-spacing: 0.2px;
 }
