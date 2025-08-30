@@ -126,8 +126,7 @@ export default {
             if (!this.level) return {};
             const thumbnail = this.getThumbnail(this.level);
             return {
-                backgroundImage: `url(${thumbnail})`,
-                '--page-bg': `url(${thumbnail})` // <-- only change: CSS variable for blurred background
+                '--page-bg': `url(${thumbnail})` // only set CSS variable
             };
         }
     },
@@ -148,7 +147,7 @@ export default {
             this.errors = ["Failed to load list. Retry in a few minutes or notify list staff."];
         } else {
             this.errors.push(
-                ...this.list.filter(([_, err]) => err).map(([_, err]) => `Failed to load level. (${err}.json)`)
+                ...this.list.filter(([_, err]) => err).map(([_, err]) => `Failed to load level. (${err}.json)` )
             );
             if (!this.editors) this.errors.push("Failed to load list editors.");
         }
