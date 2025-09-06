@@ -1,5 +1,6 @@
-
-/* Global Styles */
+/* ========================== */
+/* ===== Global Variables ==== */
+/* ========================== */
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -14,8 +15,6 @@
         #c49146 65%,
         #eac87b 100%
     );
-
-    /* Slightly less vibrant gradient for hover */
     --gradient-primary-hover: linear-gradient(
         135deg,
         #38250d 0%,
@@ -34,7 +33,9 @@
     --transition-medium: 0.3s ease;
 }
 
-/* Body Background */
+/* ========================== */
+/* ========= Body ============ */
+/* ========================== */
 body {
     height: 100%;
     margin: 0;
@@ -54,11 +55,13 @@ body::before {
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: -1;
 }
 
-/* Header */
+/* ========================== */
+/* ======== Header =========== */
+/* ========================== */
 header {
     display: flex;
     justify-content: space-between;
@@ -81,7 +84,9 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-/* Navigation */
+/* ========================== */
+/* ===== Navigation ========= */
+/* ========================== */
 header .nav {
     flex: 1;
     display: flex;
@@ -154,7 +159,9 @@ header .nav .dropdown:hover .dropdown-content {
     transform: translateY(0);
 }
 
-/* Discord Icon */
+/* ========================== */
+/* ===== Discord Icon ======= */
+/* ========================== */
 header .discord {
     display: flex;
     align-items: center;
@@ -177,7 +184,9 @@ header .discord svg {
     height: 24px;
 }
 
-/* Main Content */
+/* ========================== */
+/* ===== Main Content ======= */
+/* ========================== */
 main {
     height: 0;
     flex: 1;
@@ -190,7 +199,9 @@ main > div {
     overflow-y: auto;
 }
 
-/* Spinner */
+/* ========================== */
+/* ===== Spinner ============ */
+/* ========================== */
 .spinner {
     display: flex;
     align-items: center;
@@ -198,7 +209,9 @@ main > div {
     grid-column: span 3;
 }
 
-/* Search Bar */
+/* ========================== */
+/* ===== Search Bar ========= */
+/* ========================== */
 .search-bar {
     width: 100%;
     padding: 10px 14px;
@@ -222,7 +235,9 @@ main > div {
     background-color: #222;
 }
 
-/* Page List */
+/* ========================== */
+/* ===== Page List Styles ==== */
+/* ========================== */
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
@@ -253,7 +268,6 @@ main > div {
 }
 
 .page-list .list tr:hover {
-    background: var(--color-background-hover);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transform: translateY(-2px);
 }
@@ -268,7 +282,6 @@ main > div {
     border-radius: 2rem;
     min-width: 2.5rem;
     font-weight: 600;
-    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -330,14 +343,31 @@ main > div {
     border-radius: 0.7rem;
 }
 
-.page-list .level-container .level {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    max-width: 48rem;
-    background-color: var
-::contentReference[oaicite:0]{index=0}
- 
+/* ========================== */
+/* ===== Mobile Fix ========= */
+/* ========================== */
+@media (max-width: 768px) {
+    header {
+        height: auto;
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    header .nav {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
 
+    header .nav .dropbtn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    header .discord {
+        margin-top: 0.5rem;
+    }
+}
