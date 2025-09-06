@@ -1,3 +1,5 @@
+
+
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -166,13 +168,11 @@ header .discord {
     border-radius: 50%;
     transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
 }
-
 header .discord:hover {
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 12px #fff3;
     transform: scale(1.08);
 }
-
 header .discord img,
 header .discord svg {
     width: 24px;
@@ -186,7 +186,6 @@ main {
     grid-template-rows: minmax(0, 1fr);
     column-gap: 0.5rem;
 }
-
 main > div {
     overflow-y: auto;
 }
