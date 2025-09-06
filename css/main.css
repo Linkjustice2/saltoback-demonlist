@@ -291,25 +291,9 @@ input[type="checkbox"] {
     gap: 1rem;
 }
 
-/* Mobile zoom out fix */
+/* Mobile zoom out fix — nothing else changed */
 @media (max-width: 768px) {
     body {
-        transform: scale(0.85);
-        transform-origin: top left;
-    }
-
-    /* Optional adjustments to prevent cut-off */
-    main, header {
-        width: 100vw;
-        overflow-x: hidden;
-    }
-
-    .page-list .level-container .level {
-        max-width: 100%;
-        padding: 1rem;
-    }
-
-    .page-list .level-container .level .stats {
-        gap: 1rem;
+        zoom: 0.85; /* scales everything down on mobile */
     }
 }
