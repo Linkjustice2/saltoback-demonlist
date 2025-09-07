@@ -1,4 +1,8 @@
-
+/* Dark mode fallback for main and header */
+main.dark,
+header.dark {
+    color-scheme: dark;
+}
 
 :root {
     --color-background: #1c1b1f;
@@ -87,7 +91,8 @@ header .logo {
 header .nav {
     display: flex;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 2.5rem; /* compromise between Testing (2.5) and main (3rem) */
+    flex-wrap: wrap;
     font-size: 0.95rem;
 }
 
@@ -179,13 +184,15 @@ header .discord svg {
     height: 24px;
 }
 
+/* MAIN content layout */
 main {
-    height: 0;
     flex: 1;
     display: grid;
-    grid-template-rows: minmax(0, 1fr);
-    column-gap: 0.5rem;
+    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
+    column-gap: 6rem;
+    row-gap: 1rem;
 }
+
 main > div {
     overflow-y: auto;
 }
@@ -216,6 +223,7 @@ main > div {
     scrollbar-color: var(--color-primary) var(--color-background);
 }
 
+/* Spinner */
 .spinner {
     display: flex;
     align-items: center;
@@ -223,6 +231,7 @@ main > div {
     grid-column: span 3;
 }
 
+/* Checkbox */
 input[type="checkbox"] {
     height: 1.25rem;
     width: 1.25rem;
@@ -441,8 +450,49 @@ input[type="checkbox"] {
     text-decoration: underline;
 }
 
+/* Desktop-specific tweaks */
+@media screen and (min-width: 1366px) {
+    header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding-inline: 2rem;
+    }
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
+    header,
+    main {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    header .nav {
+        justify-content: space-around;
+        gap: 0.5rem;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+
+    main > div {
+        width: 100%;
+    }
+
+    .spinner {
+        grid-column: auto;
+    }
+
+    input[type="checkbox"] {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
     .page-list .list tr {
         display: flex;
         flex-direction: column;
