@@ -7,40 +7,69 @@ import Spinner from "../components/Spinner.js";
 import LevelAuthors from "../components/List/LevelAuthors.js";
 
 const roleIconMap = {
-    owner: "crown",
-    admin: "user-gear",
-    helper: "user-shield",
-    dev: "code",
-    trial: "user-lock",
+    owner: "crown-dark",
+    admin: "user-gear-dark",
+    helper: "user-shield-dark",
+    dev: "code-dark",
+    trial: "user-lock-dark",
 };
 
 export default {
     components: { Spinner, LevelAuthors },
     template: `
-        <main v-if="loading">
-            <Spinner></Spinner>
+        <main v-if="loading" class="page-list">
+            <Spinner />
         </main>
+
         <main v-else class="page-list">
+
+            <!-- List Table -->
             <div class="list-container">
-                <table class="list" v-if="list">
-                    <tr v-for="([level, err], i) in list">
+
+                <!-- Modern Dark Search Bar -->
+                <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Search levels..."
+                    class="search-bar"
+                />
+
+                <table class="list" v-if="filteredList.length">
+                    <tr v-for="({ item: [level, err], idx }, i) in filteredList" :key="idx">
                         <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-if="idx + 1 <= 150" class="type-label-lg">#{{ idx + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
-                                <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
+                        <td class="level" :class="{ 'active': selected == idx, 'error': !level }">
+                            <button @click="selected = idx">
+                                <span class="type-label-lg">
+                                    {{ level?.name || \`Error (\${err}.json)\` }}
+                                </span>
                             </button>
                         </td>
                     </tr>
                 </table>
             </div>
+
+            <!-- Level Details -->
             <div class="level-container">
-                <div class="level" v-if="level">
+                <div v-if="level" class="level">
+
                     <h1>{{ level.name }}</h1>
-                    <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <LevelAuthors
+                        :author="level.author"
+                        :creators="level.creators"
+                        :verifier="level.verifier"
+                    />
+
+                    <iframe
+                        class="video"
+                        id="videoframe"
+                        :src="video"
+                        frameborder="0"
+                    ></iframe>
+
+                    <!-- Stats -->
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -51,10 +80,13 @@ export default {
                             <p>{{ level.id }}</p>
                         </li>
                     </ul>
+
+                    <!-- Records -->
                     <h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
-                    <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
+                    <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
+
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
                             <td class="percent">
@@ -69,18 +101,28 @@ export default {
                         </tr>
                     </table>
                 </div>
+
+                <!-- No level selected -->
                 <div v-else class="level" style="height: 100%; justify-content: center; align-items: center;">
                     <p>(ノಠ益ಠ)ノ彡┻━┻</p>
                 </div>
             </div>
+
+            <!-- Meta Info -->
             <div class="meta-container">
                 <div class="meta">
+
+                    <!-- Errors -->
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
+
+                    <!-- Original Credit -->
                     <div class="og">
                         <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
                     </div>
+
+                    <!-- Editors -->
                     <template v-if="editors">
                         <h3>GDPS Staff</h3>
                         <ol class="editors">
@@ -91,30 +133,19 @@ export default {
                             </li>
                         </ol>
                     </template>
+
+                    <!-- Submission Requirements -->
                     <h3>Submission Requirements</h3>
-                    <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed, up to 360fps)
-                    </p>
-                    <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
-                    </p>
-                    <p>
-                        Insane and Extreme Demons require video proof, including clicks.
-                    </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt.
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
+                    <p>Achieved the record without using hacks (FPS bypass allowed up to 360fps).</p>
+                    <p>Must be on the listed level; check the level ID before submitting.</p>
+                    <p>Insane/Extreme Demons require full video proof.</p>
+                    <p>Show full death animation unless first attempt completion.</p>
+                    <p>Player must hit endwall; secret/bug routes not allowed.</p>
+                    <p>Do not use easy modes; only unmodified completion counts.</p>
+
                 </div>
             </div>
+
         </main>
     `,
     data: () => ({
@@ -124,51 +155,51 @@ export default {
         selected: 0,
         errors: [],
         roleIconMap,
-        store
+        store,
+        searchQuery: "", // reactive search
     }),
     computed: {
         level() {
-            return this.list[this.selected][0];
+            return this.list[this.selected]?.[0];
+        },
+        filteredList() {
+            if (!this.searchQuery) return this.list.map((item, idx) => ({ item, idx }));
+            const query = this.searchQuery.toLowerCase();
+            return this.list
+                .map((item, idx) => ({ item, idx }))
+                .filter(({ item }) => item[0]?.name.toLowerCase().includes(query));
         },
         video() {
-            if (!this.level.showcase) {
-                return embed(this.level.verification);
-            }
-
-            return embed(
-                this.toggledShowcase
-                    ? this.level.showcase
-                    : this.level.verification
-            );
+            if (!this.level) return '';
+            if (!this.level.showcase) return embed(this.level.verification);
+            return embed(this.level.showcase || this.level.verification);
         },
-    },
-    async mounted() {
-        // Hide loading spinner
-        this.list = await fetchList();
-        this.editors = await fetchEditors();
-
-        // Error handling
-        if (!this.list) {
-            this.errors = [
-                "Failed to load list. Retry in a few minutes or notify list staff.",
-            ];
-        } else {
-            this.errors.push(
-                ...this.list
-                    .filter(([_, err]) => err)
-                    .map(([_, err]) => {
-                        return `Failed to load level. (${err}.json)`;
-                    })
-            );
-            if (!this.editors) {
-                this.errors.push("Failed to load list editors.");
-            }
+        currentLevelBackground() {
+            return {};
         }
-
-        this.loading = false;
     },
     methods: {
         embed,
         score,
+        getThumbnail(level) {
+            if (!level?.verification) return '';
+            const id = level.verification.split('v=')[1]?.split('&')[0] || '';
+            return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        }
     },
+    async mounted() {
+        this.list = await fetchList();
+        this.editors = await fetchEditors();
+
+        if (!this.list) {
+            this.errors = ["Failed to load list. Retry in a few minutes or notify list staff."];
+        } else {
+            this.errors.push(
+                ...this.list.filter(([_, err]) => err).map(([_, err]) => `Failed to load level. (${err}.json)` )
+            );
+            if (!this.editors) this.errors.push("Failed to load list editors.");
+        }
+
+        this.loading = false;
+    }
 };

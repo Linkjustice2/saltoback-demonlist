@@ -1,7 +1,7 @@
 import { round, score } from './score.js';
 
 /**
- * Path to directory containing `_list.json` and all levels
+ * Path to directory containing `_list.json`, `_clist.json`, and all levels
  */
 const dir = '/data';
 
@@ -30,7 +30,7 @@ export async function fetchList() {
             }),
         );
     } catch {
-        console.error(`Failed to load list.`);
+        console.error(`Failed to load main list.`);
         return null;
     }
 }
@@ -89,7 +89,6 @@ export async function fetchLeaderboard() {
             return;
         }
 
-        // Verifier
         const verifier = Object.keys(scoreMap).find(u => u.toLowerCase() === level.verifier.toLowerCase()) || level.verifier;
         scoreMap[verifier] ??= { verified: [], completed: [], progressed: [] };
         scoreMap[verifier].verified.push({
@@ -99,7 +98,6 @@ export async function fetchLeaderboard() {
             link: level.verification,
         });
 
-        // Player records
         level.records.forEach(record => {
             const user = Object.keys(scoreMap).find(u => u.toLowerCase() === record.user.toLowerCase()) || record.user;
             scoreMap[user] ??= { verified: [], completed: [], progressed: [] };

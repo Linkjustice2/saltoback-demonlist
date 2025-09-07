@@ -4,6 +4,11 @@
         "name": "[OWNER] Saltoback",
         "link": ""
     },
+        {
+        "role": "dev",
+        "name": "[DEV][ADMIN] Linkjustice",
+        "link": "https://www.youtube.com/@Linkjustice"
+    },
     {
         "role": "admin",
         "name": "[ADMIN] Maverner",
@@ -20,13 +25,8 @@
         "link": ""
     },
     {
-        "role": "helper",
-        "name": "[LIST MOD] Tark",
+        "role": "admin",
+        "name": "[ADMIN] Tark",
         "link": "https://www.youtube.com/@T4RK_1"
-    }, 
-    {
-        "role": "dev",
-        "name": "[DEV][LIST MOD] Linkjustice",
-        "link": "https://www.youtube.com/@Linkjustice"
     }
 ]
