@@ -28,5 +28,20 @@
         "role": "admin",
         "name": "[ADMIN] Tark",
         "link": "https://www.youtube.com/@T4RK_1"
+    },
+        {
+        "role": "helper",
+        "name": "[LIST MOD] Moth",
+        "link": ""
+    },
+            {
+        "role": "helper",
+        "name": "[LIST MOD] NClogic",
+        "link": ""
+    },
+                {
+        "role": "helper",
+        "name": "[LIST MOD] coolkid363",
+        "link": ""
     }
 ]
