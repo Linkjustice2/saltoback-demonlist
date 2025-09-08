@@ -3,6 +3,7 @@ import Leaderboard from './pages/Leaderboard.js';
 import Roulette from './pages/Roulette.js';
 import CList from './pages/CList.js'; // <-- new page
 import ChallengeLeaderboard from './pages/ChallengeLeaderboard.js';
+import Ilist from './pages/Ilist.js';
 
 export default [
   { path: '/', component: List },
@@ -10,4 +11,5 @@ export default [
   { path: '/roulette', component: Roulette },
   { path: '/clist', component: CList }, // <-- new route
   { path: '/challenge-leaderboard', component: ChallengeLeaderboard },
+  { path: '/ilist', component: Ilist },
 ];
