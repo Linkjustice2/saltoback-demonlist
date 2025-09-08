@@ -1,7 +1,7 @@
 import { store } from "../main.js";
 import { embed } from "../util.js";
 import { score } from "../score.js";
-import { fetchEditors, fetchChallengeList } from "../content.js";
+import { fetchEditors, fetchIlist } from "../content.js";
 
 import Spinner from "../components/Spinner.js";
 import LevelAuthors from "../components/List/LevelAuthors.js";
@@ -156,7 +156,7 @@ export default {
         },
     },
     async mounted() {
-        this.list = await fetchChallengeList();
+        this.list = await fetchIList();
         this.editors = await fetchEditors();
 
         if (!this.list) {
