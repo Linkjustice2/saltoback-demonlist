@@ -27,7 +27,7 @@ export default {
                 <input
                     type="text"
                     v-model="searchQuery"
-                    placeholder="Search challenges..."
+                    placeholder="Search levels..."
                     class="search-bar"
                 />
 
