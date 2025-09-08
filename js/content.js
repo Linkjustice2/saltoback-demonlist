@@ -65,6 +65,37 @@ export async function fetchChallengeList() {
     }
 }
 
+// --- Fetch impossible list ---
+export async function fetchIlist() {
+    try {
+        const listResult = await fetch(`${dir}/_ilist.json`);
+        const list = await listResult.json();
+        return await Promise.all(
+            list.map(async (path, rank) => {
+                try {
+                    const levelResult = await fetch(`${dir}/ilist/${path}.json`);
+                    const level = await levelResult.json();
+                    return [
+                        {
+                            ...level,
+                            path,
+                            records: level.records.sort((a, b) => b.percent - a.percent),
+                        },
+                        null,
+                    ];
+                } catch {
+                    console.error(`Failed to load level #${rank + 1} ${path}.`);
+                    return [null, path];
+                }
+            }),
+        );
+    } catch {
+        console.error(`Failed to load impossible list list.`);
+        return null;
+    }
+}
+
+
 // --- Fetch editors ---
 export async function fetchEditors() {
     try {
