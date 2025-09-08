@@ -68,13 +68,40 @@ export async function fetchChallengeList() {
 // --- Fetch impossible list ---
 export async function fetchIlist() {
     try {
-        const listResult = await fetch(`${dir}/_ilist.json`);
-        const list = await listResult.json();
+        // Fetch both _list.json and _ilist.json
+        const [listRes1, listRes2] = await Promise.allSettled([
+            fetch(`${dir}/_list.json`),
+            fetch(`${dir}/_ilist.json`)
+        ]);
+
+        let list = [];
+
+        if (listRes1.status === "fulfilled") {
+            list = list.concat(await listRes1.value.json());
+        }
+        if (listRes2.status === "fulfilled") {
+            list = list.concat(await listRes2.value.json());
+        }
+
         return await Promise.all(
             list.map(async (path, rank) => {
                 try {
-                    const levelResult = await fetch(`${dir}/ilist/${path}.json`);
-                    const level = await levelResult.json();
+                    // Fetch both list/ and ilist/ versions of each level
+                    const [levelRes1, levelRes2] = await Promise.allSettled([
+                        fetch(`${dir}/list/${path}.json`),
+                        fetch(`${dir}/ilist/${path}.json`)
+                    ]);
+
+                    let level;
+
+                    if (levelRes1.status === "fulfilled") {
+                        level = await levelRes1.value.json();
+                    } else if (levelRes2.status === "fulfilled") {
+                        level = await levelRes2.value.json();
+                    } else {
+                        throw new Error(`Could not load ${path}.json from list/ or ilist/`);
+                    }
+
                     return [
                         {
                             ...level,
@@ -89,8 +116,8 @@ export async function fetchIlist() {
                 }
             }),
         );
-    } catch {
-        console.error(`Failed to load impossible list list.`);
+    } catch (err) {
+        console.error(`Failed to load impossible list:`, err);
         return null;
     }
 }
