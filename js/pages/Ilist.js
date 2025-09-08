@@ -156,7 +156,7 @@ export default {
         },
     },
     async mounted() {
-        this.list = await fetchIList();
+        this.list = await fetchIlist();
         this.editors = await fetchEditors();
 
         if (!this.list) {
