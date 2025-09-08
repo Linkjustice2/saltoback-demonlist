@@ -68,7 +68,7 @@ export async function fetchChallengeList() {
 // --- Fetch impossible list ---
 export async function fetchIlist() {
     try {
-        // Fetch both _list.json and _ilist.json
+        // Fetch both _list.json and _ilist.json in parallel
         const [listRes1, listRes2] = await Promise.allSettled([
             fetch(`${dir}/_list.json`),
             fetch(`${dir}/_ilist.json`)
@@ -76,32 +76,39 @@ export async function fetchIlist() {
 
         let list = [];
 
-        if (listRes1.status === "fulfilled") {
-            list = list.concat(await listRes1.value.json());
-        }
+        // Add ilist first
         if (listRes2.status === "fulfilled") {
-            list = list.concat(await listRes2.value.json());
+            const arr = await listRes2.value.json();
+            list = list.concat(arr.map(path => ({ path, source: "ilist" })));
+        }
+        // Then add list
+        if (listRes1.status === "fulfilled") {
+            const arr = await listRes1.value.json();
+            list = list.concat(arr.map(path => ({ path, source: "list" })));
         }
 
         return await Promise.all(
-            list.map(async (path, rank) => {
+            list.map(async ({ path, source }, rank) => {
                 try {
-                    // Fetch both list/ and ilist/ versions of each level
-                    const [levelRes1, levelRes2] = await Promise.allSettled([
-                        fetch(`${dir}/list/${path}.json`),
-                        fetch(`${dir}/ilist/${path}.json`)
-                    ]);
+                    let levelResult;
 
-                    let level;
-
-                    if (levelRes1.status === "fulfilled") {
-                        level = await levelRes1.value.json();
-                    } else if (levelRes2.status === "fulfilled") {
-                        level = await levelRes2.value.json();
+                    if (source === "ilist") {
+                        // Prefer ilist/, fallback to list/
+                        try {
+                            levelResult = await fetch(`${dir}/ilist/${path}.json`);
+                        } catch {
+                            levelResult = await fetch(`${dir}/list/${path}.json`);
+                        }
                     } else {
-                        throw new Error(`Could not load ${path}.json from list/ or ilist/`);
+                        // Prefer list/, fallback to ilist/
+                        try {
+                            levelResult = await fetch(`${dir}/list/${path}.json`);
+                        } catch {
+                            levelResult = await fetch(`${dir}/ilist/${path}.json`);
+                        }
                     }
 
+                    const level = await levelResult.json();
                     return [
                         {
                             ...level,
