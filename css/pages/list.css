@@ -41,6 +41,13 @@ body {
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
 
+        /* Add background image */
+    background-image: url("../../assets/background.jpg");
+    background-size: cover;       /* Cover the full screen */
+    background-position: center;  /* Center the image */
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps it fixed when scrolling */
+    position: relative;
 }
 
 body::before {
