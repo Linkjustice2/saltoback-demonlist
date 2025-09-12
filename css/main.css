@@ -5,9 +5,9 @@ header.dark {
 }
 
 :root {
-    --color-background: transparent;
+    --color-background: rgba(0,0,0,0.25);
     --color-on-background: white;
-    --color-background-hover: transparent;
+    --color-background-hover: rgba(0,0,0,0.35);
     --color-on-background-hover: white;
 
     --color-primary: #AB7835;
@@ -31,9 +31,7 @@ header.dark {
 
 /* ========================== */
 /* ========= Body ============ */
-/* ========================== */
-html,
-body {
+html, body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
@@ -46,11 +44,10 @@ body {
     /* Background image */
     background: url("../../assets/background.jpg") no-repeat center center fixed;
     background-size: cover;
-    background-attachment: fixed;
     position: relative;
 }
 
-/* Subtle overlay */
+/* Overlay for subtle darkening */
 body::before {
     content: "";
     position: fixed;
@@ -69,8 +66,7 @@ body > * {
 }
 
 /* ========================== */
-/* ===== Header / Top Bar ===== */
-/* ========================== */
+/* ===== Header ============ */
 header {
     display: flex;
     justify-content: space-between;
@@ -83,29 +79,16 @@ header {
     animation: metallic-shimmer 10s linear infinite;
 
     color: var(--color-on-primary);
-    font-weight: 600;
-    font-size: 1rem;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
-    transition: box-shadow var(--transition-medium), transform var(--transition-medium);
 }
 
+/* Header animation */
 @keyframes metallic-shimmer {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-}
-
-header .logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-on-primary);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
 /* Navigation */
@@ -113,14 +96,6 @@ header .nav {
     display: flex;
     justify-content: center;
     gap: 2.5rem;
-    flex-wrap: wrap;
-    font-size: 0.95rem;
-}
-
-header .nav .dropdown {
-    position: relative;
-    display: inline-block;
-    text-align: center;
 }
 
 header .nav .dropbtn {
@@ -130,34 +105,23 @@ header .nav .dropbtn {
     cursor: pointer;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
-    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    letter-spacing: 0.5px;
 }
 
 header .nav .dropbtn:hover {
     background-color: rgba(255,255,255,0.1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
     transform: translateY(-1px) scale(1.02);
 }
 
+/* Dropdown content */
 header .nav .dropdown-content {
     display: none;
     position: absolute;
-    background-color: rgba(40,40,40,0.95);
+    background-color: rgba(0,0,0,0.35);
     min-width: 180px;
     z-index: 10;
     flex-direction: column;
     border-radius: var(--border-radius);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     padding: 0.25rem 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    opacity: 0;
-    transform: translateY(12px);
-    text-align: center;
 }
 
 header .nav .dropdown-content a {
@@ -166,21 +130,15 @@ header .nav .dropdown-content a {
     text-decoration: none;
     display: block;
     font-weight: 500;
-    font-size: 0.95rem;
     border-radius: var(--border-radius);
-    transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
 header .nav .dropdown-content a:hover {
     background-color: var(--color-primary);
-    color: var(--color-on-primary);
-    transform: translateX(2px);
 }
 
 header .nav .dropdown:hover .dropdown-content {
     display: flex;
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Discord icon */
@@ -188,27 +146,13 @@ header .discord {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0,0,0,0.35);
     padding: 0.5rem;
     border-radius: 50%;
-    transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
-}
-
-header .discord:hover {
-    background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 12px #fff3;
-    transform: scale(1.08);
-}
-
-header .discord img,
-header .discord svg {
-    width: 24px;
-    height: 24px;
 }
 
 /* ========================== */
 /* ===== Main Content ======= */
-/* ========================== */
 main {
     flex: 1;
     display: grid;
@@ -240,45 +184,39 @@ main > div::-webkit-scrollbar-thumb:hover {
     background: var(--gradient-primary);
 }
 
-/* Firefox */
-main > div {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) transparent;
+/* Tables, lists, cards */
+.page-list .list tr,
+.page-list .level-container .level {
+    background-color: rgba(0,0,0,0.35);
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* ========================== */
-/* ===== Spinner ============ */
-/* ========================== */
+.page-list .list .level button {
+    background: rgba(0,0,0,0.35);
+    color: var(--color-on-background);
+    border-radius: 0.5rem;
+}
+
+/* Hover effects */
+.page-list .list tr:hover,
+.page-list .list .level button:hover {
+    background: rgba(0,0,0,0.5);
+    transform: translateY(-1px);
+}
+
+/* Spinner */
 .spinner {
     display: flex;
     align-items: center;
     justify-content: center;
-    grid-column: span 3;
-}
-
-/* ========================== */
-/* ===== Page List ========= */
-/* ========================== */
-.page-list .list tr {
-    background-color: transparent;
-    border-radius: 2rem;
-    box-shadow: none;
-}
-
-.page-list .list .level button {
-    background: transparent;
-    color: var(--color-on-background);
-    border: none;
-    box-shadow: none;
 }
 
 /* ========================== */
 /* ===== Mobile Fix ========= */
-/* ========================== */
 @media (max-width: 768px) {
     header,
     main {
-        display: flex;
         flex-direction: column;
         padding: 1rem;
         gap: 1rem;
@@ -291,14 +229,9 @@ main > div {
 
     main {
         grid-template-columns: 1fr;
-        column-gap: 0;
     }
 
     main > div {
         width: 100%;
-    }
-
-    .spinner {
-        grid-column: auto;
     }
 }
