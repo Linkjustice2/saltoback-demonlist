@@ -1,5 +1,3 @@
-
-
 /* Dark mode fallback for main and header */
 main.dark,
 header.dark {
@@ -7,9 +5,9 @@ header.dark {
 }
 
 :root {
-    --color-background: #1c1b1f;
+    --color-background: transparent;
     --color-on-background: white;
-    --color-background-hover: #27262c;
+    --color-background-hover: transparent;
     --color-on-background-hover: white;
 
     --color-primary: #AB7835;
@@ -31,29 +29,48 @@ header.dark {
     --transition-medium: 0.3s ease;
 }
 
+/* ========================== */
+/* ========= Body ============ */
+/* ========================== */
 html,
 body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
-
 }
 
 body {
     display: flex;
     flex-direction: column;
+
+    /* Background image */
+    background: url("../../assets/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
 }
 
-header,
-main {
-    background-color: var(--color-background);
-    color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
-    column-gap: 6rem;
+/* Subtle overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.15);
+    pointer-events: none;
+    z-index: 0;
 }
 
-/* ===== Header / Top Bar Refinement ===== */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================== */
+/* ===== Header / Top Bar ===== */
+/* ========================== */
 header {
     display: flex;
     justify-content: space-between;
@@ -91,15 +108,15 @@ header .logo {
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
+/* Navigation */
 header .nav {
     display: flex;
     justify-content: center;
-    gap: 2.5rem; /* compromise between Testing (2.5) and main (3rem) */
+    gap: 2.5rem;
     flex-wrap: wrap;
     font-size: 0.95rem;
 }
 
-/* Dropdown Buttons */
 header .nav .dropdown {
     position: relative;
     display: inline-block;
@@ -176,46 +193,49 @@ header .discord {
     border-radius: 50%;
     transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
 }
+
 header .discord:hover {
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 12px #fff3;
     transform: scale(1.08);
 }
+
 header .discord img,
 header .discord svg {
     width: 24px;
     height: 24px;
 }
 
-/* MAIN content layout */
+/* ========================== */
+/* ===== Main Content ======= */
+/* ========================== */
 main {
     flex: 1;
     display: grid;
     grid-template-columns: minmax(2rem, 1fr) minmax(2rem, 2fr) minmax(2em, 1fr);
     column-gap: 6rem;
     row-gap: 1rem;
+    background: transparent;
 }
 
 main > div {
     overflow-y: auto;
+    background: transparent;
 }
 
-/* ===== Scrollbar Styling ===== */
+/* Scrollbars */
 main > div::-webkit-scrollbar {
     width: 12px;
 }
-
 main > div::-webkit-scrollbar-track {
-    background: var(--color-background);
+    background: transparent;
     border-radius: 6px;
 }
-
 main > div::-webkit-scrollbar-thumb {
     background: var(--color-primary);
     border-radius: 6px;
-    border: 3px solid var(--color-background);
+    border: 3px solid transparent;
 }
-
 main > div::-webkit-scrollbar-thumb:hover {
     background: var(--gradient-primary);
 }
@@ -223,10 +243,12 @@ main > div::-webkit-scrollbar-thumb:hover {
 /* Firefox */
 main > div {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) var(--color-background);
+    scrollbar-color: var(--color-primary) transparent;
 }
 
-/* Spinner */
+/* ========================== */
+/* ===== Spinner ============ */
+/* ========================== */
 .spinner {
     display: flex;
     align-items: center;
@@ -234,236 +256,25 @@ main > div {
     grid-column: span 3;
 }
 
-/* Checkbox */
-input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
-    cursor: pointer;
-    margin: 0;
-}
-
-/* === Page List Modernized — Slightly Rounded Buttons & Rank Boxes === */
-.page-list .list-container,
-.page-list .level-container,
-.page-list .meta-container {
-    padding-block: 1.5rem;
-}
-
-.page-list .list-container {
-    padding-inline: 1rem;
-}
-
-.page-list .meta-container {
-    padding-right: 2rem;
-}
-
-.page-list .list {
-    table-layout: auto;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
-}
-
+/* ========================== */
+/* ===== Page List ========= */
+/* ========================== */
 .page-list .list tr {
-    background-color: var(--color-background-hover);
+    background-color: transparent;
     border-radius: 2rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.page-list .list tr:hover {
-    background: var(--color-background-hover);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
-}
-
-.page-list .list .rank {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-on-surface);
-    color: var(--color-on-background);
-    padding: 0.5rem 0.75rem;
-    border-radius: 2rem;
-    min-width: 2.5rem;
-    font-weight: 600;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.page-list .list .level {
-    width: 100%;
+    box-shadow: none;
 }
 
 .page-list .list .level button {
-    background: var(--color-on-surface);
-    width: 100%;
-    text-align: start;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 0.2rem;
-    cursor: pointer;
+    background: transparent;
     color: var(--color-on-background);
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+    border: none;
+    box-shadow: none;
 }
 
-.page-list .list .level button:hover {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
-    border-radius: 0.7rem;
-}
-
-.page-list .list .level.error button {
-    color: var(--color-error);
-    cursor: not-allowed;
-    text-decoration: line-through;
-    border-radius: 0.7rem;
-}
-
-.page-list .list .level.active button {
-    background: var(--gradient-primary);
-    color: var(--color-on-primary);
-    border-radius: 0.7rem;
-}
-
-/* Level container */
-.page-list .level-container .level {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    max-width: 48rem;
-    background-color: var(--color-background-hover);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Level authors */
-.page-list .level-container .level .level-authors {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-auto-rows: max-content;
-    gap: 1rem;
-}
-
-/* Video card */
-.page-list .level-container .level .video {
-    aspect-ratio: 16/9;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* Stats */
-.page-list .level-container .level .stats {
-    display: flex;
-    justify-content: space-evenly;
-    text-align: center;
-    gap: 2rem;
-}
-
-.page-list .level-container .level .stats li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* Records Table */
-.page-list .level-container .level .records {
-    table-layout: fixed;
-    width: 100%;
-}
-
-.page-list .level-container .level .records tr td:not(:last-child) {
-    padding-right: 1rem;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .user,
-.page-list .level-container .level .records .hz {
-    padding-block: 0.75rem;
-}
-
-.page-list .level-container .level .records .user {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .hz {
-    text-align: end;
-    font-weight: 500;
-}
-
-/* Meta container links */
-.page-list .meta-container .og a:hover,
-.page-list .level-container .level .records a:hover {
-    text-decoration: underline;
-}
-
-/* Meta info */
-.page-list .meta {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.page-list .meta .errors {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.page-list .meta .errors .error {
-    padding: 1rem 1.25rem;
-    background-color: var(--color-error);
-    color: var(--color-on-error);
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-/* Editors */
-.page-list .meta .editors {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.page-list .meta .editors li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.page-list .meta .editors li img {
-    height: 1.25rem;
-    width: auto;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.page-list .meta .editors li a:hover {
-    text-decoration: underline;
-}
-
-/* Desktop-specific tweaks */
-@media screen and (min-width: 1366px) {
-    header {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        padding-inline: 2rem;
-    }
-}
-
-/* Mobile adjustments */
+/* ========================== */
+/* ===== Mobile Fix ========= */
+/* ========================== */
 @media (max-width: 768px) {
     header,
     main {
@@ -489,16 +300,5 @@ input[type="checkbox"] {
 
     .spinner {
         grid-column: auto;
-    }
-
-    input[type="checkbox"] {
-        width: 1.5rem;
-        height: 1.5rem;
-    }
-
-    .page-list .list tr {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 0.5rem;
     }
 }
