@@ -44,26 +44,29 @@ body {
     /* Background image */
     background: url("../../assets/background.jpg") no-repeat center center fixed;
     background-size: cover;
-
-    /* Keep overlay using a pseudo-element */
+    background-attachment: fixed;
     position: relative;
 }
 
+/* Dark overlay */
 body::before {
     content: "";
-    position: absolute;  /* changed from fixed */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
-    z-index: 0;  /* sits on top of background but behind content */
+    background-color: rgba(0, 0, 0, 0.4); /* adjust opacity as needed */
+    pointer-events: none;
+    z-index: 0;
 }
 
+/* Ensure content appears above overlay */
 body > * {
     position: relative;
-    z-index: 1;  /* ensures all your content is above the overlay */
+    z-index: 1;
 }
+
 /* ========================== */
 /* ======== Header =========== */
 /* ========================== */
@@ -73,7 +76,7 @@ header {
     align-items: center;
     padding-inline: 2rem;
     height: 4.5rem;
-    background: var(--gradient-primary);
+    background: rgba(255, 255, 255, 0.05); /* semi-transparent so background shows */
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
     color: var(--color-on-primary);
@@ -198,6 +201,7 @@ main {
     display: grid;
     grid-template-rows: minmax(0, 1fr);
     column-gap: 0.5rem;
+    background: transparent; /* allow background image to show */
 }
 
 main > div {
