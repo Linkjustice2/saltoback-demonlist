@@ -2,9 +2,9 @@
 /* ===== Global Variables ==== */
 /* ========================== */
 :root {
-    --color-background: transparent;
+    --color-background: rgba(0, 0, 0, 0.25);
     --color-on-background: white;
-    --color-background-hover: transparent;
+    --color-background-hover: rgba(0, 0, 0, 0.35);
     --color-on-background-hover: white;
 
     --color-primary: #AB7835;
@@ -43,7 +43,6 @@ body {
 
     background: url("../../assets/background.jpg") no-repeat center center fixed;
     background-size: cover;
-    background-attachment: fixed;
     position: relative;
 }
 
@@ -65,8 +64,7 @@ body > * {
 }
 
 /* ========================== */
-/* ======== Header =========== */
-/* ========================== */
+/* ===== Header =========== */
 header {
     display: flex;
     justify-content: space-between;
@@ -99,12 +97,6 @@ header .nav {
     gap: 3rem;
 }
 
-header .nav .dropdown {
-    position: relative;
-    display: inline-block;
-    text-align: center;
-}
-
 header .nav .dropbtn {
     background: transparent;
     color: var(--color-on-background);
@@ -115,31 +107,23 @@ header .nav .dropbtn {
     font-weight: 600;
     border-radius: var(--border-radius);
     transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 header .nav .dropbtn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.35);
+    background-color: rgba(255,255,255,0.1);
     transform: translateY(-1px) scale(1.02);
 }
 
+/* Dropdown */
 header .nav .dropdown-content {
     display: none;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0,0,0,0.35);
     min-width: 180px;
     z-index: 10;
     flex-direction: column;
     border-radius: var(--border-radius);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     padding: 0.3rem 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    opacity: 0;
-    transform: translateY(12px);
-    text-align: center;
 }
 
 header .nav .dropdown-content a {
@@ -153,43 +137,28 @@ header .nav .dropdown-content a {
 }
 
 header .nav .dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--color-primary);
     color: var(--color-on-primary);
     transform: translateX(3px);
 }
 
 header .nav .dropdown:hover .dropdown-content {
     display: flex;
-    opacity: 1;
-    transform: translateY(0);
 }
 
-/* Discord icon */
+/* Discord Icon */
 header .discord {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0,0,0,0.35);
     padding: 0.5rem;
     border-radius: 50%;
-    transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
 }
 
-header .discord:hover {
-    background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 12px #fff3;
-    transform: scale(1.08);
-}
-
-header .discord img,
-header .discord svg {
-    width: 24px;
-    height: 24px;
-}
-
-/* Main content */
+/* ========================== */
+/* ===== Main Content ======= */
 main {
-    height: 0;
     flex: 1;
     display: grid;
     grid-template-rows: minmax(0, 1fr);
@@ -204,43 +173,36 @@ main > div {
 
 /* Tables & Lists */
 .page-list .list tr {
-    background-color: transparent;
-    border-radius: 2rem;
-    box-shadow: none;
+    background-color: rgba(0,0,0,0.35);
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .page-list .list .level button {
-    background: transparent;
+    background: rgba(0,0,0,0.35);
     color: var(--color-on-background);
-    border: none;
-    box-shadow: none;
+    border-radius: 0.5rem;
+}
+
+/* Hover effects */
+.page-list .list tr:hover,
+.page-list .list .level button:hover {
+    background: rgba(0,0,0,0.5);
+    transform: translateY(-1px);
 }
 
 /* ========================== */
 /* ===== Mobile Fix ========= */
-/* ========================== */
 @media (max-width: 768px) {
     header {
-        height: auto;
-        padding: 1rem;
         flex-direction: column;
-        align-items: flex-start;
+        padding: 1rem;
     }
-
     header .nav {
         flex-wrap: wrap;
         justify-content: flex-start;
-        gap: 1rem;
-        width: 100%;
-        margin-top: 0.5rem;
     }
-
-    header .nav .dropbtn {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-    }
-
-    header .discord {
-        margin-top: 0.5rem;
+    main {
+        grid-template-columns: 1fr;
     }
 }
