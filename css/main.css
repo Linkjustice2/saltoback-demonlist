@@ -34,7 +34,7 @@ body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
-    background-image: url("https://geniusvets.s3.amazonaws.com/gv-blog/2017/12/Cat%20Diagnostic%20Imaging%20Sick%20Cat.jpg")
+    background-image: url("../assets/background.jpg")
 }
 
 body {
