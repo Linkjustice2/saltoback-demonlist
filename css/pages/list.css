@@ -40,13 +40,7 @@ body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
-    background-image: url("https://picsum.photos/800/600");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
-    color: white;
+
 }
 
 body::before {
@@ -58,6 +52,12 @@ body::before {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: -1;
+    background-image: url("https://picsum.photos/800/600");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
 }
 
 /* ========================== */
