@@ -2,9 +2,9 @@
 /* ===== Global Variables ==== */
 /* ========================== */
 :root {
-    --color-background: rgba(0, 0, 0, 0.25);
+    --color-background: #1c1b1f;
     --color-on-background: white;
-    --color-background-hover: rgba(0, 0, 0, 0.35);
+    --color-background-hover: #27262c;
     --color-on-background-hover: white;
 
     --color-primary: #AB7835;
@@ -41,9 +41,6 @@ body {
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
 
-    background: url("../../assets/background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
 }
 
 body::before {
@@ -53,29 +50,22 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.15);
-    pointer-events: none;
-    z-index: 0;
-}
-
-body > * {
-    position: relative;
-    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
 /* ========================== */
-/* ===== Header =========== */
+/* ======== Header =========== */
+/* ========================== */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 2rem;
     height: 4.5rem;
-
     background: var(--gradient-primary);
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
-
     color: var(--color-on-primary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
@@ -89,12 +79,20 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-/* Navigation */
+/* ========================== */
+/* ===== Navigation ========= */
+/* ========================== */
 header .nav {
     flex: 1;
     display: flex;
     justify-content: center;
     gap: 3rem;
+}
+
+header .nav .dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: center;
 }
 
 header .nav .dropbtn {
@@ -107,23 +105,31 @@ header .nav .dropbtn {
     font-weight: 600;
     border-radius: var(--border-radius);
     transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header .nav .dropbtn:hover {
-    background-color: rgba(255,255,255,0.1);
+    background-color: var(--color-background-hover);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.35);
     transform: translateY(-1px) scale(1.02);
 }
 
-/* Dropdown */
 header .nav .dropdown-content {
     display: none;
     position: absolute;
-    background-color: rgba(0,0,0,0.35);
+    background-color: var(--color-background-hover);
     min-width: 180px;
     z-index: 10;
     flex-direction: column;
     border-radius: var(--border-radius);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     padding: 0.3rem 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    opacity: 0;
+    transform: translateY(12px);
+    text-align: center;
 }
 
 header .nav .dropdown-content a {
@@ -144,65 +150,221 @@ header .nav .dropdown-content a:hover {
 
 header .nav .dropdown:hover .dropdown-content {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Discord Icon */
+/* ========================== */
+/* ===== Discord Icon ======= */
+/* ========================== */
 header .discord {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0, 0, 0, 0.35);
     padding: 0.5rem;
     border-radius: 50%;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
+}
+
+header .discord:hover {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 12px #fff3;
+    transform: scale(1.08);
+}
+
+header .discord img,
+header .discord svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* ========================== */
 /* ===== Main Content ======= */
+/* ========================== */
 main {
+    height: 0;
     flex: 1;
     display: grid;
     grid-template-rows: minmax(0, 1fr);
     column-gap: 0.5rem;
-    background: transparent;
 }
 
 main > div {
     overflow-y: auto;
-    background: transparent;
 }
 
-/* Tables & Lists */
+/* ========================== */
+/* ===== Spinner ============ */
+/* ========================== */
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: span 3;
+}
+
+/* ========================== */
+/* ===== Search Bar ========= */
+/* ========================== */
+.search-bar {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #444;
+    border-radius: 0.9rem;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-bar::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #ffcc33;
+    box-shadow: 0 0 8px rgba(255, 204, 51, 0.5);
+    background-color: #222;
+}
+
+/* ========================== */
+/* ===== Page List Styles ==== */
+/* ========================== */
+.page-list .list-container,
+.page-list .level-container,
+.page-list .meta-container {
+    padding-block: 1.5rem;
+}
+
+.page-list .list-container {
+    padding-inline: 1rem;
+}
+
+.page-list .meta-container {
+    padding-right: 2rem;
+}
+
+.page-list .list {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+}
+
 .page-list .list tr {
-    background-color: rgba(0,0,0,0.35);
-    border-radius: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    background-color: var(--color-background-hover);
+    border-radius: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.page-list .list tr:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.page-list .list .rank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+    min-width: 2.5rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.page-list .list .level {
+    width: 100%;
 }
 
 .page-list .list .level button {
-    background: rgba(0,0,0,0.35);
+    background: var(--color-on-surface);
+    width: 100%;
+    text-align: start;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
     color: var(--color-on-background);
-    border-radius: 0.5rem;
+    transition: all 0.3s ease, background 0.5s ease;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
 }
 
-/* Hover effects */
-.page-list .list tr:hover,
+.page-list .list .level button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--gradient-primary-hover);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.page-list .list .level button:hover::after {
+    opacity: 1;
+}
+
 .page-list .list .level button:hover {
-    background: rgba(0,0,0,0.5);
-    transform: translateY(-1px);
+    color: var(--color-on-primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-list .list .level.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.7rem;
+}
+
+.page-list .list .level.error button {
+    color: var(--color-error);
+    cursor: not-allowed;
+    text-decoration: line-through;
+    border-radius: 0.7rem;
 }
 
 /* ========================== */
 /* ===== Mobile Fix ========= */
+/* ========================== */
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
+        height: auto;
         padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
     }
+
     header .nav {
         flex-wrap: wrap;
         justify-content: flex-start;
+        gap: 1rem;
+        width: 100%;
+        margin-top: 0.5rem;
     }
-    main {
-        grid-template-columns: 1fr;
+
+    header .nav .dropbtn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    header .discord {
+        margin-top: 0.5rem;
     }
 }
