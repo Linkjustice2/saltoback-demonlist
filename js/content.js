@@ -81,11 +81,6 @@ export async function fetchIlist() {
             const arr = await listRes2.value.json();
             list = list.concat(arr.map(path => ({ path, source: "ilist" })));
         }
-        // Then add list
-        if (listRes1.status === "fulfilled") {
-            const arr = await listRes1.value.json();
-            list = list.concat(arr.map(path => ({ path, source: "list" })));
-        }
 
         return await Promise.all(
             list.map(async ({ path, source }, rank) => {
