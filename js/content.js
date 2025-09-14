@@ -68,42 +68,19 @@ export async function fetchChallengeList() {
 // --- Fetch impossible list ---
 export async function fetchIlist() {
     try {
-        // Fetch both _list.json and _ilist.json in parallel
-        const [listRes1, listRes2] = await Promise.allSettled([
-            fetch(`${dir}/_list.json`),
-            fetch(`${dir}/_ilist.json`)
-        ]);
+        const listResult = await fetch(`${dir}/_ilist.json`);
+        const list = await listResult.json();
 
-        let list = [];
-
-if (listRes2.status === "fulfilled") {
-    const arr = await listRes2.value.json();
-    list = list.concat(arr.map(path => ({ path, source: "ilist" })));
-}
-
-if (listRes1.status === "fulfilled") {
-    const arr = await listRes1.value.json();
-    list = list.concat(arr.map(path => ({ path, source: "list" })));
-}
         return await Promise.all(
-            list.map(async ({ path, source }, rank) => {
+            list.map(async (path, rank) => {
                 try {
                     let levelResult;
 
-                    if (source === "ilist") {
-                        // Prefer ilist/, fallback to list/
-                        try {
-                            levelResult = await fetch(`${dir}/ilist/${path}.json`);
-                        } catch {
-                            levelResult = await fetch(`${dir}/list/${path}.json`);
-                        }
-                    } else {
-                        // Prefer list/, fallback to ilist/
-                        try {
-                            levelResult = await fetch(`${dir}/list/${path}.json`);
-                        } catch {
-                            levelResult = await fetch(`${dir}/ilist/${path}.json`);
-                        }
+                    // Try ilist folder first, fallback to list folder
+                    try {
+                        levelResult = await fetch(`${dir}/ilist/${path}.json`);
+                    } catch {
+                        levelResult = await fetch(`${dir}/list/${path}.json`);
                     }
 
                     const level = await levelResult.json();
@@ -119,14 +96,13 @@ if (listRes1.status === "fulfilled") {
                     console.error(`Failed to load level #${rank + 1} ${path}.`);
                     return [null, path];
                 }
-            }),
+            })
         );
     } catch (err) {
         console.error(`Failed to load impossible list:`, err);
         return null;
     }
 }
-
 
 // --- Fetch editors ---
 export async function fetchEditors() {
