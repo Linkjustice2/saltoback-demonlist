@@ -74,13 +74,16 @@ export async function fetchIlist() {
         return await Promise.all(
             list.map(async (path, rank) => {
                 try {
-                    let levelResult;
+                    // Try ilist folder first
+                    let levelResult = await fetch(`${dir}/ilist/${path}.json`);
 
-                    // Try ilist folder first, fallback to list folder
-                    try {
-                        levelResult = await fetch(`${dir}/ilist/${path}.json`);
-                    } catch {
+                    if (!levelResult.ok) {
+                        // Fallback to list folder
                         levelResult = await fetch(`${dir}/list/${path}.json`);
+                    }
+
+                    if (!levelResult.ok) {
+                        throw new Error(`Level not found in either ilist/ or list/ for ${path}`);
                     }
 
                     const level = await levelResult.json();
@@ -92,8 +95,8 @@ export async function fetchIlist() {
                         },
                         null,
                     ];
-                } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
+                } catch (err) {
+                    console.error(`Failed to load level #${rank + 1} ${path}:`, err);
                     return [null, path];
                 }
             })
@@ -103,6 +106,7 @@ export async function fetchIlist() {
         return null;
     }
 }
+
 
 // --- Fetch editors ---
 export async function fetchEditors() {
