@@ -68,86 +68,45 @@ export async function fetchChallengeList() {
 // --- Fetch impossible list ---
 export async function fetchIlist() {
     try {
-        const listResult = await fetch(`${dir}/_ilist.json`);
-        if (!listResult.ok) {
-            throw new Error(`Failed to fetch ${dir}/_ilist.json — status ${listResult.status}`);
-        }
-        const list = await listResult.json();
+        const listRes = await fetch(`${dir}/_ilist.json`);
+        const arr = await listRes.json();
 
         return await Promise.all(
-            list.map(async (path, rank) => {
-                const tried = [];
-
-                // helper to try a folder and return { ok, res }
-                async function tryFolder(folder) {
-                    const url = `${dir}/${folder}/${path}.json`;
-                    tried.push(url);
-                    try {
-                        // no-store to reduce caching confusion during debugging
-                        const res = await fetch(url, { cache: 'no-store' });
-                        console.debug(`[fetchIlist] tried ${url} -> ${res.status} ${res.statusText}`);
-                        return { ok: res.ok, res, url };
-                    } catch (err) {
-                        // network/CORS errors end up here
-                        console.error(`[fetchIlist] network error fetching ${url}:`, err);
-                        return { ok: false, res: null, url, err };
-                    }
-                }
-
+            arr.map(async (path, rank) => {
                 try {
-                    // Try ilist first, then list
-                    let attempt = await tryFolder('ilist');
-                    if (!attempt.ok) {
-                        attempt = await tryFolder('list');
-                    }
+                    let levelResult;
 
-                    if (!attempt.ok || !attempt.res) {
-                        console.error(`[fetchIlist] Failed to load ${path}. Tried: ${tried.join(', ')}`);
-                        return [null, path];
-                    }
-
-                    // quick content-type check before parsing as JSON
-                    const contentType = attempt.res.headers.get('content-type') || '';
-                    if (!contentType.includes('application/json')) {
-                        // try to get text for debugging
-                        const txt = await attempt.res.text().catch(() => '[unable to read body]');
-                        console.warn(`[fetchIlist] ${attempt.url} returned content-type='${contentType}'. Body preview:`, txt.slice(0, 200));
-                        // If it's not JSON, treat as failure
-                        return [null, path];
-                    }
-
-                    // parse JSON
-                    let level;
+                    // Try ilist/ first
                     try {
-                        level = await attempt.res.json();
-                    } catch (parseErr) {
-                        const text = await attempt.res.text().catch(() => '[could not read body]');
-                        console.error(`[fetchIlist] JSON parse error for ${attempt.url}:`, parseErr, 'body preview:', text.slice(0, 200));
-                        return [null, path];
+                        levelResult = await fetch(`${dir}/ilist/${path}.json`);
+                        if (!levelResult.ok) throw new Error("Not in ilist/");
+                    } catch {
+                        // Fallback to list/
+                        levelResult = await fetch(`${dir}/list/${path}.json`);
+                        if (!levelResult.ok) throw new Error("Not in list/");
                     }
 
-                    // guard: ensure records is an array
-                    const records = Array.isArray(level.records) ? level.records : [];
-
+                    const level = await levelResult.json();
                     return [
                         {
                             ...level,
                             path,
-                            records: records.sort((a, b) => b.percent - a.percent),
+                            records: level.records.sort((a, b) => b.percent - a.percent),
                         },
                         null,
                     ];
                 } catch (err) {
-                    console.error(`Failed to load level #${rank + 1} ${path}:`, err);
+                    console.error(`Failed to load impossible level #${rank + 1} ${path}.`, err);
                     return [null, path];
                 }
-            })
+            }),
         );
     } catch (err) {
         console.error(`Failed to load impossible list:`, err);
         return null;
     }
 }
+
 
 // --- Fetch editors ---
 export async function fetchEditors() {
