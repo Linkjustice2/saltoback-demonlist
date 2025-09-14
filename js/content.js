@@ -73,40 +73,50 @@ export async function fetchIlist() {
 
         return await Promise.all(
             arr.map(async (path, rank) => {
-                try {
-                    let levelResult;
+                let levelResult;
+                let folderUsed = null;
 
-                    // Try ilist/ first
-                    try {
-                        levelResult = await fetch(`${dir}/ilist/${path}.json`);
-                        if (!levelResult.ok) throw new Error("Not in ilist/");
-                    } catch {
-                        // Fallback to list/
-                        levelResult = await fetch(`${dir}/list/${path}.json`);
-                        if (!levelResult.ok) throw new Error("Not in list/");
+                // Try ilist/ first
+                levelResult = await fetch(`${dir}/ilist/${path}.json`);
+                if (levelResult.ok) {
+                    folderUsed = 'ilist';
+                } else {
+                    // Fallback to list/
+                    levelResult = await fetch(`${dir}/list/${path}.json`);
+                    if (levelResult.ok) {
+                        folderUsed = 'list';
                     }
+                }
 
+                if (!levelResult.ok || !folderUsed) {
+                    console.error(`Failed to load impossible level #${rank + 1} ${path}. Tried ilist/ and list/`);
+                    return [null, path];
+                }
+
+                try {
                     const level = await levelResult.json();
                     return [
                         {
                             ...level,
                             path,
-                            records: level.records.sort((a, b) => b.percent - a.percent),
+                            records: Array.isArray(level.records)
+                                ? level.records.sort((a, b) => b.percent - a.percent)
+                                : [],
+                            folder: folderUsed, // optional: track which folder it came from
                         },
                         null,
                     ];
                 } catch (err) {
-                    console.error(`Failed to load impossible level #${rank + 1} ${path}.`, err);
+                    console.error(`Failed to parse JSON for level #${rank + 1} ${path} from ${folderUsed}/`, err);
                     return [null, path];
                 }
-            }),
+            })
         );
     } catch (err) {
         console.error(`Failed to load impossible list:`, err);
         return null;
     }
 }
-
 
 // --- Fetch editors ---
 export async function fetchEditors() {
