@@ -69,29 +69,71 @@ export async function fetchChallengeList() {
 export async function fetchIlist() {
     try {
         const listResult = await fetch(`${dir}/_ilist.json`);
+        if (!listResult.ok) {
+            throw new Error(`Failed to fetch ${dir}/_ilist.json — status ${listResult.status}`);
+        }
         const list = await listResult.json();
 
         return await Promise.all(
             list.map(async (path, rank) => {
+                const tried = [];
+
+                // helper to try a folder and return { ok, res }
+                async function tryFolder(folder) {
+                    const url = `${dir}/${folder}/${path}.json`;
+                    tried.push(url);
+                    try {
+                        // no-store to reduce caching confusion during debugging
+                        const res = await fetch(url, { cache: 'no-store' });
+                        console.debug(`[fetchIlist] tried ${url} -> ${res.status} ${res.statusText}`);
+                        return { ok: res.ok, res, url };
+                    } catch (err) {
+                        // network/CORS errors end up here
+                        console.error(`[fetchIlist] network error fetching ${url}:`, err);
+                        return { ok: false, res: null, url, err };
+                    }
+                }
+
                 try {
-                    // Try ilist folder first
-                    let levelResult = await fetch(`${dir}/ilist/${path}.json`);
-
-                    if (!levelResult.ok) {
-                        // Fallback to list folder
-                        levelResult = await fetch(`${dir}/list/${path}.json`);
+                    // Try ilist first, then list
+                    let attempt = await tryFolder('ilist');
+                    if (!attempt.ok) {
+                        attempt = await tryFolder('list');
                     }
 
-                    if (!levelResult.ok) {
-                        throw new Error(`Level not found in either ilist/ or list/ for ${path}`);
+                    if (!attempt.ok || !attempt.res) {
+                        console.error(`[fetchIlist] Failed to load ${path}. Tried: ${tried.join(', ')}`);
+                        return [null, path];
                     }
 
-                    const level = await levelResult.json();
+                    // quick content-type check before parsing as JSON
+                    const contentType = attempt.res.headers.get('content-type') || '';
+                    if (!contentType.includes('application/json')) {
+                        // try to get text for debugging
+                        const txt = await attempt.res.text().catch(() => '[unable to read body]');
+                        console.warn(`[fetchIlist] ${attempt.url} returned content-type='${contentType}'. Body preview:`, txt.slice(0, 200));
+                        // If it's not JSON, treat as failure
+                        return [null, path];
+                    }
+
+                    // parse JSON
+                    let level;
+                    try {
+                        level = await attempt.res.json();
+                    } catch (parseErr) {
+                        const text = await attempt.res.text().catch(() => '[could not read body]');
+                        console.error(`[fetchIlist] JSON parse error for ${attempt.url}:`, parseErr, 'body preview:', text.slice(0, 200));
+                        return [null, path];
+                    }
+
+                    // guard: ensure records is an array
+                    const records = Array.isArray(level.records) ? level.records : [];
+
                     return [
                         {
                             ...level,
                             path,
-                            records: level.records.sort((a, b) => b.percent - a.percent),
+                            records: records.sort((a, b) => b.percent - a.percent),
                         },
                         null,
                     ];
@@ -106,7 +148,6 @@ export async function fetchIlist() {
         return null;
     }
 }
-
 
 // --- Fetch editors ---
 export async function fetchEditors() {
