@@ -40,7 +40,13 @@ body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
-
+    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    color: white;
 }
 
 body::before {
