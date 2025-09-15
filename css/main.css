@@ -359,34 +359,34 @@ input[type="checkbox"] {
     gap: 1rem;
 }
 
-/* Records Table — FIXED to horizontal layout */
+/* Records Table → fixed vertical with user+percent horizontal */
 .page-list .level-container .level .records {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.page-list .level-container .level .records .record {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    width: 100%;
 }
 
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .user,
-.page-list .level-container .level .records .hz {
-    padding-block: 0.75rem;
-    text-align: start;
-    font-weight: 500;
-}
-
-.page-list .level-container .level .records .user {
+.page-list .level-container .level .records .record .user {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: left;
 }
 
-.page-list .level-container .level .records .percent,
-.page-list .level-container .level .records .hz {
-    text-align: end;
+.page-list .level-container .level .records .record .percent,
+.page-list .level-container .level .records .record .hz {
     min-width: 3rem;
+    text-align: right;
+    font-weight: 500;
 }
 
 /* Meta container links */
@@ -447,9 +447,9 @@ input[type="checkbox"] {
         flex-direction: column;
         margin-bottom: 0.5rem;
     }
-    .page-list .level-container .level .records {
+    .page-list .level-container .level .records .record {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+        gap: 0.25rem;
     }
 }
