@@ -70,26 +70,24 @@ export async function fetchIlist() {
     try {
         const listRes = await fetch(`${dir}/_ilist.json`);
         const arr = await listRes.json();
+        const folders = ["ilist", "list"]; // check these folders in order
 
         return await Promise.all(
             arr.map(async (path, rank) => {
-                let levelResult;
+                let levelResult = null;
                 let folderUsed = null;
 
-                // Try ilist/ first
-                levelResult = await fetch(`${dir}/ilist/${path}.json`);
-                if (levelResult.ok) {
-                    folderUsed = 'ilist';
-                } else {
-                    // Fallback to list/
-                    levelResult = await fetch(`${dir}/list/${path}.json`);
+                for (const folder of folders) {
+                    const url = `${dir}/${folder}/${path}.json`;
+                    levelResult = await fetch(url);
                     if (levelResult.ok) {
-                        folderUsed = 'list';
+                        folderUsed = folder;
+                        break;
                     }
                 }
 
-                if (!levelResult.ok || !folderUsed) {
-                    console.error(`Failed to load impossible level #${rank + 1} ${path}. Tried ilist/ and list/`);
+                if (!levelResult || !folderUsed || !levelResult.ok) {
+                    console.error(`Failed to load impossible level #${rank + 1} ${path}. Tried: ${folders.map(f => `${f}/${path}.json`).join(", ")}`);
                     return [null, path];
                 }
 
