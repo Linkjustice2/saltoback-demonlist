@@ -30,7 +30,7 @@
     <header :class="{ dark: store.dark }">
         <div class="logo">
             <h2>SALTOBACK LISTS</h2>
-            <p>v2.1</p>
+            <p>v2.2</p>
         </div>
         <div class="overlay"></div>
         <nav class="nav">
@@ -49,11 +49,18 @@
                 </div>
             </div>
             <div class="dropdown">
+                <button class="dropbtn">Other Lists</button>
+                <div class="dropdown-content">
+                    <router-link to="/ilist">Impossible List</router-link>
+                </div>
+            </div>
+            <div class="dropdown">
                 <button class="dropbtn">Games</button>
                 <div class="dropdown-content">
                     <router-link to="/roulette">Roulette</router-link>
                 </div>
             </div>
+
             <div class="nav__actions">
                 <a class="nav__icon" href="https://discord.gg/nFVbD6sMN7">
                     <img src="/assets/discord.svg" alt="Discord Logo" />
