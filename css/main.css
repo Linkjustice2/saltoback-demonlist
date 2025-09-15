@@ -15,6 +15,13 @@
         #c49146 65%,
         #eac87b 100%
     );
+    --gradient-primary-hover: linear-gradient(
+        135deg,
+        #38250d 0%,
+        #7b5b1f 35%,
+        #b6893f 65%,
+        #d8b568 100%
+    );
 
     --color-primary-disabled: #1f213c;
     --color-on-primary: white;
@@ -33,34 +40,40 @@ body {
     height: 100%;
     margin: 0;
     font-family: "Segoe UI", Roboto, sans-serif;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-background);
-    color: var(--color-on-background);
+    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    color: white;
 }
 
-header,
-main {
-    background-color: var(--color-background);
-    color: var(--color-on-background);
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
 /* ========================== */
-/* ===== Header / Top Bar ==== */
+/* ======== Header =========== */
 /* ========================== */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding-inline: 2rem;
     height: 4.5rem;
     background: var(--gradient-primary);
     background-size: 200% 200%;
     animation: metallic-shimmer 10s linear infinite;
     color: var(--color-on-primary);
-    font-weight: 600;
-    font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     transition: box-shadow var(--transition-medium), transform var(--transition-medium);
@@ -72,16 +85,19 @@ header {
     100% { background-position: 0% 50%; }
 }
 
-/* Navigation */
+/* ========================== */
+/* ===== Navigation ========= */
+/* ========================== */
 header .nav {
+    flex: 1;
     display: flex;
     justify-content: center;
     gap: 3rem;
 }
 
-/* Dropdown buttons */
 header .nav .dropdown {
     position: relative;
+    display: inline-block;
     text-align: center;
 }
 
@@ -91,12 +107,18 @@ header .nav .dropbtn {
     border: none;
     cursor: pointer;
     padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
     border-radius: var(--border-radius);
     transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header .nav .dropbtn:hover {
     background-color: var(--color-background-hover);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.35);
     transform: translateY(-1px) scale(1.02);
 }
 
@@ -108,11 +130,12 @@ header .nav .dropdown-content {
     z-index: 10;
     flex-direction: column;
     border-radius: var(--border-radius);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     padding: 0.3rem 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
     opacity: 0;
     transform: translateY(12px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    text-align: center;
 }
 
 header .nav .dropdown-content a {
@@ -122,6 +145,13 @@ header .nav .dropdown-content a {
     display: block;
     font-weight: 500;
     border-radius: var(--border-radius);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+header .nav .dropdown-content a:hover {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    transform: translateX(3px);
 }
 
 header .nav .dropdown:hover .dropdown-content {
@@ -131,14 +161,39 @@ header .nav .dropdown:hover .dropdown-content {
 }
 
 /* ========================== */
+/* ===== Discord Icon ======= */
+/* ========================== */
+header .discord {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
+}
+
+header .discord:hover {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 12px #fff3;
+    transform: scale(1.08);
+}
+
+header .discord img,
+header .discord svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ========================== */
 /* ===== Main Content ======= */
 /* ========================== */
 main {
+    height: 0;
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    padding: 1rem;
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: 0.5rem;
 }
 
 main > div {
@@ -146,9 +201,60 @@ main > div {
 }
 
 /* ========================== */
+/* ===== Spinner ============ */
+/* ========================== */
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: span 3;
+}
+
+/* ========================== */
+/* ===== Search Bar ========= */
+/* ========================== */
+.search-bar {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #444;
+    border-radius: 0.9rem;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-bar::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #ffcc33;
+    box-shadow: 0 0 8px rgba(255, 204, 51, 0.5);
+    background-color: #222;
+}
+
+/* ========================== */
 /* ===== Page List Styles ==== */
 /* ========================== */
+.page-list .list-container,
+.page-list .level-container,
+.page-list .meta-container {
+    padding-block: 1.5rem;
+}
+
+.page-list .list-container {
+    padding-inline: 1rem;
+}
+
+.page-list .meta-container {
+    padding-right: 2rem;
+}
+
 .page-list .list {
+    table-layout: auto;
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 0.5rem;
@@ -156,16 +262,14 @@ main > div {
 
 .page-list .list tr {
     background-color: var(--color-background-hover);
-    border-radius: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
 }
 
 .page-list .list tr:hover {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
@@ -179,6 +283,13 @@ main > div {
     border-radius: 2rem;
     min-width: 2.5rem;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.page-list .list .level {
+    width: 100%;
 }
 
 .page-list .list .level button {
@@ -190,12 +301,39 @@ main > div {
     border-radius: 0.2rem;
     cursor: pointer;
     color: var(--color-on-background);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, background 0.5s ease;
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    z-index: 0;
+}
+
+.page-list .list .level button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--gradient-primary-hover);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.page-list .list .level button:hover::after {
+    opacity: 1;
 }
 
 .page-list .list .level button:hover {
+    color: var(--color-on-primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-list .list .level.active button {
     background: var(--gradient-primary);
     color: var(--color-on-primary);
     border-radius: 0.7rem;
@@ -205,35 +343,34 @@ main > div {
     color: var(--color-error);
     cursor: not-allowed;
     text-decoration: line-through;
+    border-radius: 0.7rem;
 }
 
 /* ========================== */
-/* ===== Mobile Adjustments === */
+/* ===== Mobile Fix ========= */
 /* ========================== */
 @media (max-width: 768px) {
-    main {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-    }
-
-    .page-list .list tr {
-        display: flex;
+    header {
+        height: auto;
+        padding: 1rem;
         flex-direction: column;
+        align-items: flex-start;
     }
 
-    .page-list .list .level button {
-        font-size: 0.85rem;
-        padding: 0.5rem;
-    }
-
-    .page-list .list .rank {
-        font-size: 0.85rem;
-        padding: 0.4rem 0.5rem;
-        min-width: 2rem;
-    }
-
-    main > div {
+    header .nav {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
         width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    header .nav .dropbtn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    header .discord {
+        margin-top: 0.5rem;
     }
 }
