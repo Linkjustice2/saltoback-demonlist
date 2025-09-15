@@ -1,5 +1,8 @@
 import { round, score } from './score.js';
 
+/**
+ * Path to directory containing lists
+ */
 const dir = '/data';
 
 // --- Fetch main list ---
@@ -7,13 +10,11 @@ export async function fetchList() {
     try {
         const listResult = await fetch(`${dir}/_list.json`);
         const list = await listResult.json();
-
         return await Promise.all(
             list.map(async (path, rank) => {
                 try {
-                    let levelResult = await fetch(`${dir}/list/${path}.json`).catch(() => fetch(`${dir}/ilist/${path}.json`));
+                    const levelResult = await fetch(`${dir}/list/${path}.json`);
                     const level = await levelResult.json();
-
                     return [
                         {
                             ...level,
@@ -26,7 +27,7 @@ export async function fetchList() {
                     console.error(`Failed to load level #${rank + 1} ${path}.`);
                     return [null, path];
                 }
-            })
+            }),
         );
     } catch {
         console.error(`Failed to load main list.`);
@@ -39,13 +40,11 @@ export async function fetchChallengeList() {
     try {
         const listResult = await fetch(`${dir}/_clist.json`);
         const list = await listResult.json();
-
         return await Promise.all(
             list.map(async (path, rank) => {
                 try {
-                    let levelResult = await fetch(`${dir}/clist/${path}.json`).catch(() => fetch(`${dir}/list/${path}.json`));
+                    const levelResult = await fetch(`${dir}/clist/${path}.json`);
                     const level = await levelResult.json();
-
                     return [
                         {
                             ...level,
@@ -58,7 +57,7 @@ export async function fetchChallengeList() {
                     console.error(`Failed to load challenge level #${rank + 1} ${path}.`);
                     return [null, path];
                 }
-            })
+            }),
         );
     } catch {
         console.error(`Failed to load challenge list.`);
@@ -69,47 +68,49 @@ export async function fetchChallengeList() {
 // --- Fetch impossible list ---
 export async function fetchIlist() {
     try {
-        const results = await Promise.allSettled([
-            fetch(`${dir}/_list.json`),
-            fetch(`${dir}/_ilist.json`)
-        ]);
+        const listRes = await fetch(`${dir}/_ilist.json`);
+        if (!listRes.ok) throw new Error(`HTTP ${listRes.status}`);
+        const arr = await listRes.json();
 
-        let list = [];
-
-        if (results[0].status === 'fulfilled') {
-            const arr = await results[0].value.json();
-            list = list.concat(arr.map(path => ({ path, source: 'list' })));
-        }
-
-        if (results[1].status === 'fulfilled') {
-            const arr = await results[1].value.json();
-            list = list.concat(arr.map(path => ({ path, source: 'ilist' })));
-        }
+        const folders = [`${dir}/ilist`, `${dir}/list`]; // folders to try for each level
 
         return await Promise.all(
-            list.map(async ({ path, source }, rank) => {
-                try {
-                    let levelResult;
+            arr.map(async (path, rank) => {
+                let level = null;
+                let triedDirs = [];
+                let folderUsed = null;
 
-                    if (source === 'ilist') {
-                        levelResult = await fetch(`${dir}/ilist/${path}.json`).catch(() => fetch(`${dir}/list/${path}.json`));
-                    } else {
-                        levelResult = await fetch(`${dir}/list/${path}.json`).catch(() => fetch(`${dir}/ilist/${path}.json`));
+                for (const folder of folders) {
+                    try {
+                        const res = await fetch(`${folder}/${path}.json`);
+                        if (!res.ok) {
+                            triedDirs.push(folder);
+                            continue;
+                        }
+                        level = await res.json();
+                        folderUsed = folder;
+                        break;
+                    } catch {
+                        triedDirs.push(folder);
                     }
+                }
 
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort((a, b) => b.percent - a.percent),
-                        },
-                        null,
-                    ];
-                } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
+                if (!level) {
+                    console.error(`Failed to load impossible level #${rank + 1} ${path}. Tried: ${triedDirs.join(', ')}`);
                     return [null, path];
                 }
+
+                return [
+                    {
+                        ...level,
+                        path,
+                        records: Array.isArray(level.records)
+                            ? level.records.sort((a, b) => b.percent - a.percent)
+                            : [],
+                        folder: folderUsed, // optional
+                    },
+                    null,
+                ];
             })
         );
     } catch (err) {
@@ -122,6 +123,7 @@ export async function fetchIlist() {
 export async function fetchEditors() {
     try {
         const editorsResult = await fetch(`${dir}/_editors.json`);
+        if (!editorsResult.ok) throw new Error(`HTTP ${editorsResult.status}`);
         return await editorsResult.json();
     } catch {
         return null;
