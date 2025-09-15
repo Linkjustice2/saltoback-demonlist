@@ -1,7 +1,7 @@
 import { round, score } from './score.js';
 
 /**
- * Path to directory containing `_list.json`, `_clist.json`, and all levels
+ * Path to directory containing lists
  */
 const dir = '/data';
 
@@ -69,45 +69,48 @@ export async function fetchChallengeList() {
 export async function fetchIlist() {
     try {
         const listRes = await fetch(`${dir}/_ilist.json`);
+        if (!listRes.ok) throw new Error(`HTTP ${listRes.status}`);
         const arr = await listRes.json();
-        const folders = ["ilist", "list"]; // check these folders in order
+
+        const folders = [`${dir}/ilist`, `${dir}/list`]; // folders to try for each level
 
         return await Promise.all(
             arr.map(async (path, rank) => {
-                let levelResult = null;
+                let level = null;
+                let triedDirs = [];
                 let folderUsed = null;
 
                 for (const folder of folders) {
-                    const url = `${dir}/${folder}/${path}.json`;
-                    levelResult = await fetch(url);
-                    if (levelResult.ok) {
+                    try {
+                        const res = await fetch(`${folder}/${path}.json`);
+                        if (!res.ok) {
+                            triedDirs.push(folder);
+                            continue;
+                        }
+                        level = await res.json();
                         folderUsed = folder;
                         break;
+                    } catch {
+                        triedDirs.push(folder);
                     }
                 }
 
-                if (!levelResult || !folderUsed || !levelResult.ok) {
-                    console.error(`Failed to load impossible level #${rank + 1} ${path}. Tried: ${folders.map(f => `${f}/${path}.json`).join(", ")}`);
+                if (!level) {
+                    console.error(`Failed to load impossible level #${rank + 1} ${path}. Tried: ${triedDirs.join(', ')}`);
                     return [null, path];
                 }
 
-                try {
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: Array.isArray(level.records)
-                                ? level.records.sort((a, b) => b.percent - a.percent)
-                                : [],
-                            folder: folderUsed, // optional: track which folder it came from
-                        },
-                        null,
-                    ];
-                } catch (err) {
-                    console.error(`Failed to parse JSON for level #${rank + 1} ${path} from ${folderUsed}/`, err);
-                    return [null, path];
-                }
+                return [
+                    {
+                        ...level,
+                        path,
+                        records: Array.isArray(level.records)
+                            ? level.records.sort((a, b) => b.percent - a.percent)
+                            : [],
+                        folder: folderUsed, // optional
+                    },
+                    null,
+                ];
             })
         );
     } catch (err) {
@@ -120,6 +123,7 @@ export async function fetchIlist() {
 export async function fetchEditors() {
     try {
         const editorsResult = await fetch(`${dir}/_editors.json`);
+        if (!editorsResult.ok) throw new Error(`HTTP ${editorsResult.status}`);
         return await editorsResult.json();
     } catch {
         return null;
