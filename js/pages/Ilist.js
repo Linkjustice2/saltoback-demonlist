@@ -35,7 +35,7 @@ export default {
                     <tr v-for="({ item: [level, err], idx }, i) in filteredList" :key="i">
                         <td class="rank">
                             <p class="type-label-lg">
-                                {{ level?.extra ? '-' : (idx + 1 <= 150 ? '#' + (idx + 1) : 'Legacy') }}
+                                {{ getRank(idx, level) }}
                             </p>
                         </td>
                         <td class="level" :class="{ 'active': selected == idx, 'error': !level }">
@@ -116,6 +116,7 @@ export default {
         roleIconMap,
         store,
         searchQuery: "", // reactive search
+        rankCounter: 0,
     }),
     computed: {
         level() {
@@ -133,6 +134,22 @@ export default {
                 return embed(this.level.verification);
             }
             return embed(this.level.showcase || this.level.verification);
+        },
+    },
+    methods: {
+        embed,
+        score,
+        getRank(idx, level) {
+            // Display "-" if extra exists
+            if (level?.extra) return '-';
+
+            // Increment and display the running counter
+            if (!this.rankCounterMap) this.rankCounterMap = {};
+            if (!(idx in this.rankCounterMap)) {
+                this.rankCounter = (this.rankCounter || 0) + 1;
+                this.rankCounterMap[idx] = this.rankCounter;
+            }
+            return '#' + this.rankCounterMap[idx];
         },
     },
     async mounted() {
@@ -155,9 +172,5 @@ export default {
         }
 
         this.loading = false;
-    },
-    methods: {
-        embed,
-        score,
     },
 };
