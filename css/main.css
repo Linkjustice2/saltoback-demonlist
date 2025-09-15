@@ -316,7 +316,7 @@ input[type="checkbox"] {
     border-radius: 0.7rem;
 }
 
-/* ==== FIX: Add stacking context for level container so stats show above overlays ==== */
+/* Level container */
 .page-list .level-container .level {
     display: flex;
     flex-direction: column;
@@ -326,9 +326,6 @@ input[type="checkbox"] {
     background-color: var(--color-background-hover);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-
-    position: relative; /* NEW */
-    z-index: 5;        /* NEW */
 }
 
 /* Level authors */
@@ -362,24 +359,25 @@ input[type="checkbox"] {
     gap: 1rem;
 }
 
-/* Records Table */
+/* Records Table — FIXED to horizontal layout */
 .page-list .level-container .level .records {
-    table-layout: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
-}
-
-.page-list .level-container .level .records tr td:not(:last-child) {
-    padding-right: 1rem;
 }
 
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .user,
 .page-list .level-container .level .records .hz {
     padding-block: 0.75rem;
+    text-align: start;
+    font-weight: 500;
 }
 
 .page-list .level-container .level .records .user {
-    width: 100%;
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -388,7 +386,7 @@ input[type="checkbox"] {
 .page-list .level-container .level .records .percent,
 .page-list .level-container .level .records .hz {
     text-align: end;
-    font-weight: 500;
+    min-width: 3rem;
 }
 
 /* Meta container links */
@@ -448,5 +446,10 @@ input[type="checkbox"] {
         display: flex;
         flex-direction: column;
         margin-bottom: 0.5rem;
+    }
+    .page-list .level-container .level .records {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
