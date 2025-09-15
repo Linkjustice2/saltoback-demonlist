@@ -253,6 +253,10 @@ main > div {
     padding-right: 2rem;
 }
 
+.normal-list {
+    color: #aaa; /* makes text gray */
+}
+
 .page-list .list {
     table-layout: auto;
     width: 100%;
@@ -374,3 +378,4 @@ main > div {
         margin-top: 0.5rem;
     }
 }
+
