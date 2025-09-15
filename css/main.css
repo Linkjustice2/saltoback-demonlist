@@ -1,3 +1,6 @@
+/* ========================== */
+/* ===== Global Variables ==== */
+/* ========================== */
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -23,6 +26,9 @@
     --transition-medium: 0.3s ease;
 }
 
+/* ========================== */
+/* ========= Body ============ */
+/* ========================== */
 html,
 body {
     height: 100%;
@@ -454,11 +460,10 @@ input[type="checkbox"] {
     }
 }
 
-/* Make levels loaded from /data/list gray */
-.page-list .level-container .level[data-folder="/data/list"] button,
-.page-list .level-container .level[data-folder="/data/list"] .records .user,
-.page-list .level-container .level[data-folder="/data/list"] .records .percent,
-.page-list .level-container .level[data-folder="/data/list"] .records .hz {
-    color: #aaa !important;
+/* ========================== */
+/* ===== Custom Folder Colors ===== */
+/* ========================== */
+.page-list .level-container .level[data-folder="/data/list"] {
+    --color-on-background: #aaa;
+    --color-on-primary: #aaa;
 }
-
