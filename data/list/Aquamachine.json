@@ -8,5 +8,11 @@
     "percentToQualify": "58",
     "password": "Medium Demon",
     "records": [
+                   {
+            "user": "Moth",
+            "link": "https://youtu.be/NMSqP3LT3u4?si=hHo1eIDJqNYQLf-N",
+            "percent": 100,
+            "hz": 122314
+        }
     ]
 }
