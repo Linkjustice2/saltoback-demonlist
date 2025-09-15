@@ -34,14 +34,14 @@ export default {
                 <table class="list" v-if="filteredList.length">
                     <tr v-for="({ item: [level, err], idx }, i) in filteredList" :key="i">
                         <td class="rank">
-                            <p v-if="idx + 1 <= 150" class="type-label-lg">#{{ idx + 1 }}</p>
-                            <p v-else class="type-label-lg">Legacy</p>
+                            <p class="type-label-lg">
+                                {{ level?.extra ? '-' : (idx + 1 <= 150 ? '#' + (idx + 1) : 'Legacy') }}
+                            </p>
                         </td>
                         <td class="level" :class="{ 'active': selected == idx, 'error': !level }">
                             <button @click="selected = idx">
-                                <span class="type-label-lg">{{ level.extra }} {{ level?.name || \`Error (\${err}.json)\` }}</span>
+                                <span class="type-label-lg">{{ level?.extra ? level.extra + ' ' : '' }}{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
-                                
                         </td>
                     </tr>
                 </table>
