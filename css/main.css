@@ -1,5 +1,3 @@
-
-
 :root {
     --color-background: #1c1b1f;
     --color-on-background: white;
@@ -318,7 +316,7 @@ input[type="checkbox"] {
     border-radius: 0.7rem;
 }
 
-/* Level container */
+/* ==== FIX: Add stacking context for level container so stats show above overlays ==== */
 .page-list .level-container .level {
     display: flex;
     flex-direction: column;
@@ -328,6 +326,9 @@ input[type="checkbox"] {
     background-color: var(--color-background-hover);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    position: relative; /* NEW */
+    z-index: 5;        /* NEW */
 }
 
 /* Level authors */
