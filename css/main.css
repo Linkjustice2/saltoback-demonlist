@@ -454,7 +454,11 @@ input[type="checkbox"] {
     }
 }
 
-/* Override text color for normal list */
-.normal-list {
-    --color-on-background: #aaa; /* gray instead of white */
+/* Make levels loaded from /data/list gray */
+.page-list .level-container .level[data-folder="/data/list"] button,
+.page-list .level-container .level[data-folder="/data/list"] .records .user,
+.page-list .level-container .level[data-folder="/data/list"] .records .percent,
+.page-list .level-container .level[data-folder="/data/list"] .records .hz {
+    color: #aaa !important;
 }
+
