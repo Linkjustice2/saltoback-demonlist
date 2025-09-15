@@ -374,3 +374,12 @@ main > div {
         margin-top: 0.5rem;
     }
 }
+
+/* ========================== */
+/* === Impossible List Reference Levels === */
+/* ========================== */
+#impossible-list .level button.reference {
+    color: gray;          /* gray text for reference */
+    font-style: italic;   /* optional: make italic */
+}
+
