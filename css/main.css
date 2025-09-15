@@ -460,8 +460,11 @@ input[type="checkbox"] {
     }
 }
 
-/* Mobile adjustments */
+/* ========================== */
+/* ===== Mobile adjustments ==== */
+/* ========================== */
 @media (max-width: 768px) {
+    /* Stack header elements vertically */
     header,
     main {
         display: flex;
@@ -470,20 +473,26 @@ input[type="checkbox"] {
         gap: 1rem;
     }
 
+    /* Make nav wrap nicely */
     header .nav {
         justify-content: space-around;
+        flex-wrap: wrap;
         gap: 0.5rem;
     }
 
+    /* Main content single column */
     main {
-        grid-template-columns: 1fr;
-        column-gap: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     main > div {
         width: 100%;
+        overflow-x: auto; /* allow horizontal scroll if needed */
     }
 
+    /* Spinner adjusts */
     .spinner {
         grid-column: auto;
     }
@@ -493,9 +502,51 @@ input[type="checkbox"] {
         height: 1.5rem;
     }
 
+    /* Page list rows stack vertically */
     .page-list .list tr {
         display: flex;
         flex-direction: column;
+        margin-bottom: 0.75rem;
+        background-color: var(--color-background-hover);
+        padding: 0.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .page-list .list tr .rank,
+    .page-list .list tr .level {
+        width: 100%;
+        display: block;
         margin-bottom: 0.5rem;
     }
+
+    .page-list .list .level button {
+        width: 100%;
+        text-align: left;
+        padding: 0.75rem 1rem;
+    }
+
+    /* Level container spans full width */
+    .page-list .level-container .level {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    /* Records table scroll horizontally if too wide */
+    .page-list .level-container .level .records {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .page-list .level-container .level .records table {
+        width: 100%;
+    }
+
+    /* Meta container adjusts spacing */
+    .page-list .meta-container {
+        padding-right: 0;
+        width: 100%;
+    }
+}
 }
