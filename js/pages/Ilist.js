@@ -39,8 +39,9 @@ export default {
                         </td>
                         <td class="level" :class="{ 'active': selected == idx, 'error': !level }">
                             <button @click="selected = idx">
-                                <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
+                                <span class="type-label-lg">{{ level.extra }} {{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
+                                
                         </td>
                     </tr>
                 </table>
