@@ -55,7 +55,7 @@ header {
     font-weight: 600;
     font-size: 1rem;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     transition: box-shadow var(--transition-medium), transform var(--transition-medium);
@@ -259,32 +259,30 @@ main > div {
 }
 
 /* ========================== */
-/* ===== Mobile Adjustments (3 columns + scaled elements) ===== */
+/* ===== Mobile Layout (3 columns) ===== */
 @media (max-width: 768px) {
     main {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr; /* keep 3 columns on mobile */
-        column-gap: 0.75rem;
-        row-gap: 0.75rem;
+        grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
+        column-gap: 0.5rem;
+        row-gap: 0.5rem;
     }
 
     .page-list .list tr {
         display: flex;
         flex-direction: column;
-        transform: scale(0.6); /* scale down elements */
-        transform-origin: top left;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        transform: none; /* remove previous zoom/scaling */
     }
 
     .page-list .list .rank,
     .page-list .list .level button {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem; /* slightly smaller for mobile readability */
+        padding: 0.5rem 0.6rem;
     }
 
     .page-list .level-container .level {
-        padding: 1rem;
-        gap: 0.75rem;
+        padding: 0.75rem;
+        gap: 0.5rem;
     }
 
     .page-list .level-container .level .stats li {
@@ -295,7 +293,7 @@ main > div {
     .page-list .level-container .level .records .user,
     .page-list .level-container .level .records .hz {
         padding-block: 0.4rem;
-        font-size: 0.65rem;
+        font-size: 0.75rem;
     }
 
     input[type="checkbox"] {
