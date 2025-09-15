@@ -20,6 +20,7 @@ export async function fetchList() {
                             ...level,
                             path,
                             records: level.records.sort((a, b) => b.percent - a.percent),
+                            cssClass: "normal-list", // mark explicitly
                         },
                         null,
                     ];
@@ -50,6 +51,7 @@ export async function fetchChallengeList() {
                             ...level,
                             path,
                             records: level.records.sort((a, b) => b.percent - a.percent),
+                            cssClass: "challenge-list", // optional marker
                         },
                         null,
                     ];
@@ -100,6 +102,9 @@ export async function fetchIlist() {
                     return [null, path];
                 }
 
+                // detect if from list/ but not ilist/
+                const isNormalList = folderUsed.includes("/list") && !folderUsed.includes("/ilist");
+
                 return [
                     {
                         ...level,
@@ -107,7 +112,8 @@ export async function fetchIlist() {
                         records: Array.isArray(level.records)
                             ? level.records.sort((a, b) => b.percent - a.percent)
                             : [],
-                        folder: folderUsed, // optional
+                        folder: folderUsed,
+                        cssClass: isNormalList ? "normal-list" : "ilist", // add CSS hook
                     },
                     null,
                 ];
