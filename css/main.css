@@ -322,28 +322,3 @@ input[type="checkbox"] {
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.5rem;
-    max-width: 48rem;
-    background-color: var(--color-background-hover);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Level authors */
-.page-list .level-container .level .level-authors {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-auto-rows: max-content;
-    gap: 1rem;
-}
-
-/* Video card */
-.page-list .level-container .level .video {
-    aspect-ratio: 16/9;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* Stats */
-.page-list .level-container .level .stats {
-    display
