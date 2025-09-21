@@ -1,1 +1,50 @@
+/* Packs Page Styles */
+#packs-page {
+    padding: 2rem;
+    font-family: 'Lexend Deca', sans-serif;
+    color: var(--color-on-background);
+    background: var(--color-background);
+    min-height: 100vh;
+}
+
+/* Title */
+#packs-page h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Packs container */
+.packs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Pack card */
+.pack-card {
+    background: var(--color-background-hover);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pack-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* Pack title */
+.pack-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Pack description */
+.pack-card p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
 
