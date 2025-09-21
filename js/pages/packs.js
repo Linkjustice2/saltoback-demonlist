@@ -1,37 +1,48 @@
 export default {
     template: `
         <main id="packs-page" v-if="loading">
-            <p style="text-align: center; margin-top: 3rem;">Loading packs...</p>
+            <p>Loading packs...</p>
         </main>
 
         <main id="packs-page" v-else>
             <!-- Search bar -->
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <input
-                    type="text"
-                    v-model="searchQuery"
-                    placeholder="Search packs..."
-                    class="search-bar"
-                />
+            <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Search packs..."
+                class="search-bar"
+            />
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div
+                    class="tab"
+                    v-for="tab in tabs"
+                    :key="tab"
+                    :class="{ active: currentTab === tab }"
+                    @click="currentTab = tab"
+                >
+                    {{ tab }}
+                </div>
             </div>
 
             <div class="packs-layout">
-                <!-- Packs Cards -->
+                <!-- Packs Grid -->
                 <div class="packs-grid">
                     <div
+                        class="pack-card"
                         v-for="(pack, i) in filteredPacks"
                         :key="pack.id"
-                        class="pack-card"
-                        :class="{ 'active': selected === i }"
+                        :class="{ active: selected === i }"
                         @click="selected = i"
                     >
                         <h2>{{ pack.name }}</h2>
                         <p>{{ pack.description }}</p>
-                        <span class="levels-count">{{ pack.levels.length }} Levels</span>
+                        <p class="levels-count">{{ pack.levels.length }} levels</p>
                     </div>
                 </div>
 
-                <!-- Selected Pack Details -->
+                <!-- Pack Details Panel -->
                 <div class="pack-details" v-if="pack">
                     <h1>{{ pack.name }}</h1>
                     <p>{{ pack.description }}</p>
@@ -42,7 +53,7 @@ export default {
                 </div>
 
                 <div class="pack-details empty" v-else>
-                    <p style="text-align: center; margin-top: 2rem;">Select a pack to see details (ノಠ益ಠ)ノ彡┻━┻</p>
+                    <p>(ノಠ益ಠ)ノ彡┻━┻</p>
                 </div>
             </div>
         </main>
@@ -50,23 +61,35 @@ export default {
     data: () => ({
         packs: [],
         loading: true,
-        selected: null,
-        searchQuery: ""
+        selected: 0,
+        searchQuery: "",
+        currentTab: "All",
+        tabs: ["All"], // default, will populate dynamically
     }),
     computed: {
         pack() {
             return this.packs[this.selected] || null;
         },
         filteredPacks() {
-            if (!this.searchQuery) return this.packs;
-            const query = this.searchQuery.toLowerCase();
-            return this.packs.filter(p => p.name.toLowerCase().includes(query));
+            let filtered = this.packs;
+            if (this.currentTab !== "All") {
+                filtered = filtered.filter(p => p.category === this.currentTab);
+            }
+            if (this.searchQuery) {
+                const query = this.searchQuery.toLowerCase();
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(query));
+            }
+            return filtered;
         }
     },
     async mounted() {
         try {
             const res = await fetch("data/packs.json");
             this.packs = await res.json();
+
+            // Populate tabs dynamically based on categories
+            const categories = Array.from(new Set(this.packs.map(p => p.category))).sort();
+            this.tabs = ["All", ...categories];
         } catch (err) {
             console.error("Failed to load packs.json", err);
         }
