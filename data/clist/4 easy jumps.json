@@ -1,0 +1,18 @@
+ {
+    "id": 372,
+    "name": "4 easy jumps",
+    "author": "OGD",
+    "creators": ["OGD"],
+    "verifier": "OGD",
+    "verification": "https://youtu.be/9LzORI9bZ-M?si=agB7QpjTnGHEycet",
+    "percentToQualify": "100",
+    "password": "46290",
+    "records": [
+           {
+            "user": "Linkjustice",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+    ]
+}
