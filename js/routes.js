@@ -4,6 +4,7 @@ import Roulette from './pages/Roulette.js';
 import CList from './pages/CList.js'; 
 import ChallengeLeaderboard from './pages/ChallengeLeaderboard.js';
 import Ilist from './pages/Ilist.js';
+import Packs from './pages/packs.js';
 export default [
   { path: '/', component: List },
   { path: '/leaderboard', component: Leaderboard },
@@ -11,4 +12,5 @@ export default [
   { path: '/clist', component: CList }, 
   { path: '/challenge-leaderboard', component: ChallengeLeaderboard },
   { path: '/ilist', component: Ilist },
+  { path: '/packs', component: Packs },
 ];
