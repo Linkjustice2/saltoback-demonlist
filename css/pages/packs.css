@@ -22,7 +22,12 @@
         #d8b568 100%
     );
 
-    --border-radius: 0.5rem;
+    --color-primary-disabled: #1f213c;
+    --color-on-primary: white;
+    --color-error: #de0000;
+    --color-on-error: white;
+
+    --border-radius: 0.35rem;
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
 }
@@ -31,139 +36,115 @@
 /* ========= Body ============ */
 /* ========================== */
 body {
-    background-color: var(--color-background);
-    color: var(--color-on-background);
-    font-family: "Segoe UI", Roboto, sans-serif;
+    height: 100%;
     margin: 0;
-    padding: 0;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background-image: url('https://img.freepik.com/free-vector/realistic-black-background-with-wavy-lines_23-2149162559.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    color: white;
 }
 
-/* ========================== */
-/* ===== Search Bar ========= */
-/* ========================== */
-.search-bar {
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 600px;
-    margin: 1rem auto;
-    display: block;
-    padding: 0.75rem 1rem;
-    border-radius: var(--border-radius);
-    border: 1px solid #444;
-    background-color: #1f1e23;
-    color: var(--color-on-background);
-    font-size: 1rem;
-}
-
-.search-bar::placeholder {
-    color: #ccc;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
 /* ========================== */
-/* ===== Tabs ================ */
+/* ===== Main Content ======= */
 /* ========================== */
-.tabs {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin: 1rem 0;
+.page-list .list-container,
+.page-list .level-container {
+    padding: 1.5rem;
 }
 
-.tab {
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    background: var(--color-background-hover);
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--color-on-background);
-    transition: all 0.2s ease;
-    min-width: 80px;
-    text-align: center;
+.page-list .list {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
 }
 
-.tab.active {
-    background: var(--gradient-primary);
-    color: var(--color-on-background);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+.page-list .list tr {
+    background-color: var(--color-background-hover);
+    border-radius: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-/* ========================== */
-/* ===== Packs Layout ======= */
-/* ========================== */
-.packs-layout {
-    display: flex;
-    gap: 2rem;
-    padding: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-/* Packs grid */
-.packs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
-    flex: 2;
-    min-width: 220px;
-}
-
-/* Individual pack cards */
-.pack-card {
-    background: var(--color-background-hover);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
-}
-
-.pack-card:hover {
-    background: var(--gradient-primary-hover);
-    color: var(--color-on-background);
+.page-list .list tr:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.pack-card.active {
-    background: var(--gradient-primary);
-    color: var(--color-on-background);
-}
-
-/* Levels count */
-.levels-count {
-    font-size: 0.9rem;
-    color: #ddd;
-}
-
-/* Pack details panel */
-.pack-details {
-    flex: 3;
-    background: var(--color-background-hover);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    max-width: 600px;
-}
-
-.pack-details.empty {
+.page-list .list .rank {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #aaa;
+    background-color: var(--color-on-surface);
+    color: var(--color-on-background);
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+    min-width: 2.5rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-/* ========================== */
-/* ===== Responsive ========= */
-/* ========================== */
-@media (max-width: 900px) {
-    .packs-layout {
-        flex-direction: column;
-        align-items: center;
-    }
-    .packs-grid {
-        width: 100%;
-    }
-    .pack-details {
-        width: 90%;
-    }
+.page-list .list .level button {
+    background: var(--color-on-surface);
+    width: 100%;
+    text-align: start;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    color: var(--color-on-background);
+    transition: all 0.3s ease, background 0.5s ease;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
 }
 
+.page-list .list .level button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--gradient-primary-hover);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.page-list .list .level button:hover::after {
+    opacity: 1;
+}
+
+.page-list .list .level button:hover {
+    color: var(--color-on-primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-list .list .level.active button {
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.7rem;
+}
