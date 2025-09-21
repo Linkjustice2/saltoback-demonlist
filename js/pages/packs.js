@@ -1,10 +1,10 @@
 export default {
     template: `
-        <main v-if="loading" class="page-list">
+        <main id="packs-page" v-if="loading" class="page-list">
             <p>Loading packs...</p>
         </main>
 
-        <main v-else class="page-list">
+        <main id="packs-page" v-else class="page-list">
             <div class="list-container">
                 <!-- Search bar -->
                 <input
