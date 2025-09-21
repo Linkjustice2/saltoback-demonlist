@@ -1,58 +1,51 @@
 export default {
     template: `
-        <main id="packs-page" v-if="loading">
+        <main v-if="loading" class="page-list">
             <p>Loading packs...</p>
         </main>
 
-        <main id="packs-page" v-else>
-            <!-- Search bar -->
-            <input
-                type="text"
-                v-model="searchQuery"
-                placeholder="Search packs..."
-                class="search-bar"
-            />
+        <main v-else class="page-list">
+            <div class="list-container">
+                <!-- Search bar -->
+                <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Search packs..."
+                    class="search-bar"
+                />
 
-            <!-- Tabs -->
-            <div class="tabs" v-if="tabs.length">
-                <div
-                    class="tab"
-                    v-for="tab in tabs"
-                    :key="tab"
-                    :class="{ active: currentTab === tab }"
-                    @click="currentTab = tab"
-                >
-                    {{ tab }}
-                </div>
+                <!-- Packs list -->
+                <table class="list" v-if="filteredPacks.length">
+                    <tr v-for="(pack, i) in filteredPacks" :key="pack.id">
+                        <td class="rank">
+                            <p class="type-label-lg">#{{ i + 1 }}</p>
+                        </td>
+                        <td class="level" :class="{ 'active': selected === i }">
+                            <button @click="selected = i">
+                                <span class="type-label-lg">{{ pack.name }}</span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+
+                <p v-else>No packs found.</p>
             </div>
 
-            <div class="packs-layout">
-                <!-- Packs Grid -->
-                <div class="packs-grid">
-                    <div
-                        v-for="(pack, i) in filteredPacks"
-                        :key="pack.id || i"
-                        class="pack-card"
-                        :class="{ active: selected === i }"
-                        @click="selected = i"
-                    >
-                        <h2>{{ pack.name }}</h2>
-                        <p>{{ pack.description || 'No description' }}</p>
-                        <p class="levels-count">{{ pack.levels?.length || 0 }} levels</p>
-                    </div>
-                </div>
-
-                <!-- Pack Details Panel -->
-                <div class="pack-details" v-if="pack">
+            <!-- Pack Details -->
+            <div class="level-container">
+                <div v-if="pack" class="level">
                     <h1>{{ pack.name }}</h1>
-                    <p>{{ pack.description || 'No description available.' }}</p>
+                    <p>{{ pack.description }}</p>
+
                     <h2>Levels</h2>
                     <ul>
-                        <li v-for="level in pack.levels || []" :key="level">{{ level }}</li>
+                        <li v-for="level in pack.levels" :key="level">
+                            {{ level }}
+                        </li>
                     </ul>
                 </div>
 
-                <div class="pack-details empty" v-else>
+                <div v-else class="level" style="height: 100%; display: flex; justify-content: center; align-items: center;">
                     <p>(ノಠ益ಠ)ノ彡┻━┻</p>
                 </div>
             </div>
@@ -62,43 +55,25 @@ export default {
         packs: [],
         loading: true,
         selected: 0,
-        searchQuery: "",
-        currentTab: "All",
-        tabs: ["All"], // safe default
+        searchQuery: ""
     }),
     computed: {
         pack() {
             return this.packs[this.selected] || null;
         },
         filteredPacks() {
-            let filtered = this.packs;
-
-            if (this.currentTab && this.currentTab !== "All") {
-                filtered = filtered.filter(p => p.category && p.category === this.currentTab);
-            }
-
-            if (this.searchQuery) {
-                const query = this.searchQuery.toLowerCase();
-                filtered = filtered.filter(p => p.name.toLowerCase().includes(query));
-            }
-
-            return filtered;
+            if (!this.searchQuery) return this.packs;
+            const query = this.searchQuery.toLowerCase();
+            return this.packs.filter(p => p.name.toLowerCase().includes(query));
         }
     },
     async mounted() {
         try {
             const res = await fetch("data/packs.json");
-            const data = await res.json();
-            this.packs = Array.isArray(data) ? data : [];
-
-            // Create tabs dynamically based on categories, if present
-            const categories = Array.from(new Set(this.packs.map(p => p.category).filter(Boolean))).sort();
-            if (categories.length) this.tabs = ["All", ...categories];
-
+            this.packs = await res.json();
         } catch (err) {
             console.error("Failed to load packs.json", err);
         }
-
         this.loading = false;
     }
 };
