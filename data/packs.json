@@ -1,0 +1,20 @@
+[
+  {
+    "id": "pack1",
+    "name": "Sky Adventures",
+    "description": "A collection of levels set high in the sky.",
+    "levels": ["level1", "level5", "level8"]
+  },
+  {
+    "id": "pack2",
+    "name": "Lava Trials",
+    "description": "Fire and lava themed challenges.",
+    "levels": ["level2", "level6"]
+  },
+  {
+    "id": "pack3",
+    "name": "Darkness Rising",
+    "description": "Spooky and shadow-filled levels.",
+    "levels": ["level3", "level7", "level9"]
+  }
+]
