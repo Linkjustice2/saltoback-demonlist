@@ -1,4 +1,4 @@
-/* Packs Page - Dark Theme */
+/* Packs Page - Dark Theme with Cards */
 #packs-page {
     padding: 2rem;
     font-family: 'Lexend Deca', sans-serif;
@@ -37,75 +37,90 @@
     background: #333;
 }
 
-/* Packs list */
-#packs-page .list {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
+/* Packs Layout: Cards + Side Panel */
+#packs-page .packs-layout {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-#packs-page .list tr {
+/* Packs Grid */
+#packs-page .packs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    flex: 1;
+}
+
+/* Pack Card */
+#packs-page .pack-card {
     background: #27262c;
-    border-radius: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-#packs-page .list tr:hover {
+#packs-page .pack-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
-#packs-page .rank p {
-    font-weight: 600;
-    color: #9b59b6;
-    padding-left: 0.5rem;
-}
-
-#packs-page .level button {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: #1c1b1f;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    text-align: left;
-    color: #ffffff;
-    transition: background 0.2s ease;
-}
-
-#packs-page .level button:hover {
-    background: #333;
-}
-
-#packs-page .level.active button {
+#packs-page .pack-card.active {
     background: #9b59b6;
-    color: #fff;
+    color: #ffffff;
 }
 
-/* Pack Details */
-#packs-page .level-container {
-    margin-top: 2rem;
+#packs-page .pack-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+}
+
+#packs-page .pack-card p {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+}
+
+#packs-page .pack-card .levels-count {
+    font-size: 0.8rem;
+    color: #b3b3b3;
+}
+
+/* Pack Details Panel */
+#packs-page .pack-details {
     background: #27262c;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     border-radius: 12px;
+    min-width: 280px;
+    flex: 1;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
-#packs-page .level-container h1 {
+#packs-page .pack-details h1 {
     color: #ffffff;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
 }
 
-#packs-page .level-container h2 {
-    margin-top: 1.5rem;
+#packs-page .pack-details h2 {
     color: #9b59b6;
+    margin-top: 1rem;
 }
 
-#packs-page .level-container ul {
+#packs-page .pack-details ul {
     margin-top: 0.5rem;
     padding-left: 1.25rem;
 }
 
-#packs-page .level-container li {
+#packs-page .pack-details li {
     padding: 0.25rem 0;
+}
+
+/* Empty pack details state */
+#packs-page .pack-details.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #aaa;
 }
