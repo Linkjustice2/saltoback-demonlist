@@ -5,38 +5,33 @@ export default {
         </main>
 
         <main v-else class="page-list">
-            <div class="list-container">
-                <!-- Search bar -->
-                <input
-                    type="text"
-                    v-model="searchQuery"
-                    placeholder="Search packs..."
-                    class="search-bar"
-                />
+            <!-- Search bar -->
+            <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Search packs..."
+                class="search-bar"
+            />
 
-                <!-- Packs list -->
-                <table class="list" v-if="filteredPacks.length">
-                    <tr v-for="(pack, i) in filteredPacks" :key="pack.id">
-                        <td class="rank">
-                            <p class="type-label-lg">#{{ i + 1 }}</p>
-                        </td>
-                        <td class="level" :class="{ 'active': selected === i }">
-                            <button @click="selected = i">
-                                <span class="type-label-lg">{{ pack.name }}</span>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
+            <!-- Packs grid -->
+            <div class="packs-layout">
+                <div class="packs-grid">
+                    <div
+                        v-for="(pack, i) in filteredPacks"
+                        :key="pack.id"
+                        class="pack-card"
+                        :class="{ active: selected === i }"
+                        @click="selected = i"
+                    >
+                        <h3>{{ pack.name }}</h3>
+                        <p class="levels-count">{{ pack.levels.length }} levels</p>
+                    </div>
+                </div>
 
-                <p v-else>No packs found.</p>
-            </div>
-
-            <!-- Pack Details -->
-            <div class="level-container">
-                <div v-if="pack" class="level">
+                <!-- Pack details panel -->
+                <div class="pack-details" v-if="pack">
                     <h1>{{ pack.name }}</h1>
                     <p>{{ pack.description }}</p>
-
                     <h2>Levels</h2>
                     <ul>
                         <li v-for="level in pack.levels" :key="level">
@@ -45,7 +40,7 @@ export default {
                     </ul>
                 </div>
 
-                <div v-else class="level" style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                <div class="pack-details empty" v-else>
                     <p>(ノಠ益ಠ)ノ彡┻━┻</p>
                 </div>
             </div>
