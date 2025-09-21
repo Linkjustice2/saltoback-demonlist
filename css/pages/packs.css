@@ -100,7 +100,7 @@
         #c49146 65%,
         #eac87b 100%
     );
-    color: #1c1b1f;
+    color: #ffffff; /* Keep text white */
 }
 
 #packs-page .pack-card h2 {
@@ -116,6 +116,7 @@
     margin-bottom: 0.5rem;
     position: relative;
     z-index: 1;
+    color: inherit; /* inherit white for active */
 }
 
 #packs-page .pack-card .levels-count {
@@ -142,7 +143,7 @@
 }
 
 #packs-page .pack-details h2 {
-    color: #eac87b; /* gold gradient accent color for headings */
+    color: #eac87b; /* gold accent color for headings */
     margin-top: 1rem;
 }
 
