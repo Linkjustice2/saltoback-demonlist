@@ -1,0 +1,18 @@
+ {
+    "id": 361,
+    "name": "ICBM",
+    "author": "DartNovice1771",
+    "creators": ["DartNovice1771"],
+    "verifier": "DartNovice1771",
+    "verification": "https://youtube.com/shorts/84E3oSgjzkE?si=dW5osG7c82G2sOWK",
+    "percentToQualify": "100",
+    "password": "46290",
+    "records": [
+           {
+            "user": "Linkjustice",
+            "link": "",
+            "percent": 100,
+            "hz": 122314
+        }
+    ]
+}
