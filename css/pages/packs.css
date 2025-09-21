@@ -1,19 +1,19 @@
-/* Packs Page - Light Theme */
+/* Packs Page - Dark Theme */
 #packs-page {
     padding: 2rem;
     font-family: 'Lexend Deca', sans-serif;
-    background: #f5f7fa; /* light background */
-    color: #333; /* dark text */
+    background: #1c1b1f; /* dark background */
+    color: #ffffff;
     min-height: 100vh;
 }
 
 /* Title */
 #packs-page h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
-    color: #2c3e50;
+    color: #ffffff;
 }
 
 /* Search bar */
@@ -23,78 +23,82 @@
     max-width: 400px;
     margin: 0 auto 2rem;
     padding: 0.5rem 1rem;
-    border: 2px solid #3498db;
+    border: 2px solid #27262c;
     border-radius: 8px;
+    background: #27262c;
+    color: #ffffff;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 #packs-page .search-bar:focus {
-    border-color: #e67e22;
+    border-color: #9b59b6;
+    background: #333;
 }
 
 /* Packs list */
 #packs-page .list {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 0.75rem;
+    border-spacing: 0 0.5rem;
 }
 
 #packs-page .list tr {
-    background: #ffffff;
+    background: #27262c;
     border-radius: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #packs-page .list tr:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 #packs-page .rank p {
     font-weight: 600;
-    color: #2980b9;
+    color: #9b59b6;
     padding-left: 0.5rem;
 }
 
 #packs-page .level button {
     width: 100%;
     padding: 0.75rem 1rem;
-    background: #eaf2f8;
+    background: #1c1b1f;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
     text-align: left;
+    color: #ffffff;
     transition: background 0.2s ease;
 }
 
 #packs-page .level button:hover {
-    background: #d0e4f7;
+    background: #333;
 }
 
 #packs-page .level.active button {
-    background: #3498db;
+    background: #9b59b6;
     color: #fff;
 }
 
 /* Pack Details */
 #packs-page .level-container {
     margin-top: 2rem;
-    background: #ffffff;
+    background: #27262c;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 #packs-page .level-container h1 {
-    color: #2980b9;
+    color: #ffffff;
 }
 
 #packs-page .level-container h2 {
     margin-top: 1.5rem;
-    color: #e67e22;
+    color: #9b59b6;
 }
 
 #packs-page .level-container ul {
