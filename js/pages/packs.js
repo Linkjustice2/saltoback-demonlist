@@ -9,31 +9,35 @@ export default {
         <main id="packs-page" v-else class="packs-page">
 
             <!-- LEFT: Pack Details -->
-            <aside class="pack-details" v-if="pack">
-                <header class="pack-header">
-                    <h1>{{ pack.name }}</h1>
-                    <p class="pack-description">{{ pack.description }}</p>
-                </header>
+            <aside class="pack-details">
+                <template v-if="pack">
+                    <header class="pack-header">
+                        <h1 class="pack-title">{{ pack.name }}</h1>
+                        <p class="pack-description">{{ pack.description }}</p>
+                    </header>
 
-                <section class="levels-section">
-                    <h2>Levels ({{ pack.levels.length }})</h2>
-                    <ul class="levels-list">
-                        <li
-                            v-for="level in pack.levels"
-                            :key="level"
-                            class="level-item"
-                        >
-                            {{ level }}
-                        </li>
-                    </ul>
-                </section>
+                    <section class="levels-section">
+                        <h2 class="section-title">Levels ({{ pack.levels.length }})</h2>
+                        <ul class="levels-list">
+                            <li
+                                v-for="level in pack.levels"
+                                :key="level"
+                                class="level-item"
+                            >
+                                {{ level }}
+                            </li>
+                        </ul>
+                    </section>
+                </template>
+
+                <template v-else>
+                    <div class="empty-state">
+                        <p>Select a pack to view details (ノಠ益ಠ)ノ彡┻━┻</p>
+                    </div>
+                </template>
             </aside>
 
-            <aside class="pack-details empty" v-else>
-                <p>Select a pack to view details (ノಠ益ಠ)ノ彡┻━┻</p>
-            </aside>
-
-            <!-- RIGHT: Packs Grid + Search -->
+            <!-- RIGHT: Packs Browser -->
             <section class="packs-browser">
                 <div class="search-bar-container">
                     <input
@@ -52,13 +56,13 @@ export default {
                         :class="{ active: selected === i }"
                         @click="selected = i"
                     >
-                        <header>
-                            <h2>{{ pack.name }}</h2>
+                        <header class="pack-card-header">
+                            <h2 class="pack-card-title">{{ pack.name }}</h2>
                             <span class="levels-count">
                                 {{ pack.levels.length }} Levels
                             </span>
                         </header>
-                        <p class="pack-summary">
+                        <p class="pack-card-description">
                             {{ pack.description }}
                         </p>
                     </div>
