@@ -7,16 +7,20 @@
     min-height: 100vh;
 }
 
-/* Search bar */
+/* Layout: 3 Columns */
+.packs-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Left list, bigger middle, right reserved */
+    gap: 2rem;
+}
+
+/* Search bar (inside left column now) */
 .search-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .search-bar {
     width: 100%;
-    max-width: 400px;
     padding: 0.6rem 1rem;
     border-radius: 0.6rem;
     border: 2px solid #333;
@@ -29,13 +33,6 @@
 .search-bar:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-}
-
-/* Layout: 3 Columns */
-.packs-layout {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* Left list, bigger middle, right reserved */
-    gap: 2rem;
 }
 
 /* Left Column: Packs List */
