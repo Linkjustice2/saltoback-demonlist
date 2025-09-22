@@ -5,19 +5,20 @@ export default {
         </main>
 
         <main id="packs-page" v-else>
-            <!-- Search -->
-            <div class="search-container">
-                <input
-                    type="text"
-                    v-model="searchQuery"
-                    placeholder="Search packs..."
-                    class="search-bar"
-                />
-            </div>
-
             <div class="packs-layout">
                 <!-- Column 1: Packs List -->
                 <section class="packs-list">
+                    <!-- Search bar (now tied to the list only) -->
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            v-model="searchQuery"
+                            placeholder="Search packs..."
+                            class="search-bar"
+                        />
+                    </div>
+
+                    <!-- List of packs -->
                     <div
                         v-for="(pack, i) in filteredPacks"
                         :key="pack.id"
