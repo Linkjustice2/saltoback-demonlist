@@ -34,14 +34,14 @@
 /* Layout: 3 Columns */
 .packs-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* 3 columns */
+    grid-template-columns: 1fr 2fr 1fr; /* Left list, bigger middle, right reserved */
     gap: 2rem;
 }
 
-/* Packs Grid */
-.packs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+/* Left Column: Packs List */
+.packs-list {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
@@ -54,7 +54,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    border: 2px solid transparent; /* only border highlights */
+    border: 2px solid transparent;
 }
 
 .pack-card:hover {
@@ -83,7 +83,7 @@
     color: #bbb;
 }
 
-/* Pack Details */
+/* Middle Column: Pack Details */
 .pack-details {
     background: var(--color-background-hover);
     padding: 1.5rem;
@@ -112,7 +112,7 @@
     color: #aaa;
 }
 
-/* Third Column Placeholder */
+/* Right Column: Reserved */
 .meta-panel {
     background: var(--color-background-hover);
     border-radius: 0.8rem;
