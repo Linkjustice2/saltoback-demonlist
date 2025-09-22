@@ -16,8 +16,8 @@ export default {
             </div>
 
             <div class="packs-layout">
-                <!-- Column 1: Packs Grid -->
-                <section class="packs-grid">
+                <!-- Column 1: Packs List -->
+                <section class="packs-list">
                     <div
                         v-for="(pack, i) in filteredPacks"
                         :key="pack.id"
