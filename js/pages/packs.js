@@ -1,12 +1,15 @@
 export default {
     template: `
+        <!-- Loading State -->
         <main id="packs-page" v-if="loading">
             <p style="text-align: center; margin-top: 3rem;">Loading packs...</p>
         </main>
 
+        <!-- Main Content -->
         <main id="packs-page" v-else>
-            <!-- Search bar -->
-            <div style="text-align: center; margin-bottom: 2rem;">
+            
+            <!-- Search Bar -->
+            <div class="search-wrapper">
                 <input
                     type="text"
                     v-model="searchQuery"
@@ -15,35 +18,50 @@ export default {
                 />
             </div>
 
+            <!-- Layout -->
             <div class="packs-layout">
-                <!-- Packs Cards -->
+
+                <!-- Packs List -->
                 <div class="packs-grid">
                     <div
                         v-for="(pack, i) in filteredPacks"
                         :key="pack.id"
                         class="pack-card"
-                        :class="{ 'active': selected === i }"
+                        :class="{ active: selected === i }"
                         @click="selected = i"
                     >
                         <h2>{{ pack.name }}</h2>
                         <p>{{ pack.description }}</p>
-                        <span class="levels-count">{{ pack.levels.length }} Levels</span>
+                        <span class="levels-count">
+                            {{ pack.levels.length }} Levels
+                        </span>
                     </div>
                 </div>
 
-                <!-- Selected Pack Details -->
-                <div class="pack-details" v-if="pack">
-                    <h1>{{ pack.name }}</h1>
-                    <p>{{ pack.description }}</p>
-                    <h2>Levels</h2>
-                    <ul>
-                        <li v-for="level in pack.levels" :key="level">{{ level }}</li>
-                    </ul>
+                <!-- Pack Details -->
+                <div class="pack-details">
+                    <template v-if="pack">
+                        <h1>{{ pack.name }}</h1>
+                        <p>{{ pack.description }}</p>
+
+                        <h2>Levels</h2>
+                        <ul>
+                            <li
+                                v-for="level in pack.levels"
+                                :key="level"
+                            >
+                                {{ level }}
+                            </li>
+                        </ul>
+                    </template>
+
+                    <template v-else>
+                        <p class="empty-message">
+                            Select a pack to see details (ノಠ益ಠ)ノ彡┻━┻
+                        </p>
+                    </template>
                 </div>
 
-                <div class="pack-details empty" v-else>
-                    <p style="text-align: center; margin-top: 2rem;">Select a pack to see details (ノಠ益ಠ)ノ彡┻━┻</p>
-                </div>
             </div>
         </main>
     `,
@@ -60,7 +78,9 @@ export default {
         filteredPacks() {
             if (!this.searchQuery) return this.packs;
             const query = this.searchQuery.toLowerCase();
-            return this.packs.filter(p => p.name.toLowerCase().includes(query));
+            return this.packs.filter(p =>
+                p.name.toLowerCase().includes(query)
+            );
         }
     },
     async mounted() {
