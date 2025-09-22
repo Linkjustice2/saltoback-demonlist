@@ -1,161 +1,162 @@
-/* ========================== */
-/* ====== Packs Page =========*/
-/* ========================== */
+/* ====== Base Layout ====== */
 #packs-page {
-    padding: 2rem;
-    font-family: 'Lexend Deca', sans-serif;
-    background: #1c1b1f; /* dark background */
-    color: #ffffff;
-    min-height: 100vh;
-}
-
-/* Title */
-#packs-page h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    background: linear-gradient(
-        135deg,
-        #3d260f 0%,
-        #8c6227 35%,
-        #c49146 65%,
-        #eac87b 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Search bar */
-#packs-page .search-bar {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 2rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid #8c6227;
-    border-radius: 8px;
-    background: #27262c;
-    color: #ffffff;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-}
-
-#packs-page .search-bar:focus {
-    border-color: #eac87b;
-    background: #333;
-    box-shadow: 0 0 10px rgba(234, 200, 123, 0.6);
-}
-
-/* Packs Layout: Cards + Side Panel */
-#packs-page .packs-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Left details, right grid */
     gap: 2rem;
-    flex-wrap: wrap;
+    padding: 2rem;
+    height: 100%;
+    box-sizing: border-box;
 }
 
-/* Packs Grid */
-#packs-page .packs-grid {
+.loading-state {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+}
+
+/* ====== Pack Details (Left Side) ====== */
+.pack-details {
+    background: var(--color-background-hover);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.pack-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.pack-title {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-on-background);
+}
+
+.pack-description {
+    margin: 0.5rem 0 0;
+    color: var(--color-on-background-hover);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.levels-section {
+    flex: 1;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.levels-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.level-item {
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.5rem;
+    background: rgba(255,255,255,0.05);
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--color-on-background-hover);
+    font-style: italic;
+}
+
+/* ====== Packs Browser (Right Side) ====== */
+.packs-browser {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.search-bar-container {
+    text-align: center;
+}
+
+.search-bar {
+    width: 80%;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    background: var(--color-background-hover);
+    color: var(--color-on-background);
+    outline: none;
+}
+
+/* ====== Packs Grid (kept same style, polished) ====== */
+.packs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
-    flex: 1;
+    gap: 1.2rem;
 }
 
-/* Pack Card */
-#packs-page .pack-card {
-    background: #27262c;
-    border-radius: 12px;
+.pack-card {
+    background: var(--color-background-hover);
     padding: 1rem;
+    border-radius: 0.8rem;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    border: 1px solid #3d260f;
-}
-
-#packs-page .pack-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 18px rgba(0,0,0,0.6);
-    background: linear-gradient(
-        135deg,
-        #3d260f 0%,
-        #8c6227 35%,
-        #c49146 65%,
-        #eac87b 100%
-    );
-    color: #1c1b1f;
-}
-
-#packs-page .pack-card.active {
-    background: linear-gradient(
-        135deg,
-        #38250d 0%,
-        #7b5b1f 35%,
-        #b6893f 65%,
-        #d8b568 100%
-    );
-    color: #ffffff;
-}
-
-#packs-page .pack-card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-}
-
-#packs-page .pack-card p {
-    font-size: 0.9rem;
-    opacity: 0.85;
-    margin-bottom: 0.5rem;
-}
-
-#packs-page .pack-card .levels-count {
-    font-size: 0.8rem;
-    color: #eac87b;
-}
-
-/* Pack Details Panel */
-#packs-page .pack-details {
-    background: #27262c;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    min-width: 280px;
-    flex: 1;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    border: 1px solid #3d260f;
-}
-
-#packs-page .pack-details h1 {
-    background: linear-gradient(
-        135deg,
-        #3d260f 0%,
-        #8c6227 35%,
-        #c49146 65%,
-        #eac87b 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-}
-
-#packs-page .pack-details h2 {
-    color: #eac87b;
-    margin-top: 1rem;
-}
-
-#packs-page .pack-details ul {
-    margin-top: 0.5rem;
-    padding-left: 1.25rem;
-}
-
-#packs-page .pack-details li {
-    padding: 0.25rem 0;
-}
-
-/* Empty pack details state */
-#packs-page .pack-details.empty {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.pack-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.pack-card.active {
+    outline: 2px solid var(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+}
+
+.pack-card-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    color: #aaa;
+}
+
+.pack-card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.levels-count {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.pack-card-description {
+    font-size: 0.9rem;
+    color: var(--color-on-background-hover);
+    line-height: 1.4;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 900px) {
+    #packs-page {
+        grid-template-columns: 1fr; /* Stack details + grid */
+    }
+
+    .search-bar {
+        width: 100%;
+    }
 }
