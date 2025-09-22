@@ -1,27 +1,49 @@
 export default {
     template: `
-        <!-- Loading State -->
-        <main id="packs-page" v-if="loading">
-            <p style="text-align: center; margin-top: 3rem;">Loading packs...</p>
+        <!-- LOADING STATE -->
+        <main id="packs-page" v-if="loading" class="loading-state">
+            <p>Loading packs...</p>
         </main>
 
-        <!-- Main Content -->
-        <main id="packs-page" v-else>
-            
-            <!-- Search Bar -->
-            <div class="search-wrapper">
-                <input
-                    type="text"
-                    v-model="searchQuery"
-                    placeholder="Search packs..."
-                    class="search-bar"
-                />
-            </div>
+        <!-- MAIN PAGE -->
+        <main id="packs-page" v-else class="packs-page">
 
-            <!-- Layout -->
-            <div class="packs-layout">
+            <!-- LEFT: Pack Details -->
+            <aside class="pack-details" v-if="pack">
+                <header class="pack-header">
+                    <h1>{{ pack.name }}</h1>
+                    <p class="pack-description">{{ pack.description }}</p>
+                </header>
 
-                <!-- Packs List -->
+                <section class="levels-section">
+                    <h2>Levels ({{ pack.levels.length }})</h2>
+                    <ul class="levels-list">
+                        <li
+                            v-for="level in pack.levels"
+                            :key="level"
+                            class="level-item"
+                        >
+                            {{ level }}
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+
+            <aside class="pack-details empty" v-else>
+                <p>Select a pack to view details (ノಠ益ಠ)ノ彡┻━┻</p>
+            </aside>
+
+            <!-- RIGHT: Packs Grid + Search -->
+            <section class="packs-browser">
+                <div class="search-bar-container">
+                    <input
+                        type="text"
+                        v-model="searchQuery"
+                        placeholder="Search packs..."
+                        class="search-bar"
+                    />
+                </div>
+
                 <div class="packs-grid">
                     <div
                         v-for="(pack, i) in filteredPacks"
@@ -30,39 +52,19 @@ export default {
                         :class="{ active: selected === i }"
                         @click="selected = i"
                     >
-                        <h2>{{ pack.name }}</h2>
-                        <p>{{ pack.description }}</p>
-                        <span class="levels-count">
-                            {{ pack.levels.length }} Levels
-                        </span>
+                        <header>
+                            <h2>{{ pack.name }}</h2>
+                            <span class="levels-count">
+                                {{ pack.levels.length }} Levels
+                            </span>
+                        </header>
+                        <p class="pack-summary">
+                            {{ pack.description }}
+                        </p>
                     </div>
                 </div>
+            </section>
 
-                <!-- Pack Details -->
-                <div class="pack-details">
-                    <template v-if="pack">
-                        <h1>{{ pack.name }}</h1>
-                        <p>{{ pack.description }}</p>
-
-                        <h2>Levels</h2>
-                        <ul>
-                            <li
-                                v-for="level in pack.levels"
-                                :key="level"
-                            >
-                                {{ level }}
-                            </li>
-                        </ul>
-                    </template>
-
-                    <template v-else>
-                        <p class="empty-message">
-                            Select a pack to see details (ノಠ益ಠ)ノ彡┻━┻
-                        </p>
-                    </template>
-                </div>
-
-            </div>
         </main>
     `,
     data: () => ({
