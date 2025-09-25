@@ -1,0 +1,15 @@
+{
+
+    "id": "1",
+    "name": "test level",
+    "author": "me",
+    "creators": [
+        "me"
+    ],
+    "verifier": "me",
+    "verification": "no",
+    "percentToQualify": "100",
+    "password": "N/A",
+    "records": []
+
+}
