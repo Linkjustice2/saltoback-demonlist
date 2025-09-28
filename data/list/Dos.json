@@ -9,12 +9,5 @@
     "verification": "https://youtu.be/lPL5iMQcFuo",
     "percentToQualify": "50",
     "password": "46290",
-    "records": [
-        {
-            "user": "testusr2",
-            "link": "",
-            "percent": 100,
-            "hz": 60
-        }
-    ]
+    "records": []
 }
