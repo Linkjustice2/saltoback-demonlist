@@ -11,12 +11,6 @@
     "password": "46290",
     "records": [
         {
-            "user": "testusr",
-            "link": "",
-            "percent": 100,
-            "hz": 60
-        },
-        {
             "user": "testusr2",
             "link": "",
             "percent": 100,
