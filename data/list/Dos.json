@@ -2,11 +2,19 @@
     "id": 150,
     "name": "Dos",
     "author": "Maverner",
-    "creators": ["Maverner"],
+    "creators": [
+        "Maverner"
+    ],
     "verifier": "Maverner",
     "verification": "https://youtu.be/lPL5iMQcFuo",
     "percentToQualify": "50",
     "password": "46290",
     "records": [
+        {
+            "user": "testusr",
+            "link": "",
+            "percent": 100,
+            "hz": 60
+        }
     ]
 }
