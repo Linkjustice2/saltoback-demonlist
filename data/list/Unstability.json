@@ -1,18 +1,26 @@
- {
+{
     "id": 290,
     "name": "Unstability",
     "author": "Null",
-    "creators": ["Null"],
+    "creators": [
+        "Null"
+    ],
     "verifier": "Null",
     "verification": "https://www.youtube.com/watch?v=bwJppoV5VuU",
     "percentToQualify": "100",
     "password": "Medium Demon",
     "records": [
-                             {
+        {
             "user": "Moth",
             "link": "https://youtu.be/IoTLV-HrNlI",
             "percent": 100,
             "hz": 122314
+        },
+        {
+            "user": "Null",
+            "link": "",
+            "percent": 100,
+            "hz": 60
         }
     ]
 }
